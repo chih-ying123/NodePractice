@@ -1,5 +1,12 @@
 jeGG
 
-https://www.javascripttutorial.net/javascript-prototype/
-https://www.w3cschool.cn/nodejs/nodejs-express-framework.html
-https://expressjs.com/en/starter/hello-world.html
+JavaScript
+    |- https://www.javascripttutorial.net/javascript-prototype/
+
+
+Express.JS
+    
+    |- 官方API手文檔: https://expressjs.com/en/4x/api.html
+    |- W3Cschool    : https://www.w3cschool.cn/nodejs/nodejs-express-framework.html
+
+   
