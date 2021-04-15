@@ -1,5 +1,7 @@
 JavaScript
-    |- https://www.javascripttutorial.net/javascript-prototype/
+    |- https://www.javascripttutorial.net
+    |- Event Loop: https://www.youtube.com/watch?v=8aGhZQkoFbQ&list=WL&index=44&t=32s 【超級重要】
+    |- Ajax ~ Fetch : https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/ajax_fetch.html
 
 
 Express.JS
