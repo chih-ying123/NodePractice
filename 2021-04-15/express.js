@@ -23,21 +23,16 @@ app.get('/', function (req, res) {
 
 app.post('/POST', urlencodedParser, function (req, res) {
 
-    response = {
+    let response = {
         name:req.body.name,
         start:req.body.start,
         end:req.body.end,
         inputString:req.body.inputString
     };
     console.log(response);
-    res.end(JSON.stringify(response));
+    //res.end(JSON.stringify(response));
+    res.json(response);
  })
 
 
-const server = app.listen(3000,function(){
-
-    let host = server.address().address;
-    let port = server.address().port;
-
-    console.log('訪問地址為 http://%s:%s',host, port);
-});
+app.listen(3000);
