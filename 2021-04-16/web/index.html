@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="shortcut icon" href="images/index/favicon.ico" type="image/x-icon" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+	<link href="css/font-awesome.css" rel="stylesheet" type="text/css"/><!--共用字型-->
+	<link href="css/typography.css" rel="stylesheet" type="text/css"/><!--SVG圖示-->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/main_common.css?v=2018041302" rel="stylesheet" type="text/css"/><!--共用區塊的css-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script><!--分頁切換、回到最上層JS-->
+	<script src="js/jssor.slider-23.1.0.min.js"></script><!--新廣告輪播-->
+    <script src="js/ad.js"></script><!--新廣告輪播-->
+	<title>快易購虛寶網</title>
+</head>
+
+<body>
+<!--手機版_回到最上層 -->
+<div id="goToTop">
+	<a href="#">
+		<i class="fa fa-arrow-circle-up go_top" aria-hidden="true"></i>
+	</a>
+</div>
+
+<!--上版面-->
+<header id="header" class="header">
+	<div class="header__top">
+		<div class="container">
+			<!--LOGO-->
+			<a href="index.html" class="logo">
+				<img alt="logo" src="images/index/index_logo.png?v=2018041302" class="header_logo">
+			</a>
+			<!--電腦版_主選單-->
+			<nav class="wsmenu slideLeft">
+				<ul class="mobile-sub wsmenu-list">
+					<li class="active">
+						<span class="wsmenu-click"></span>
+						<a href="account.html">
+							<i class="fa fa-user" aria-hidden="true"></i>會員中心
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="deposit.html">
+							<i class="fa fa-database" aria-hidden="true"></i>儲值
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="sale.html">
+							<i class="fa fa-database" aria-hidden="true"></i>交易
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="service.html">
+							<i class="fa fa-volume-control-phone" aria-hidden="true"></i>客服
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!--手機版_漢堡圖按鈕-->
+	<div class="wsmenucontent overlapblackbg"></div>
+	<div class="wsmenuexpandermain slideRight">
+		<a id="navToggle" class="animated-arrow slideLeft">
+			<!--關閉按鈕(勿刪)-->
+			<span></span>
+		</a>
+	</div>
+</header>
+
+<!--中間版面-->
+<section class="wrap wrap_gray">
+	<div class="container">
+		<div class="row">
+			<!--左側欄-->
+			<div class="col-sm-3">
+				<!--登入+註冊欄位-->
+				<div class="enter mode-style-box">
+					<ul class="nav nav-pills">
+						<li class="active">
+							<a data-toggle="tab" href="#nav-login">登入</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#nav-register">註冊</a>
+						</li>
+					</ul>
+					<!--分頁_帳號登入-->
+					<div class="tab-content">
+						<div id="nav-login" class="tab-pane fade in active">
+							<form action="#" method="post">
+								<ul>
+									<li>
+										<label>帳號</label>
+										<input type="text" class="text" id="" name="" minlength="" maxlength="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li class="code">
+										<label>驗證</label>
+										<input type="text" class="checkcode" id="" name="" maxlength="4" minlength="4" placeholder="請輸入驗證碼"" value="" required="">
+										<img class="RegNumber" src="img.png" alt="驗證碼">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="登入">
+								</div>
+							</form>
+							<a href="forget.html" target="_self" class="help">忘記密碼?</a>
+						</div>
+						<!--分頁_註冊-->
+						<div id="nav-register" class="tab-pane fade">
+							<form action="http://127.0.0.1:3000/POST" method="POST" onsubmit="">
+								<ul>
+									<li>
+										<label>新建帳號</label>
+										<input type="text" class="text" id="" name="username" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>手機<span class="text_red">(必填)</span></label>
+										<input type="text" class="text" id="" name="phone" placeholder="請填入手機號碼" value="" required="">
+									</li>
+									<li>
+										<label>新建密碼</label>
+										<input type="password" class="text" id="" name="password" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li>
+										<label>確認密碼</label>
+										<input type="password" class="text" id="" name="passwordCheck" minlength="6" maxlength="20" placeholder="請重複密碼" value="" required="">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="同意並註冊">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!--登入後_個人資料欄位(登入後才開啟)-->
+				<div class="mode player mode-style-box" style="display: none;">
+					<div class="info">
+						<div class="head_pic"></div>
+						<div class="mem_data">
+							<div id="" class="name">abcd543@gmail.com</div>
+							<a href="account.html" class="fa fa-pencil-square-o" aria-hidden="true"> 編輯資料</a>
+						</div>
+					</div>
+					<ul class="data">
+						<li>
+							<b>暱稱</b><span>ABCD543</span>
+						</li>
+						<li>
+							<b>點數</b><span class="widget-login-points widget-login-points-normal">15003</span>
+						</li>
+					</ul>
+					<div class="button submit">
+						<input type="submit" class="send" value="登出">
+					</div>
+				</div>
+
+				<!--最新消息-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>最新消息</span>
+							<a class="more" href="news_all.html">+</a>
+						</h3>
+					</div>
+					<div class="panel">
+						<ul>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--新手教學-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>新手教學</span>
+						</h3>
+					</div>
+					<div class="panel teach">
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq1.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>成為會員
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq2.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員登入
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq3.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>資料修改
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq4.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>忘記密碼
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq5.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>手續費說明
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq6.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>取消交易
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq7.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>常見問題
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq8.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員停權
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--公版_左廣告-->
+                <div class="left_cm" style="display: none;">
+                    <img alt="" src="images/cm/left_cm01.jpg?v=2018050301">
+                </div>
+			</div>
+
+			<!--右側欄-->
+			<div class="col-sm-9 projects">
+				<!--廣告輪播+遊戲列表-->
+				<div class="ad_left">
+					<!--(新)廣告輪播-->
+				    <div class="AD_Set" id="jssor_1">
+				        <div class="Loading_Set" data-u="loading">
+				            <div class="Loading1"></div>
+				            <div class="Loading2"></div>
+				        </div>
+				        <div class="ad_picSet" data-u="slides">
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad01.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad02.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad03.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad04.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad05.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad06.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad07.jpg?v=2018050301" /></div>
+				            <div class="ad_pic"><img data-u="image" src="images/cm/index_ad08.jpg?v=2018050301" /></div>
+				        </div>
+				        <div class="jssorb13 pointSet" data-u="navigator" data-autocenter="1">
+				            <div class="point" data-u="prototype"></div>
+				        </div>
+				    </div>
+				    <script type="text/javascript">jssor_1_slider_init();</script>
+
+					<!--遊戲列表-->
+					<div class="projects__row">
+						<div class="new-game col-sm-12">
+							<!--分頁選單-->
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="pill" href="#Hot_Game">
+										<i class="fa fa-star" aria-hidden="true"></i>熱銷榜
+									</a>
+								</li>
+								<li>
+									<a data-toggle="pill" href="#New_Game">
+										<i class="fa fa-star" aria-hidden="true"></i>新遊戲
+									</a>
+								</li>
+							</ul>
+
+							<!--遊戲列表-->
+							<div class="tab-content">
+								<!--熱銷榜-->
+				                <div id="Hot_Game" class="tab-pane fade in active">
+				                    <ul class="ranking">
+				                        <li>
+				                            <a href="http://lineage2-revolution.com/tw" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_01.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://seermmain.61.com.tw/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_02.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://clashroyale.com/zh" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_03.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+
+				                        <li>
+				                            <a href="http://ss.game-beans.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_04.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://ptzj.igamemore.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_05.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://www.hit-point.co.jp/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_06.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://plan.icantw.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_07.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://tw.beanfun.com/LineageM/web/index.aspx" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_08.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://rom.gnjoy.com.tw/?source=event" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_09.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://fy.digeam.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_10.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://f7.163.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_11.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://www.towerofsaviors.com/zh/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/PCgame_12.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                    </ul>
+				                </div>
+
+				                <!--新遊戲-->
+				                <div id="New_Game" class="tab-pane fade">
+				                    <ul class="ranking">
+				                        <li>
+				                            <a href="https://luthiel.iwplay.com.tw/website/default.html" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_01.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://sg.163.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_02.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://ml.gnjoy.com.tw/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_03.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://zh-tw.facebook.com/8888sgl/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_04.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://so.gameflier.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_05.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://la.x-legend.com.tw/index_in.php" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_06.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://pixark.woniu.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_07.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://www.easports.com/fifa" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_08.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://www.gamecity.com.tw/shingeki2/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_09.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://miku.163.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_10.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="http://cadria.4gvv.com/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_11.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                        <li>
+				                            <a href="https://www.facebook.com/CaoCaoTW/" target="_blank">
+				                                <img class="pv" alt="" src="images/games/MBgame_12.jpg?v=2018050301">
+				                            </a>
+				                        </li>
+				                    </ul>
+				                </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--廣告看板-->
+				<div class="ad_right">
+				    <img src="images/cm/right_cm01.jpg?v=2018050301">
+				    <img src="images/cm/right_cm02.jpg?v=2018050301">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!--下版面-->
+<footer class="footer slate_gray down">
+	<div class="container">
+		<img alt="logo" src="images/index/footer_logo.png?v=2018041301" class="footer-logo">
+		<div class="social">Copyright &copy; 2018</div>
+	</div>
+</footer>
+
+</body>
+</html>

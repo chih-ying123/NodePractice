@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="shortcut icon" href="images/index/favicon.ico" type="image/x-icon" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+	<link href="css/font-awesome.css" rel="stylesheet" type="text/css"/><!--共用字型-->
+	<link href="css/typography.css" rel="stylesheet" type="text/css"/><!--SVG圖示-->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/main_common.css?v=2018041302" rel="stylesheet" type="text/css"/><!--共用區塊的css-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script><!--分頁切換、回到最上層JS-->
+	<title>快易購_新手教學</title>
+</head>
+
+<body>
+<!--手機版_回到最上層 -->
+<div id="goToTop">
+	<a href="#">
+		<i class="fa fa-arrow-circle-up go_top" aria-hidden="true"></i>
+	</a>
+</div>
+
+<!--上版面-->
+<header id="header" class="header">
+	<div class="header__top">
+		<div class="container">
+			<!--LOGO-->
+			<a href="index.html" class="logo">
+				<img alt="logo" src="images/index/index_logo.png?v=2018041302" class="header_logo">
+			</a>
+			<!--電腦版_主選單-->
+			<nav class="wsmenu slideLeft">
+				<ul class="mobile-sub wsmenu-list">
+					<li class="active">
+						<span class="wsmenu-click"></span>
+						<a href="account.html">
+							<i class="fa fa-user" aria-hidden="true"></i>會員中心
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="deposit.html">
+							<i class="fa fa-database" aria-hidden="true"></i>儲值
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="sale.html">
+							<i class="fa fa-database" aria-hidden="true"></i>交易
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="service.html">
+							<i class="fa fa-volume-control-phone" aria-hidden="true"></i>客服
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!--手機版_漢堡圖按鈕-->
+	<div class="wsmenucontent overlapblackbg"></div>
+	<div class="wsmenuexpandermain slideRight">
+		<a id="navToggle" class="animated-arrow slideLeft">
+			<!--關閉按鈕(勿刪)-->
+			<span></span>
+		</a>
+	</div>
+</header>
+
+<!--中間版面-->
+<section class="wrap wrap_gray">
+	<div class="container">
+		<div class="row">
+			<!--左側欄-->
+			<div class="col-sm-3">
+				<!--登入+註冊欄位-->
+				<div class="enter mode-style-box">
+					<ul class="nav nav-pills">
+						<li class="active">
+							<a data-toggle="tab" href="#nav-login">登入</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#nav-register">註冊</a>
+						</li>
+					</ul>
+					<!--分頁_帳號登入-->
+					<div class="tab-content">
+						<div id="nav-login" class="tab-pane fade in active">
+							<form action="#" method="post">
+								<ul>
+									<li>
+										<label>帳號</label>
+										<input type="text" class="text" id="" name="" minlength="" maxlength="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li class="code">
+										<label>驗證</label>
+										<input type="text" class="checkcode" id="" name="" maxlength="4" minlength="4" placeholder="請輸入驗證碼"" value="" required="">
+										<img class="RegNumber" src="img.png" alt="驗證碼">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="登入">
+								</div>
+							</form>
+							<a href="forget.html" target="_self" class="help">忘記密碼?</a>
+						</div>
+						<!--分頁_註冊-->
+						<div id="nav-register" class="tab-pane fade">
+							<form action="" method="post" onsubmit="">
+								<ul>
+									<li>
+										<label>新建帳號</label>
+										<input type="email" class="text" id="" name="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>手機<span class="text_red">(必填)</span></label>
+										<input type="email" class="text" id="" name="" placeholder="請填入手機號碼" value="" required="">
+									</li>
+									<li>
+										<label>新建密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li>
+										<label>確認密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="請重複密碼" value="" required="">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="同意並註冊">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!--登入後_個人資料欄位(登入後才開啟)-->
+				<div class="mode player mode-style-box" style="display: none;">
+					<div class="info">
+						<div class="head_pic"></div>
+						<div class="mem_data">
+							<div id="" class="name">abcd543@gmail.com</div>
+							<a href="account.html" class="fa fa-pencil-square-o" aria-hidden="true"> 編輯資料</a>
+						</div>
+					</div>
+					<ul class="data">
+						<li>
+							<b>暱稱</b><span>ABCD543</span>
+						</li>
+						<li>
+							<b>點數</b><span class="widget-login-points widget-login-points-normal">15003</span>
+						</li>
+					</ul>
+					<div class="button submit">
+						<input type="submit" class="send" value="登出">
+					</div>
+				</div>
+
+				<!--最新消息-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>最新消息</span>
+							<a class="more" href="news_all.html">+</a>
+						</h3>
+					</div>
+					<div class="panel">
+						<ul>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--新手教學-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>新手教學</span>
+						</h3>
+					</div>
+					<div class="panel teach">
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq1.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>成為會員
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq2.html" class="btn btn-default selected">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員登入
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq3.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>資料修改
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq4.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>忘記密碼
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq5.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>手續費說明
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq6.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>取消交易
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq7.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>常見問題
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq8.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員停權
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--右側欄_新手教學-->
+			<div class="col-sm-9 projects">
+				<div class="content">
+					<div class="nav-box">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#ac1" data-toggle="tab">新手教學</a></li>
+						</ul>
+					</div>
+
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade in active" id="ac1">
+					        <article>
+								<h2>會員登入</h2>
+								<ol>
+									<li>請至首頁左上方的登入頁籤。</li>
+									<li>輸入您所註冊成功的帳號(E-Mail)、密碼，並輸入驗證圖片上的驗證號碼，即可登入。</li>
+								</ol>
+								<div class="teach_set">
+									<img alt="" src="images/teach/teach2_1.jpg?v=2018050701">
+								</div>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!--下版面-->
+<footer class="footer slate_gray down">
+	<div class="container">
+		<img alt="logo" src="images/index/footer_logo.png?v=2018041301" class="footer-logo">
+		<div class="social">Copyright &copy; 2018</div>
+	</div>
+</footer>
+
+</body>
+</html>

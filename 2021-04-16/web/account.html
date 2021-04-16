@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="shortcut icon" href="images/index/favicon.ico" type="image/x-icon" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+	<link href="css/font-awesome.css" rel="stylesheet" type="text/css"/><!--共用字型-->
+	<link href="css/typography.css" rel="stylesheet" type="text/css"/><!--SVG圖示-->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/main_common.css?v=2018041302" rel="stylesheet" type="text/css"/><!--共用區塊的css-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script><!--分頁切換、回到最上層JS-->
+	<title>快易購_修改您的會員資料</title>
+</head>
+
+<body>
+<!--手機版_回到最上層 -->
+<div id="goToTop">
+	<a href="#">
+		<i class="fa fa-arrow-circle-up go_top" aria-hidden="true"></i>
+	</a>
+</div>
+
+<!--上版面-->
+<header id="header" class="header">
+	<div class="header__top">
+		<div class="container">
+			<!--LOGO-->
+			<a href="index.html" class="logo">
+				<img alt="logo" src="images/index/index_logo.png?v=2018041302" class="header_logo">
+			</a>
+			<!--電腦版_主選單-->
+			<nav class="wsmenu slideLeft">
+				<ul class="mobile-sub wsmenu-list">
+					<li class="active">
+						<span class="wsmenu-click"></span>
+						<a href="account.html">
+							<i class="fa fa-user" aria-hidden="true"></i>會員中心
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="deposit.html">
+							<i class="fa fa-database" aria-hidden="true"></i>儲值
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="sale.html">
+							<i class="fa fa-database" aria-hidden="true"></i>交易
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="service.html">
+							<i class="fa fa-volume-control-phone" aria-hidden="true"></i>客服
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!--手機版_漢堡圖按鈕-->
+	<div class="wsmenucontent overlapblackbg"></div>
+	<div class="wsmenuexpandermain slideRight">
+		<a id="navToggle" class="animated-arrow slideLeft">
+			<!--關閉按鈕(勿刪)-->
+			<span></span>
+		</a>
+	</div>
+</header>
+
+<!--中間版面-->
+<section class="wrap wrap_gray">
+	<div class="container">
+		<div class="row">
+			<!--左側欄-->
+			<div class="col-sm-3">
+				<!--登入+註冊欄位-->
+				<div class="enter mode-style-box">
+					<ul class="nav nav-pills">
+						<li class="active">
+							<a data-toggle="tab" href="#nav-login">登入</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#nav-register">註冊</a>
+						</li>
+					</ul>
+					<!--分頁_帳號登入-->
+					<div class="tab-content">
+						<div id="nav-login" class="tab-pane fade in active">
+							<form action="#" method="post">
+								<ul>
+									<li>
+										<label>帳號</label>
+										<input type="text" class="text" id="" name="" minlength="" maxlength="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li class="code">
+										<label>驗證</label>
+										<input type="text" class="checkcode" id="" name="" maxlength="4" minlength="4" placeholder="請輸入驗證碼"" value="" required="">
+										<img class="RegNumber" src="img.png" alt="驗證碼">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="登入">
+								</div>
+							</form>
+							<a href="forget.html" target="_self" class="help">忘記密碼?</a>
+						</div>
+						<!--分頁_註冊-->
+						<div id="nav-register" class="tab-pane fade">
+							<form action="" method="post" onsubmit="">
+								<ul>
+									<li>
+										<label>新建帳號</label>
+										<input type="email" class="text" id="" name="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>手機<span class="text_red">(必填)</span></label>
+										<input type="email" class="text" id="" name="" placeholder="請填入手機號碼" value="" required="">
+									</li>
+									<li>
+										<label>新建密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li>
+										<label>確認密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="請重複密碼" value="" required="">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="同意並註冊">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!--登入後_個人資料欄位(登入後才開啟)-->
+				<div class="mode player mode-style-box" style="display: none;">
+					<div class="info">
+						<div class="head_pic"></div>
+						<div class="mem_data">
+							<div id="" class="name">abcd543@gmail.com</div>
+							<a href="account.html" class="fa fa-pencil-square-o" aria-hidden="true"> 編輯資料</a>
+						</div>
+					</div>
+					<ul class="data">
+						<li>
+							<b>暱稱</b><span>ABCD543</span>
+						</li>
+						<li>
+							<b>點數</b><span class="widget-login-points widget-login-points-normal">15003</span>
+						</li>
+					</ul>
+					<div class="button submit">
+						<input type="submit" class="send" value="登出">
+					</div>
+				</div>
+
+				<!--最新消息-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>最新消息</span>
+							<a class="more" href="news_all.html">+</a>
+						</h3>
+					</div>
+					<div class="panel">
+						<ul>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--新手教學-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>新手教學</span>
+						</h3>
+					</div>
+					<div class="panel teach">
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq1.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>成為會員
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq2.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員登入
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq3.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>資料修改
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq4.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>忘記密碼
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq5.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>手續費說明
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq6.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>取消交易
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq7.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>常見問題
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq8.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員停權
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--右側欄_會員中心-->
+			<div class="col-sm-9 projects">
+				<div class="content">
+					<div class="nav-box">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#ac1" data-toggle="tab">個人資料</a></li>
+							<li><a href="#ac3" data-toggle="tab">修改密碼</a></li>
+						</ul>
+					</div>
+
+					<div id="myTabContent" class="tab-content">
+						<!-- 個人資料 -->
+						<div class="tab-pane fade in active" id="ac1">
+							<h3>您的個人資料</h3>
+							<form class="form-horizontal" role="form">
+								<ul class="minfy">
+									<li>
+										<b>帳號</b>
+										<span>abcd543@gmail.com</span>
+									</li>
+									<li>
+										<label>真實姓名</label>
+										<span><input class="text" type="text" id="" name="" minlength="2" maxlength="4" placeholder="請填寫真實姓名，保障您的用戶權益" value=""></span>
+									</li>
+									<li>
+										<label>暱稱</label>
+										<span><input class="text" type="text" id="" name="" maxlength="10" placeholder="限 10 個字元" value=""></span>
+									</li>
+									<li>
+										<label>銀行名稱</label>
+										<span>
+											<input class="text" type="text" name="" placeholder="" value="">
+										</span>
+									</li>
+									<li>
+										<label>分行名稱</label>
+										<span>
+											<input class="text" type="text" name="" placeholder="" value="">
+										</span>
+									</li>
+									<li>
+										<label>帳戶戶名</label>
+										<span>
+											<input class="text" type="text" name="" placeholder="" value="">
+										</span>
+									</li>
+									<li>
+										<label>銀行帳號</label>
+										<span>
+											<input class="text" type="text" name="" maxlength="15" placeholder="請填入銀行帳號(勿加符號)" value="">
+										</span>
+									</li>
+									<li>
+										<label>身分證字號</label>
+										<span><input class="text" type="text" id="" name="" maxlength="10" placeholder="" value=""></span>
+									</li>
+									<li>
+										<label>手機號碼</label>
+										<span><input class="text" type="text" id="" name="" maxlength="10" placeholder="請填入手機號碼(勿加符號)" value=""></span>
+									</li>
+									<li>
+										<label>性別</label>
+										<span>
+											<label>
+												<input type="radio" name="sex" value="0" checked="">
+												<i>男</i>
+											</label>
+											<label>
+												<input type="radio" name="sex" value="1">
+												<i>女</i>
+											</label>
+										</span>
+									</li>
+									<li class="date">
+										<label>出生日期</label>
+										<span>
+											<select name="year" id="year">
+												<option value="1917">1917</option>
+												<option value="1918">1918</option>
+												<option value="1919">1919</option>
+												<option value="1920">1920</option>
+												<option value="1921">1921</option>
+												<option value="1922">1922</option>
+												<option value="1923">1923</option>
+												<option value="1924">1924</option>
+												<option value="1925">1925</option>
+												<option value="1926">1926</option>
+												<option value="1927">1927</option>
+												<option value="1928">1928</option>
+												<option value="1929">1929</option>
+												<option value="1930">1930</option>
+												<option value="1931">1931</option>
+												<option value="1932">1932</option>
+												<option value="1933">1933</option>
+												<option value="1934">1934</option>
+												<option value="1935">1935</option>
+												<option value="1936">1936</option>
+												<option value="1937">1937</option>
+												<option value="1938">1938</option>
+												<option value="1939">1939</option>
+												<option value="1940">1940</option>
+												<option value="1941">1941</option>
+												<option value="1942">1942</option>
+												<option value="1943">1943</option>
+												<option value="1944">1944</option>
+												<option value="1945">1945</option>
+												<option value="1946">1946</option>
+												<option value="1947">1947</option>
+												<option value="1948">1948</option>
+												<option value="1949">1949</option>
+												<option value="1950">1950</option>
+												<option value="1951">1951</option>
+												<option value="1952">1952</option>
+												<option value="1953">1953</option>
+												<option value="1954">1954</option>
+												<option value="1955">1955</option>
+												<option value="1956">1956</option>
+												<option value="1957">1957</option>
+												<option value="1958">1958</option>
+												<option value="1959">1959</option>
+												<option value="1960">1960</option>
+												<option value="1961">1961</option>
+												<option value="1962">1962</option>
+												<option value="1963">1963</option>
+												<option value="1964">1964</option>
+												<option value="1965">1965</option>
+												<option value="1966">1966</option>
+												<option value="1967">1967</option>
+												<option value="1968">1968</option>
+												<option value="1969">1969</option>
+												<option value="1970" selected="selected">1970</option>
+												<option value="1971">1971</option>
+												<option value="1972">1972</option>
+												<option value="1973">1973</option>
+												<option value="1974">1974</option>
+												<option value="1975">1975</option>
+												<option value="1976">1976</option>
+												<option value="1977">1977</option>
+												<option value="1978">1978</option>
+												<option value="1979">1979</option>
+												<option value="1980">1980</option>
+												<option value="1981">1981</option>
+												<option value="1982">1982</option>
+												<option value="1983">1983</option>
+												<option value="1984">1984</option>
+												<option value="1985">1985</option>
+												<option value="1986">1986</option>
+												<option value="1987">1987</option>
+												<option value="1988">1988</option>
+												<option value="1989">1989</option>
+												<option value="1990">1990</option>
+												<option value="1991">1991</option>
+												<option value="1992">1992</option>
+												<option value="1993">1993</option>
+												<option value="1994">1994</option>
+												<option value="1995">1995</option>
+												<option value="1996">1996</option>
+												<option value="1997">1997</option>
+												<option value="1998">1998</option>
+												<option value="1999">1999</option>
+												<option value="2000">2000</option>
+												<option value="2001">2001</option>
+												<option value="2002">2002</option>
+												<option value="2003">2003</option>
+												<option value="2004">2004</option>
+												<option value="2005">2005</option>
+												<option value="2006">2006</option>
+												<option value="2007">2007</option>
+												<option value="2008">2008</option>
+												<option value="2009">2009</option>
+												<option value="2010">2010</option>
+												<option value="2011">2011</option>
+												<option value="2012">2012</option>
+												<option value="2013">2013</option>
+												<option value="2014">2014</option>
+												<option value="2015">2015</option>
+												<option value="2016">2016</option>
+												<option value="2017">2017</option>
+											</select>
+											<select name="month" id="month">
+												<option value="01" selected="selected">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+											</select>
+											<select name="day" id="day">
+												<option value="01" selected="selected">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24</option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label>所在國家</label>
+										<span>
+											<select name="area">
+												<option value="0" selected="">請選擇</option>
+												<option value="1">台灣</option>
+												<option value="2">香港</option>
+												<option value="3">澳門</option>
+												<option value="4">中國</option>
+												<option value="5">新加坡</option>
+												<option value="6">馬來西亞</option>
+												<option value="7">美國</option>
+												<option value="8">英國</option>
+												<option value="9">澳洲</option>
+												<option value="10">菲律賓</option>
+												<option value="11">加拿大</option>
+												<option value="12">韓國</option>
+												<option value="13">日本</option>
+												<option value="14">其他</option>
+											</select>
+										</span>
+									</li>
+									<li class="send">
+										<input type="reset" value="重新填寫">
+										<input type="submit" value="確認送出">
+									</li>
+								</ul>
+							</form>
+						</div>
+
+						<!-- 修改密碼 -->
+						<div class="tab-pane fade" id="ac3">
+							<h3>修改會員密碼</h3>
+							<form action="" method="post" name="pass" id="pass">
+								<ul class="minfy">
+									<li>
+										<b>輸入舊密碼</b>
+										<span><input type="password" name="old_password" class="text" maxlength="20" placeholder="" value=""></span>
+									</li>
+									<li>
+										<b>輸入新密碼</b>
+										<span><input type="password" name="new_password" class="text" maxlength="20" placeholder="請輸入 6-20 元位英數字，不能包含空格字元" value=""></span>
+									</li>
+									<li>
+										<b>重複新密碼</b>
+										<span><input type="password" name="new_password2" class="text" maxlength="20" placeholder="請再次輸入新密碼" value=""></span>
+									</li>
+									<li class="send">
+										<input type="reset" value="重填資料">
+										<input type="submit" value="確認修改">
+									</li>
+								</ul>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!--下版面-->
+<footer class="footer slate_gray down">
+	<div class="container">
+		<img alt="logo" src="images/index/footer_logo.png?v=2018041301" class="footer-logo">
+		<div class="social">Copyright &copy; 2018</div>
+	</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="shortcut icon" href="images/index/favicon.ico" type="image/x-icon" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+	<link href="css/font-awesome.css" rel="stylesheet" type="text/css"/><!--共用字型-->
+	<link href="css/typography.css" rel="stylesheet" type="text/css"/><!--SVG圖示-->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/main_common.css?v=2018042301" rel="stylesheet" type="text/css"/><!--共用區塊的css-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script><!--分頁切換、回到最上層JS-->
+	<script src="js/calendar.js" type="text/javascript" language="javascript"></script><!--日曆效果-->
+	<title>快易購_交易</title>
+</head>
+
+<body>
+<!--手機版_回到最上層 -->
+<div id="goToTop">
+	<a href="#">
+		<i class="fa fa-arrow-circle-up go_top" aria-hidden="true"></i>
+	</a>
+</div>
+
+<!--上版面-->
+<header id="header" class="header">
+	<div class="header__top">
+		<div class="container">
+			<!--LOGO-->
+			<a href="index.html" class="logo">
+				<img alt="logo" src="images/index/index_logo.png?v=2018041302" class="header_logo">
+			</a>
+			<!--電腦版_主選單-->
+			<nav class="wsmenu slideLeft">
+				<ul class="mobile-sub wsmenu-list">
+					<li class="active">
+						<span class="wsmenu-click"></span>
+						<a href="account.html">
+							<i class="fa fa-user" aria-hidden="true"></i>會員中心
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="deposit.html">
+							<i class="fa fa-database" aria-hidden="true"></i>儲值
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="sale.html">
+							<i class="fa fa-database" aria-hidden="true"></i>交易
+						</a>
+					</li>
+					<li>
+						<span class="wsmenu-click"></span>
+						<a href="service.html">
+							<i class="fa fa-volume-control-phone" aria-hidden="true"></i>客服
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!--手機版_漢堡圖按鈕-->
+	<div class="wsmenucontent overlapblackbg"></div>
+	<div class="wsmenuexpandermain slideRight">
+		<a id="navToggle" class="animated-arrow slideLeft">
+			<!--關閉按鈕(勿刪)-->
+			<span></span>
+		</a>
+	</div>
+</header>
+
+<!--中間版面-->
+<section class="wrap wrap_gray">
+	<div class="container">
+		<div class="row">
+			<!--左側欄-->
+			<div class="col-sm-3">
+				<!--登入+註冊欄位-->
+				<div class="enter mode-style-box">
+					<ul class="nav nav-pills">
+						<li class="active">
+							<a data-toggle="tab" href="#nav-login">登入</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#nav-register">註冊</a>
+						</li>
+					</ul>
+					<!--分頁_帳號登入-->
+					<div class="tab-content">
+						<div id="nav-login" class="tab-pane fade in active">
+							<form action="#" method="post">
+								<ul>
+									<li>
+										<label>帳號</label>
+										<input type="text" class="text" id="" name="" minlength="" maxlength="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li class="code">
+										<label>驗證</label>
+										<input type="text" class="checkcode" id="" name="" maxlength="4" minlength="4" placeholder="請輸入驗證碼"" value="" required="">
+										<img class="RegNumber" src="img.png" alt="驗證碼">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="登入">
+								</div>
+							</form>
+							<a href="forget.html" target="_self" class="help">忘記密碼?</a>
+						</div>
+						<!--分頁_註冊-->
+						<div id="nav-register" class="tab-pane fade">
+							<form action="" method="post" onsubmit="">
+								<ul>
+									<li>
+										<label>新建帳號</label>
+										<input type="email" class="text" id="" name="" placeholder="Email" value="" required="">
+									</li>
+									<li>
+										<label>手機<span class="text_red">(必填)</span></label>
+										<input type="email" class="text" id="" name="" placeholder="請填入手機號碼" value="" required="">
+									</li>
+									<li>
+										<label>新建密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="6-20位元英數字" value="" required="">
+									</li>
+									<li>
+										<label>確認密碼</label>
+										<input type="password" class="text" id="" name="" minlength="6" maxlength="20" placeholder="請重複密碼" value="" required="">
+									</li>
+								</ul>
+								<div class="button submit">
+									<input type="submit" class="send" value="同意並註冊">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!--登入後_個人資料欄位(登入後才開啟)-->
+				<div class="mode player mode-style-box" style="display: none;">
+					<div class="info">
+						<div class="head_pic"></div>
+						<div class="mem_data">
+							<div id="" class="name">abcd543@gmail.com</div>
+							<a href="account.html" class="fa fa-pencil-square-o" aria-hidden="true"> 編輯資料</a>
+						</div>
+					</div>
+					<ul class="data">
+						<li>
+							<b>暱稱</b><span>ABCD543</span>
+						</li>
+						<li>
+							<b>點數</b><span class="widget-login-points widget-login-points-normal">15003</span>
+						</li>
+					</ul>
+					<div class="button submit">
+						<input type="submit" class="send" value="登出">
+					</div>
+				</div>
+
+				<!--最新消息-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>最新消息</span>
+							<a class="more" href="news_all.html">+</a>
+						</h3>
+					</div>
+					<div class="panel">
+						<ul>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+							<li>
+								<a href="news.html">
+									<p>TEST 123</p>
+									<time>12-08</time>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--新手教學-->
+				<div class="notice-min mode-style-box">
+					<div class="title">
+						<h3>
+							<span>新手教學</span>
+						</h3>
+					</div>
+					<div class="panel teach">
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq1.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>成為會員
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq2.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員登入
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq3.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>資料修改
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq4.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>忘記密碼
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq5.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>手續費說明
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq6.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>取消交易
+								</a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<a href="faq7.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>常見問題
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<a href="faq8.html" class="btn btn-default">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>會員停權
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--右側欄_出售-->
+			<div class="col-sm-9 projects">
+				<div class="content">
+					<div class="nav-box">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#ac1" data-toggle="tab">出售</a></li>
+							<li><a href="#ac2" data-toggle="tab">購買</a></li>
+							<li><a href="#ac3" data-toggle="tab">交易記錄</a></li>
+						</ul>
+					</div>
+
+					<div id="" class="tab-content">
+						<!--刊登出售-->
+						<div class="tab-pane fade in active" id="ac1">
+							<ul class="breadcrumb">
+								<li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+								<li><a href="sale.html">免費刊登出售</a></li>
+							</ul>
+							<form class="sale_set" role="form">
+								<ul class="minfy">
+									<li>
+										<b>選擇遊戲</b>
+										<span>
+											<select name="" id="" class="game_select">
+												<option>請選擇</option>
+												<option value="01">RO仙境傳說：起源</option>
+												<option value="02">天堂M</option>
+												<option value="03">艾爾之光</option>
+												<option value="04">新楓之谷</option>
+												<option value="05">流亡黯道</option>
+												<option value="06">英雄聯盟LOL</option>
+												<option value="07">劍靈</option>
+												<option value="08">搞鬼 Online</option>
+												<option value="09">希望戀曲</option>
+												<option value="10">全民打棒球2</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label>商品種類</label>
+										<span>
+											<select name="" id="" class="game_select">
+												<option>請選擇</option>
+												<option value="01">遊戲幣</option>
+												<option value="02">道具</option>
+												<option value="03">帳號</option>
+												<option value="04">代練</option>
+												<option value="05">代儲</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<b>商品標題</b>
+										<span><input class="text" type="text" name="" id="" placeholder="最多50個字元" value="" minlength="1" maxlength="50"></span>
+									</li>
+									<li>
+										<label>出售價格</label>
+										<span><input class="text" type="text" name="" id="" placeholder="請輸入金額" value=""></span>
+									</li>
+									<li>
+										<label>商品說明</label>
+										<span><input class="text" type="text" name="" id="" placeholder="最多20個字元" value="" maxlength="20"></span>
+									</li>
+									<li>
+										<label>刊登效期</label>
+										<span>30天</span>
+									</li>
+									<li class="send">
+										<input type="button" onclick="javascript:location.href='sale2.html'" value="刊登" class="btn_ok">
+									</li>
+								</ul>
+							</form>
+						</div>
+
+						<!--購買-->
+				        <div class="tab-pane fade" id="ac2">
+				            <h3>遊戲虛寶購買</h3>
+				            <form class="buy_set" role="form">
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">665B格貓金幣=2450元，代儲●台.韓.陸版都有●真正銷量最大老字號●首儲雙倍●當天好不用等</div>
+				                        <div class="moneyset">$2,800</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581120</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">RO仙境傳說：守護永恆的愛</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				                <a href="#" name="" class="salelist">
+				                    <div class="list_bg1">
+				                        <div class="title">★《專業》５萬保字號安全代練►►最便宜犬妖／秒蛋、分身賺錢、等級、任務、９０層★</div>
+				                        <div class="moneyset">$1,900</div>
+				                    </div>
+				                    <div class="list_bg2">
+				                        <dl>
+				                            <dt class="item1">上架編號</dt>
+				                            <dd class="item2">581121</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">遊戲名稱</dt>
+				                            <dd class="item2">天堂M</dd>
+				                        </dl>
+				                        <dl>
+				                            <dt class="item1">刊登效期</dt>
+				                            <dd class="item2">剩5天</dd>
+				                        </dl>
+				                        <input type="button" class="btn_buy" value="購買" onclick="javascript:location.href=''">
+				                    </div>
+				                </a>
+				            </form>
+
+				            <!--購買確認_跳框-->
+				            <div id="popup_chkbuy" class="popup_tips_set" style="/*display: none;*/">
+				                <div class="popup_container">
+				                    <div class="popup">
+			                            <div class="text_set">是否購買此方案</div>
+			                            <div class="popup_btn">
+			                                <input type="button" class="btn_cancel" value="取消" onclick="document.getElementById('popup_chkbuy').style.display='none'">
+			                                <input type="button" class="btn_ok" value="確認" onclick="">
+			                            </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+
+						<!-- 交易記錄 -->
+						<div class="tab-pane fade" id="ac3">
+							<h3>交易明細與歷史紀錄</h3>
+							<div class="datelist rwd_magin">
+								<div class="text">日期區間 :</div>
+								<div class="input_set">
+									<input type="text" name="RegDateStart" id="StartTime" value="" onclick="" size="15" maxlength="10" readonly="" class="tcal tcalInput srch_input">
+									<span> - </span>
+									<input type="text" name="RegDateEnd" id="EndTime" value="" onclick="" size="15" maxlength="10" readonly="" class="tcal tcalInput srch_input">
+								</div>
+								<div class="btn_set">
+									<input type="button" onclick="quick(1);" value="昨天" class="btn_date">
+									<input type="button" onclick="quick(0);" value="今天" class="btn_date">
+									<input type="button" onclick="quick(4);" value="上周" class="btn_date">
+									<input type="button" onclick="quick(3);" value="本周" class="btn_date">
+									<input type="button" onclick="quick(6);" value="上月" class="btn_date">
+									<input type="button" onclick="quick(5);" value="本月" class="btn_date">
+									<input type="button" onclick="$('#StartTime').val('');$('#EndTime').val('');" value="清除" class="btn_date">
+									<input class="submit" type="submit" value="查詢">
+								</div>
+							</div>
+							<div class="table-responsive wd_history">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<th class="cell1">日期</th>
+											<th class="cell2">交易類別</th>
+											<th class="cell3">代店代碼</th>
+											<th class="cell4">商品代碼</th>
+											<th class="cell5">交易金額</th>
+											<th class="cell6">交易狀態</th>
+											<th class="cell7">說明</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!--無資料時-->
+										<tr style="display: none;">
+											<td colspan="7">
+												<i class="fa fa-info-circle" aria-hidden="true"></i> 目前尚無記錄
+											</td>
+										</tr>
+										<!--有資料時-->
+										<tr>
+											<td>2018-04-23 14:20:15</td>
+											<td>出售</td>
+											<td>60300</td>
+											<td>A1500</td>
+											<td>2,800</td>
+											<td>成功</td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!--下版面-->
+<footer class="footer slate_gray down">
+	<div class="container">
+		<img alt="logo" src="images/index/footer_logo.png?v=2018041301" class="footer-logo">
+		<div class="social">Copyright &copy; 2018</div>
+	</div>
+</footer>
+
+</body>
+</html>

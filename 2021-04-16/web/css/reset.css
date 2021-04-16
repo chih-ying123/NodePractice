@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: none;
+}
+label {
+    cursor: pointer;
+}
+a {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+    color: #000;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td, td img {
+    vertical-align: top;
+}
+input, select, button, textarea {
+    margin: 0;
+    font-size: 100%;
+}
+input[type="checkbox"] {
+    vertical-align: bottom;
+}
+input[type="radio"] {
+    vertical-align: text-bottom;
+}
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
+/*****************************************************************************************/
+div, span, applet, object, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, 
+del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, 
+u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td, input {
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+html, body, iframe, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-weight: normal;
+    font-family: Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-smoothing: antialiased;
+    font-smooth: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    font-smoothing: subpixel-antialiased !important;
+    font-smooth: subpixel-antialiased;
+}
+a, button, input[type="button"] {
+    cursor: pointer;
+}
+ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+img {
+    max-width: 100%;
+    line-height: 0;
+    font-size: 0;
+}
+menu {
+    padding: 0;
+    margin: 0;
+}
+.clearfix:before, .clearfix:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1;
+}
+/*JS日曆*/
+.tcalInput {
+    background: url('../images/calendar/cal.gif') 100% 50% no-repeat;
+    padding-right: 20px;
+    cursor: pointer;
+}
+.tcalActive {
+    background-image: url('../images/calendar/no_cal.gif');
+}
+/* container of calendar's pop-up */
+#tcal {
+    position: absolute;
+    visibility: hidden;
+    width: 175px;
+    margin-top: 2px;
+    padding: 0 2px 2px 2px;
+    background-color: #fff;
+    border: 1px solid #b7b7b7;
+    -moz-box-shadow: 1px solid #b7b7b7;
+    -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, .5);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, .5);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='rgba(0, 0, 0, .5)')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='rgba(0, 0, 0, .5)');
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 35;
+}
+/* table containing navigation and current month */
+#tcalControls {
+    border: 0;
+}
+#tcalControls td {
+    width: 16px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#tcalControls th {
+    line-height: 27px;
+    font-size: 14px;
+    text-align: center;
+    font-family: Arial, Tahoma, Geneva, sans-serif;
+    font-weight: bold;
+    white-space: nowrap;
+}
+#tcalPrevYear { background-image: url('../images/calendar/prev_year.gif'); }
+#tcalPrevMonth { background-image: url('../images/calendar/prev_mon.gif'); }
+#tcalNextMonth { background-image: url('../images/calendar/next_mon.gif'); }
+#tcalNextYear { background-image: url('../images/calendar/next_year.gif'); }
+/* table containing week days header and calendar grid */
+#tcalGrid {
+    border: 1px solid #ddd;
+}
+#tcalGrid th {
+    padding: 3px 0;
+    text-align: center;
+    font-family: Arial, Tahoma, Geneva, sans-serif;
+    color: #fff;
+    font-size: 13px;
+    background-color: #05659e;
+    border: 1px solid #05659e;
+}
+#tcalGrid td {
+    width: 14%;
+    font-size: 13px;
+    padding: 2px 0;
+    text-align: center;
+    font-family: Arial, Tahoma, Geneva, sans-serif;
+    cursor: pointer;
+}       
+#tcalGrid td.tcalOtherMonth { color: silver; }
+#tcalGrid td.tcalWeekend { background-color: #bfe4ff; }
+#tcalGrid td.tcalToday { border: 1px solid #f00; }
+#tcalGrid td.tcalSelected { background-color: #ffced5; }
