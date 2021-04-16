@@ -120,7 +120,7 @@
 						</div>
 						<!--分頁_註冊-->
 						<div id="nav-register" class="tab-pane fade">
-							<form action="http://127.0.0.1:3000/POST" method="POST" onsubmit="">
+							<form action="http://127.0.0.1:3000/register" method="POST" onsubmit="" id="registerForm">
 								<ul>
 									<li>
 										<label>新建帳號</label>
@@ -526,6 +526,35 @@
 		<div class="social">Copyright &copy; 2018</div>
 	</div>
 </footer>
+
+<script>
+
+	let registerForm = document.getElementById('registerForm');
+	registerForm.addEventListener('submit',(e)=>{
+
+		e.prevenDefault(); //不讓表單提交 step1 (自行搜尋功能 prevenDefault())
+
+		let action = registerForm.action;
+		let postPostBody = $('#registerForm').serialize() //jQuery用法 自行了解
+
+		let postOptions = {
+			method: 'POST',
+			body: postPostBody,
+			Headers: new Headers({
+				'Content-Type': 'application/x-www-form-urlencoded'
+			})
+		}
+
+		fetch(action, postOptions).then(res => res.json()).then(res=>{ // fetch要再熟一點
+			alert(res.resultMessage);
+		});
+
+		return false; //不讓表單真的提交 step2
+
+
+	});
+
+</script>
 
 </body>
 </html>
