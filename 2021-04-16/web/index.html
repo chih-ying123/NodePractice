@@ -532,9 +532,10 @@
 	let registerForm = document.getElementById('registerForm');
 	registerForm.addEventListener('submit',(e)=>{
 
-		e.prevenDefault(); //不讓表單提交 step1 (自行搜尋功能 prevenDefault())
+		e.preventDefault(); //不讓表單提交 step1 (自行搜尋功能 prevenDefault())
 
 		let action = registerForm.action;
+		console.log(action);
 		let postPostBody = $('#registerForm').serialize() //jQuery用法 自行了解
 
 		let postOptions = {

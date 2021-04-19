@@ -17,27 +17,33 @@ app.post('/register',urlencodedParser, async (req,res)=>{
     } 
     可以寫成以下 ↓↓↓ 要熟悉物件用法 
     */
-    let {username,phone,password,passwordCheck} = req.body;
+    let {username,phone,password,passwordCheck} =req.body;
 
-    let fileName = path.json('.','datas', username + '.json');
+    let fileName = './datas/' + username + '.json';
     console.log(fileName);
     
-    let fileExists = await fsExists(fileName); //判斷檔案是否存在
+    await fs.exists(fileName, (exists) => {
+        console.log(exists ? '存在' : '不存在');
+        
+        if (exists){
 
-    if (fileExists === false){ //帳號沒被註冊過
+            res.json({
+                resultCode: 1,
+                resultMessage: '帳號已被使用'
+            })
+            
+        }
+        else{
+            fs.writeFile(fileName, JSON.stringify({username,phone,password,passwordCheck}),(err)=>{});
+            res.json({
+                resultCode: 0,
+                resultMessage: '帳號註冊成功'
+            });
+        }
 
-        await fs.writeFile(fileName, JSON.stringify({username,phone,password,passwordCheck}));
-        res.json({
-            resultCode: 0,
-            resultMessage: '帳號註冊成功'
-        });
-    }
-    else{
-        res.json({
-            resultCode: 1,
-            resultMessage: '帳號已被使用'
-        })
-    }
+    }); 
+
+    
     
 });
 
