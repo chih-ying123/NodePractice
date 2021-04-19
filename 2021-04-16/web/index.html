@@ -532,7 +532,7 @@
 	let registerForm = document.getElementById('registerForm');
 	registerForm.addEventListener('submit',(e)=>{
 
-		e.preventDefault(); //不讓表單提交 step1 (自行搜尋功能 prevenDefault())
+		e.preventDefault(); //不讓表單提交 step1 (自行搜尋功能 preventDefault())
 
 		let action = registerForm.action;
 		console.log(action);
@@ -541,7 +541,7 @@
 		let postOptions = {
 			method: 'POST',
 			body: postPostBody,
-			Headers: new Headers({
+			headers: new Headers({
 				'Content-Type': 'application/x-www-form-urlencoded'
 			})
 		}

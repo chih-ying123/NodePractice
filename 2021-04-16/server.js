@@ -1,9 +1,11 @@
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser'); 
+//const bodyParser = require('body-parser');  已被棄用
 const app = express();
+const {fsMKDir, fsExists, writeFile, readFile, fsReadDir} = require('./fsUtil')
 
-let urlencodedParser = bodyParser.urlencoded({ extended: false })
+//let urlencodedParser = bodyParser.urlencoded({ extended: false }) // body-parser已被棄用
+let urlencodedParser =  express.urlencoded({ extended: false })
 
 app.use(express.static('web'));
 
@@ -20,30 +22,35 @@ app.post('/register',urlencodedParser, async (req,res)=>{
     let {username,phone,password,passwordCheck} =req.body;
 
     let fileName = './datas/' + username + '.json';
-    console.log(fileName);
-    
-    await fs.exists(fileName, (exists) => {
-        console.log(exists ? '存在' : '不存在');
-        
-        if (exists){
 
-            res.json({
-                resultCode: 1,
-                resultMessage: '帳號已被使用'
-            })
-            
-        }
-        else{
-            fs.writeFile(fileName, JSON.stringify({username,phone,password,passwordCheck}),(err)=>{});
+    let fileExists = await fsExists(fileName);
+    
+    if (fileExists === false){
+
+        let writeFileSuccess = await writeFile(fileName, JSON.stringify({username,phone,password,passwordCheck}));
+
+        if (writeFileSuccess) {
             res.json({
                 resultCode: 0,
                 resultMessage: '帳號註冊成功'
             });
+        }else{
+            res.json({
+                resultCode: 1,
+                resultMessage: '系統忙碌中，請稍後重試'
+            })
         }
+        
+            
+    }
+    else{
 
-    }); 
-
-    
+        res.json({
+            resultCode: 1,
+            resultMessage: '帳號已被使用'
+        })
+        
+    }
     
 });
 
