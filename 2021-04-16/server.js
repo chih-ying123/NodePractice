@@ -7,7 +7,7 @@ let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(express.static('web'));
 
-app.post('/POST',urlencodedParser, async (req,res)=>{
+app.post('/register',urlencodedParser, async (req,res)=>{
     /* 
     let response ={
         username : req.body.username,
