@@ -9,12 +9,13 @@ let fileName = './datas.json'
 
 app.get('/getUserList', async (req, res) => {
 
-    let { pageIndex, pageSize } = req.query
+    let pageIndex = parseInt(req.query.pageIndex, 10) //pageIndex、 pageSize 字串
+    let pageSize = parseInt(req.query.pageSize, 10)  // 要轉成int，不然四則運算可能會錯
 
     console.log(typeof pageIndex);
     console.log(typeof pageSize);
 
-    //pageIndex、 pageIndex 字串
+    
     let resDatas = await padeInfo(pageIndex, pageSize);
 
 
@@ -38,24 +39,19 @@ async function padeInfo(pageIndex, pageSize) {
     let startRow = pageSize * (pageIndex - 1);
     let endRow = (pageSize - 1) + pageSize * (pageIndex - 1);
 
-
-
-
-    /*
-     if (startRow < 0){
+    if (startRow < 0){
         startRow = 0;
     }
 
-    if (endRow >= contentData.length){
-        endRow = contentData.length-1;
+    if (endRow >= dataJSON.length){
+        endRow = dataJSON.length-1;
     }
-    */
 
     let data2 = [];
 
     for (var i = startRow; i <= endRow; i++) {
-        let { Id, UserName, Memo } = dataJSON[i]
-        console.log(Id, UserName, Memo);
+        //let { Id, UserName, Memo } = dataJSON[i]
+       // console.log(Id, UserName, Memo);
         data2.push(dataJSON[i]);
     }
     return data2;

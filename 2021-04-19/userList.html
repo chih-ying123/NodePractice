@@ -48,31 +48,48 @@
             -->
         </tbody>
 
-        <tr>
-            <th colspan="4">分頁列表</th>
-        </tr>
+        <tfoot>
+            <tr>
+                <th colspan="4">分頁列表</th>
+            </tr>
+        </tfoot>
+        
     </table>
 
     <script>
 
         let dataList = document.getElementById('dataList')
-
+        let content ='';
         async function getUserList(pageIndex, pageSize) {
 
             // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
             let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
             let json = await res.json();
             console.log(json);
+           
 
-
+            for (var i = 0; i < json.length; i++) {
+               let { Id, UserName, Memo } = json[i]
+               content += `
+               <tr>
+                    <td>${Id}</td>
+                    <td>${UserName}</td>
+                    <td>${Memo}</td>
+                    <td>
+                        <button>編輯</button>
+                        <button>刪除</button>
+                    </td>
+                </tr>`;
+            }
 
             //向server拿資料
             // 拿到資料。放回table
-
+            dataList.innerHTML = content;
+            
         }
 
         getUserList(1, 30)
-
+        
 
     </script>
 
