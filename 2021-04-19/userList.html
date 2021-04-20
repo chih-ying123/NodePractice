@@ -20,31 +20,33 @@
 </head>
 
 <body>
-
+    <input type="text"> <button>查詢</button>
     <table>
-        <tr>
-            <th colspan="4">
-                <input type="text"> <button>查詢</button>
-            </th>
-        </tr>
-        <tr>
-            <th>編號</th>
-            <th>名稱</th>
-            <th>備註</th>
-            <th>操作</th>
-        </tr>
-        <tr>
-            <th>1</th>
-            <th>Jess0001</th>
-            <th>嚶嚶嚶嚶嚶嚶</th>
-            <th><button>編輯</button><button>刪除</button></th>
-        </tr>
-        <tr>
-            <th>2</th>
-            <th>Jess0002</th>
-            <th>賴皮鬼</th>
-            <th><button>編輯</button><button>刪除</button></th>
-        </tr>
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>名稱</th>
+                <th>備註</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="dataList">
+            <!--
+            <tr>
+                <th>1</th>
+                <th>Jess0001</th>
+                <th>嚶嚶嚶嚶嚶嚶</th>
+                <th><button>編輯</button><button>刪除</button></th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th>Jess0002</th>
+                <th>賴皮鬼</th>
+                <th><button>編輯</button><button>刪除</button></th>
+            </tr>
+            -->
+        </tbody>
+        
         <tr>
             <th colspan="4">分頁列表</th>
         </tr>
