@@ -88,9 +88,37 @@
             
         }
 
-        getUserList(1, 30)
+        let pageIndex = 1;
+        let pageSize = 30;
+
+        getUserList(pageIndex, pageSize)
         
 
+        /*
+        function printPagenum(pageIndex){
+
+        let totalRows = contentData.length;
+        let listSize = 10;
+        let pageInfo = getPagination(totalRows, pageSize, pageIndex, listSize);
+
+        let pageid = document.getElementById('pageid');
+        let page_num = "";
+        for (var p=pageInfo.startPage; p<=pageInfo.endPage; p++){
+            if(p===pageInfo.currentPage){
+                page_num += `<li onclick="changePage(${p})" class="selected">${p}</li>`; 
+            }
+            else{
+                page_num += `<li onclick="changePage(${p})">${p}</li>`; 
+            }
+        }
+        pageid.innerHTML = `
+        <li onclick="changePage(${pageInfo.prePage})">上一頁</li>
+        ${page_num}
+        <li onclick="changePage(${pageInfo.nextPage})">下一頁</li>
+        `; 
+        }
+
+        */
     </script>
 
 </body>
