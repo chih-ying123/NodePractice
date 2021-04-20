@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,16 +55,17 @@
 
     <script>
 
-        let dataList =  document.getElementById('dataList')
+        let dataList = document.getElementById('dataList')
 
-        function getUserList(pageIndex, pageSize) {
+        async function getUserList(pageIndex, pageSize) {
 
-        
-            fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
-            .then(res=>{
-                dataList.innerHTML = 'res. '         
-            }) 
-            
+            // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
+            let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+            let json = await res.json();
+            console.log(json);
+
+
+
             //向server拿資料
             // 拿到資料。放回table
 
