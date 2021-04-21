@@ -15,7 +15,10 @@ app.get('/getUserList', async (req, res) => {
     console.log(typeof pageIndex);
     console.log(typeof pageSize);
     
-    let resDatas = await pageInfo(pageIndex, pageSize);
+    let resDatas = await getUserList(pageIndex, pageSize);
+    let pagenum = await Pagenum(pageSize)
+    console.log(pagenum);
+
 
     res.json(resDatas);
 });
@@ -24,7 +27,7 @@ app.get('/', async (req, res) => {
     res.sendFile(__dirname + "/" + "userList.html");
 });
 
-async function pageInfo(pageIndex, pageSize) {
+async function getUserList(pageIndex, pageSize) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
 
@@ -45,6 +48,18 @@ async function pageInfo(pageIndex, pageSize) {
         data2.push(dataJSON[i]);
     }
     return data2;
+}
+
+async function Pagenum(pageSize){
+
+    let data = await readFile(fileName); //字串
+    let dataJSON = JSON.parse(data);
+
+    let totalRows = dataJSON.length;
+
+    let pagenum = Math.ceil(totalRows/pageSize) ;
+    return pagenum;
+
 }
 
 app.listen(3000);

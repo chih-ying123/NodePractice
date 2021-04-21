@@ -48,10 +48,12 @@
             -->
         </tbody>
 
-        <tfoot>
-            <tr>
+        <tfoot id='pageNum'>
+            <!--
+                <tr>
                 <th colspan="4">分頁列表</th>
             </tr>
+            -->
         </tfoot>
         
     </table>
@@ -59,7 +61,7 @@
     <script>
 
         let dataList = document.getElementById('dataList')
-        let content ='';
+        
 
         async function getUserList(pageIndex, pageSize) {
 
@@ -67,19 +69,9 @@
             let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
             let json = await res.json();
             console.log(json);
-/*
-            let startRow = 0;
-            let endRow = json.length;
 
-            if (startRow < 0){
-                startRow = 0;
-            }
+            let content ='';
 
-            if (endRow >= json.length){
-                endRow = json.length-1;
-            }
-           
-*/
             for (var i = 0; i <= json.length-1; i++) {
                let { Id, UserName, Memo } = json[i]
                content += `
