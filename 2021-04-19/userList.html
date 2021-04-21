@@ -9,6 +9,7 @@
 
     <style>
         table {
+            text-align: center;
             border: 1px solid black;
             width: 60%;
         }
@@ -16,6 +17,13 @@
         table td,
         table th {
             border: 1px solid black
+        }
+        ul {
+            display: flex;
+            list-style-type: none;
+        }
+        li {
+            padding: 0 50px;
         }
     </style>
 </head>
@@ -61,20 +69,22 @@
     <script>
 
         let dataList = document.getElementById('dataList')
-        
+        let pageNum = document.getElementById('pageNum')
 
         async function getUserList(pageIndex, pageSize) {
 
             // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
             let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
             let json = await res.json();
-            console.log(json);
+            
+            let userList = json[0];
+            let totalpage = json[1];
 
-            let content ='';
+            let dataContent ='';
 
-            for (var i = 0; i <= json.length-1; i++) {
-               let { Id, UserName, Memo } = json[i]
-               content += `
+            for (var i = 0; i <= userList.length-1; i++) {
+               let { Id, UserName, Memo } = userList[i]
+               dataContent += `
                <tr>
                     <td>${Id}</td>
                     <td>${UserName}</td>
@@ -86,10 +96,16 @@
                 </tr>`;
             }
 
+            let pagelist = '';
+            for (var p = 1; p <= totalpage; p++) {
+
+                pagelist += `<li onclick="getUserList(${p},pageSize)">${p}</li>`
+            }
+
             //向server拿資料
             // 拿到資料。放回table
-            dataList.innerHTML = content;
-            
+            dataList.innerHTML = dataContent;
+            pageNum.innerHTML = `<tr><td colspan="4"><ul>${pagelist}</ul></td></tr>`;
         }
 
         let pageIndex = 1;
@@ -97,32 +113,6 @@
 
         getUserList(pageIndex, pageSize)
         
-
-        /*
-        function printPagenum(pageIndex){
-
-        let totalRows = contentData.length;
-        let listSize = 10;
-        let pageInfo = getPagination(totalRows, pageSize, pageIndex, listSize);
-
-        let pageid = document.getElementById('pageid');
-        let page_num = "";
-        for (var p=pageInfo.startPage; p<=pageInfo.endPage; p++){
-            if(p===pageInfo.currentPage){
-                page_num += `<li onclick="changePage(${p})" class="selected">${p}</li>`; 
-            }
-            else{
-                page_num += `<li onclick="changePage(${p})">${p}</li>`; 
-            }
-        }
-        pageid.innerHTML = `
-        <li onclick="changePage(${pageInfo.prePage})">上一頁</li>
-        ${page_num}
-        <li onclick="changePage(${pageInfo.nextPage})">下一頁</li>
-        `; 
-        }
-
-        */
     </script>
 
 </body>

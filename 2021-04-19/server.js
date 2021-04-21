@@ -12,13 +12,13 @@ app.get('/getUserList', async (req, res) => {
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
 
-    console.log(typeof pageIndex);
-    console.log(typeof pageSize);
+    //console.log(typeof pageIndex);
+    //console.log(typeof pageSize);
     
-    let resDatas = await getUserList(pageIndex, pageSize);
-    let pagenum = await Pagenum(pageSize)
-    console.log(pagenum);
-
+    let  userList = await getUserList(pageIndex, pageSize);
+    let totalpage = await totalPage(pageSize);
+    let resDatas =[userList, totalpage]
+    //console.log(resDatas);
 
     res.json(resDatas);
 });
@@ -50,15 +50,15 @@ async function getUserList(pageIndex, pageSize) {
     return data2;
 }
 
-async function Pagenum(pageSize){
+async function totalPage(pageSize){
 
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
 
     let totalRows = dataJSON.length;
 
-    let pagenum = Math.ceil(totalRows/pageSize) ;
-    return pagenum;
+    let totalpage = Math.ceil(totalRows/pageSize) ;
+    return totalpage;
 
 }
 
