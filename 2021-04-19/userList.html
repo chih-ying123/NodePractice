@@ -22,8 +22,20 @@
             display: flex;
             list-style-type: none;
         }
-        li {
-            padding: 0 50px;
+        li{
+            margin: 0px 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        li:hover{
+            color: rgb(108, 164, 247);
+            border: 1px solid rgb(108, 164, 247);
+        }
+
+        li.selected{
+            background-color: rgb(203, 222, 250);
         }
     </style>
 </head>
@@ -76,12 +88,12 @@
             // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
             let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
             let json = await res.json();
+            console.log(json);
             
-            let userList = json[0];
-            let totalpage = json[1];
+            let userList = json.datasInfo.userList;
+            let {currentPage, startPage, endPage, prePage, nextPage} = json.pageInfo;
 
             let dataContent ='';
-
             for (var i = 0; i <= userList.length-1; i++) {
                let { Id, UserName, Memo } = userList[i]
                dataContent += `
@@ -96,23 +108,32 @@
                 </tr>`;
             }
 
-            let pagelist = '';
-            for (var p = 1; p <= totalpage; p++) {
-
-                pagelist += `<li onclick="getUserList(${p},pageSize)">${p}</li>`
-            }
-
-            //向server拿資料
-            // 拿到資料。放回table
             dataList.innerHTML = dataContent;
-            pageNum.innerHTML = `<tr><td colspan="4"><ul>${pagelist}</ul></td></tr>`;
+            //pageNum.innerHTML = `<tr><td colspan="4"><ul>${pagelist}</ul></td></tr>`;
+
+
+            let page_num = "";
+            for (var p=startPage; p<=endPage; p++){
+                if(p===currentPage){
+                    page_num += `<li onclick="getUserList(${p}, pageSize)" class="selected">${p}</li>`; 
+                }
+                else{
+                    page_num += `<li onclick="getUserList(${p}, pageSize)">${p}</li>`; 
+                }
+            }
+            pageNum.innerHTML = `
+            <tr><td colspan="4"><ul>
+                <li onclick="getUserList(${prePage}, pageSize)">上一頁</li>
+                ${page_num}
+                <li onclick="getUserList(${nextPage}, pageSize)">下一頁</li>
+            </ul></td></tr>`; 
+            
         }
 
         let pageIndex = 1;
-        let pageSize = 30;
+        let pageSize = 20;
 
         getUserList(pageIndex, pageSize)
-        
     </script>
 
 </body>
