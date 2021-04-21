@@ -9,30 +9,22 @@ let fileName = './datas.json'
 
 app.get('/getUserList', async (req, res) => {
 
-    let pageIndex = parseInt(req.query.pageIndex, 10) //pageIndex、 pageSize 字串
-    let pageSize = parseInt(req.query.pageSize, 10)  // 要轉成int，不然四則運算可能會錯
+    let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
+    let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
 
     console.log(typeof pageIndex);
     console.log(typeof pageSize);
-
     
-    let resDatas = await padeInfo(pageIndex, pageSize);
-
-
-    //回應資料給網頁
-    // 處理請求參數: pageIndex, pageSize
+    let resDatas = await pageInfo(pageIndex, pageSize);
 
     res.json(resDatas);
 });
 
 app.get('/', async (req, res) => {
-
     res.sendFile(__dirname + "/" + "userList.html");
-    console.log(req.path);
-
 });
 
-async function padeInfo(pageIndex, pageSize) {
+async function pageInfo(pageIndex, pageSize) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
 
@@ -50,8 +42,6 @@ async function padeInfo(pageIndex, pageSize) {
     let data2 = [];
 
     for (var i = startRow; i <= endRow; i++) {
-        //let { Id, UserName, Memo } = dataJSON[i]
-       // console.log(Id, UserName, Memo);
         data2.push(dataJSON[i]);
     }
     return data2;
