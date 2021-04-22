@@ -11,15 +11,9 @@ app.get('/getUserList', async (req, res) => {
 
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
-    let listSize = 4;
+    let selectKeyWord = (req.query.selectKeyWord);
 
-    //console.log(typeof pageIndex);
-    //console.log(typeof pageSize);
-
-    let {userList, totalRows} = await getUserList(pageIndex, pageSize);
-    let pageInfo = await getPagination(totalRows, pageSize, pageIndex, listSize)
-
-    let resDatas = {userList, pageInfo};
+    let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
 
     res.json(resDatas);
 });
@@ -28,10 +22,24 @@ app.get('/', async (req, res) => {
     res.sendFile(__dirname + "/" + "userList.html");
 });
 
-async function getUserList(pageIndex, pageSize) {
+async function getUserList(pageIndex, pageSize, selectKeyWord) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
-    let totalRows = dataJSON.length;
+    let totalRows = dataJSON.length; //123
+    let listSize = 4;
+
+    let seleList = [];
+    for (var s = 0; s< totalRows;s++){
+
+        if (dataJSON[s].Memo === selectKeyWord){
+
+            seleList.push(dataJSON[s]);
+        }
+        else if(selectKeyWord === ''){
+
+            seleList.push(dataJSON[s]);
+        }
+    };
 
     let startRow = pageSize * (pageIndex - 1);
     let endRow = (pageSize - 1) + pageSize * (pageIndex - 1);
@@ -39,16 +47,18 @@ async function getUserList(pageIndex, pageSize) {
     if (startRow < 0){
         startRow = 0;
     }
-    if (endRow >= totalRows){
-        endRow = totalRows-1;
+    if (endRow >= seleList.length){
+        endRow = seleList.length-1;
     }
 
     let userList = [];
     for (var i = startRow; i <= endRow; i++) {
-        userList.push(dataJSON[i]);
+
+        userList.push(seleList[i]);
     }
 
-    return {userList, totalRows};
+    let pageInfo = await getPagination(seleList.length, pageSize, pageIndex, listSize);
+    return {userList, pageInfo};
 }
 
 

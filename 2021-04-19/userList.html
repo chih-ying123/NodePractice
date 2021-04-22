@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    <input type="text"> <button>查詢</button>
+    <input type="text" id='selectKeyInput' value=""> <button id ='selectbutton'>查詢</button>
     <table>
         <thead>
             <tr>
@@ -80,15 +80,25 @@
 
     <script>
 
-        let dataList = document.getElementById('dataList')
-        let pageNum = document.getElementById('pageNum')
+        let dataList = document.getElementById('dataList');
+        let pageNum = document.getElementById('pageNum');
+        let selectbutton = document.getElementById('selectbutton');
+        let selectKeyInput = document.getElementById('selectKeyInput');
+        let selectKeyWord = '';
+        let pageIndex = 1;
+        let pageSize = 20;
+        
+        selectbutton.addEventListener('click', ()=>{
+            selectKeyWord = selectKeyInput.value;
+            getUserList(pageIndex, pageSize, selectKeyWord);
+        })
 
-        async function getUserList(pageIndex, pageSize) {
+        async function getUserList(pageIndex, pageSize, selectKeyWord) {
 
             // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
-            let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+            let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}&selectKeyWord=${selectKeyWord}`)
             let json = await res.json();
-            console.log(json);
+            //console.log(json);
             
             let userList = json.userList;
             let {currentPage, startPage, endPage, prePage, nextPage} = json.pageInfo;
@@ -115,25 +125,22 @@
             let page_num = "";
             for (var p=startPage; p<=endPage; p++){
                 if(p===currentPage){
-                    page_num += `<li onclick="getUserList(${p}, pageSize)" class="selected">${p}</li>`; 
+                    page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)" class="selected">${p}</li>`; 
                 }
                 else{
-                    page_num += `<li onclick="getUserList(${p}, pageSize)">${p}</li>`; 
+                    page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)">${p}</li>`; 
                 }
             }
             pageNum.innerHTML = `
             <tr><td colspan="4"><ul>
-                <li onclick="getUserList(${prePage}, pageSize)">上一頁</li>
+                <li onclick="getUserList(${prePage}, pageSize, selectKeyWord)">上一頁</li>
                 ${page_num}
-                <li onclick="getUserList(${nextPage}, pageSize)">下一頁</li>
+                <li onclick="getUserList(${nextPage}, pageSize, selectKeyWord)">下一頁</li>
             </ul></td></tr>`; 
             
         }
 
-        let pageIndex = 1;
-        let pageSize = 20;
-
-        getUserList(pageIndex, pageSize)
+        getUserList(pageIndex, pageSize, selectKeyWord)
     </script>
 
 </body>
