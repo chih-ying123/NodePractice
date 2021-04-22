@@ -27,16 +27,15 @@ async function getUserList(pageIndex, pageSize, selectKeyWord) {
     let dataJSON = JSON.parse(data);
     let totalRows = dataJSON.length;
     let listSize = 4;
+    var re = new RegExp(selectKeyWord);
 
     let seleList = [];
     if (selectKeyWord !== ''){
-        for (var s = 0; s < totalRows; s++){
 
-            if (dataJSON[s].Memo === selectKeyWord){
+        seleList = dataJSON.filter(data=>{
+            return re.test(data.Memo)
+        })
 
-                seleList.push(dataJSON[s]);
-            }
-        }
     }
     else{
         seleList = dataJSON;
