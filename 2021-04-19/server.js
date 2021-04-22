@@ -25,21 +25,24 @@ app.get('/', async (req, res) => {
 async function getUserList(pageIndex, pageSize, selectKeyWord) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
-    let totalRows = dataJSON.length; //123
+    let totalRows = dataJSON.length;
     let listSize = 4;
 
     let seleList = [];
-    for (var s = 0; s< totalRows;s++){
+    if (selectKeyWord !== ''){
+        for (var s = 0; s < totalRows; s++){
 
-        if (dataJSON[s].Memo === selectKeyWord){
+            if (dataJSON[s].Memo === selectKeyWord){
 
-            seleList.push(dataJSON[s]);
+                seleList.push(dataJSON[s]);
+            }
         }
-        else if(selectKeyWord === ''){
+    }
+    else{
+        seleList = dataJSON;
+    }
 
-            seleList.push(dataJSON[s]);
-        }
-    };
+    
 
     let startRow = pageSize * (pageIndex - 1);
     let endRow = (pageSize - 1) + pageSize * (pageIndex - 1);

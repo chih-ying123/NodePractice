@@ -85,12 +85,11 @@
         let selectbutton = document.getElementById('selectbutton');
         let selectKeyInput = document.getElementById('selectKeyInput');
         let selectKeyWord = '';
-        let pageIndex = 1;
         let pageSize = 20;
         
         selectbutton.addEventListener('click', ()=>{
             selectKeyWord = selectKeyInput.value;
-            getUserList(pageIndex, pageSize, selectKeyWord);
+            getUserList(1, pageSize, selectKeyWord);
         })
 
         async function getUserList(pageIndex, pageSize, selectKeyWord) {
@@ -140,7 +139,7 @@
             
         }
 
-        getUserList(pageIndex, pageSize, selectKeyWord)
+        getUserList(1, pageSize, selectKeyWord)
     </script>
 
 </body>
