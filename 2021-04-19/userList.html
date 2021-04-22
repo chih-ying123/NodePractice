@@ -90,7 +90,7 @@
             let json = await res.json();
             console.log(json);
             
-            let userList = json.datasInfo.userList;
+            let userList = json.userList;
             let {currentPage, startPage, endPage, prePage, nextPage} = json.pageInfo;
 
             let dataContent ='';

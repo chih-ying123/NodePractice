@@ -11,16 +11,15 @@ app.get('/getUserList', async (req, res) => {
 
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
-    let listSize = 5;
+    let listSize = 4;
 
     //console.log(typeof pageIndex);
     //console.log(typeof pageSize);
 
-    let datasInfo = await getUserList(pageIndex, pageSize);
-    let totalRows = datasInfo.totalRows;
+    let {userList, totalRows} = await getUserList(pageIndex, pageSize);
     let pageInfo = await getPagination(totalRows, pageSize, pageIndex, listSize)
 
-    let resDatas = {datasInfo, pageInfo};
+    let resDatas = {userList, pageInfo};
 
     res.json(resDatas);
 });
@@ -33,7 +32,6 @@ async function getUserList(pageIndex, pageSize) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
     let totalRows = dataJSON.length;
-    let totalpage = Math.ceil(totalRows/pageSize) ;
 
     let startRow = pageSize * (pageIndex - 1);
     let endRow = (pageSize - 1) + pageSize * (pageIndex - 1);
@@ -81,7 +79,7 @@ function getPagination(totalRows, pageSize, currentPage, listSize) {
         endPage = totalPages;
     } else {
 
-        startPage = currentPage - (listSize / 2) + 1;
+        startPage = currentPage - (listSize / 2)+1 ;
         endPage = currentPage + (listSize / 2);
 
         if (startPage < 1) {
