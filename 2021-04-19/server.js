@@ -19,6 +19,10 @@ function resultMessage( resultCode, resultMessage, Datas ){
 app.get('/deleteUser', async (req, res) => {
     
     let id =  parseInt(req.query.id, 10);
+    if (isNaN(id)){ 
+        return res.json(resultMessage(1,'id請輸入數字',''))
+    }
+
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
 
@@ -31,15 +35,10 @@ app.get('/deleteUser', async (req, res) => {
     let writeFileSuccess = await writeFile(fileName,JSON.stringify(dataJSON));
 
     if (writeFileSuccess) {
-        res.json({
-            resultCode: 0,
-            resultMessage: '刪除成功'
-        });
-    }else{
-        res.json({
-            resultCode: 1,
-            resultMessage: '刪除失敗'
-        })
+        res.json(resultMessage( 0, '刪除成功', '' ));
+    }
+    else{
+        res.json(resultMessage( 1, '刪除失敗', '' ));
     }
     
     //編輯功能 ↓
