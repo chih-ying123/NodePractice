@@ -99,47 +99,47 @@
             let json = await res.json();
             
             if (json.resultCode === 1){
-                alert (resultMessage);
+                alert (json.resultMessage);
             }
             else{
                 let userList = json.Datas.userList;
-            let {currentPage, startPage, endPage, prePage, nextPage} = json.Datas.pageInfo;
+                let {currentPage, startPage, endPage, prePage, nextPage} = json.Datas.pageInfo;
 
-            let dataContent ='';
-            for (var i = 0; i <= userList.length-1; i++) {
-               let { Id, UserName, Memo } = userList[i]
-               dataContent += `
-               <tr>
-                    <td>${Id}</td>
-                    <td>${UserName}</td>
-                    <td>${Memo}</td>
-                    <td>
-                        <button>編輯</button>
-                        <button onclick="deleteUser(${pageIndex}, pageSize, selectKeyWord, ${Id})">刪除</button>
-                    </td>
-                </tr>`;
-            }
-
-            dataList.innerHTML = dataContent;
-            //pageNum.innerHTML = `<tr><td colspan="4"><ul>${pagelist}</ul></td></tr>`;
-
-
-            let page_num = "";
-            for (var p=startPage; p<=endPage; p++){
-                if(p===currentPage){
-                    page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)" class="selected">${p}</li>`; 
+                let dataContent ='';
+                for (var i = 0; i <= userList.length-1; i++) {
+                let { Id, UserName, Memo } = userList[i]
+                dataContent += `
+                <tr>
+                        <td>${Id}</td>
+                        <td>${UserName}</td>
+                        <td>${Memo}</td>
+                        <td>
+                            <button>編輯</button>
+                            <button onclick="deleteUser(${pageIndex}, pageSize, selectKeyWord, ${Id})">刪除</button>
+                        </td>
+                    </tr>`;
                 }
-                else{
-                    page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)">${p}</li>`; 
+
+                dataList.innerHTML = dataContent;
+                //pageNum.innerHTML = `<tr><td colspan="4"><ul>${pagelist}</ul></td></tr>`;
+
+
+                let page_num = "";
+                for (var p=startPage; p<=endPage; p++){
+                    if(p===currentPage){
+                        page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)" class="selected">${p}</li>`; 
+                    }
+                    else{
+                        page_num += `<li onclick="getUserList(${p}, pageSize, selectKeyWord)">${p}</li>`; 
+                    }
                 }
-            }
-            pageNum.innerHTML = `
-            <tr><td colspan="4"><ul>
-                <li onclick="getUserList(${prePage}, pageSize, selectKeyWord)">上一頁</li>
-                ${page_num}
-                <li onclick="getUserList(${nextPage}, pageSize, selectKeyWord)">下一頁</li>
-            </ul></td></tr>`; 
-            
+                pageNum.innerHTML = `
+                <tr><td colspan="4"><ul>
+                    <li onclick="getUserList(${prePage}, pageSize, selectKeyWord)">上一頁</li>
+                    ${page_num}
+                    <li onclick="getUserList(${nextPage}, pageSize, selectKeyWord)">下一頁</li>
+                </ul></td></tr>`; 
+                
             }
             
         }    

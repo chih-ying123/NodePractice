@@ -46,7 +46,6 @@ app.get('/deleteUser', async (req, res) => {
     // array.splice(要編輯的索引處, 編輯幾個元素, '編輯內容');
 });
 
-
 app.get('/getUserList', async (req, res) => {
 
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
@@ -57,7 +56,7 @@ app.get('/getUserList', async (req, res) => {
         console.log('rrr');
         return res.json(resultMessage(1,'pageIndex請輸入數字',''))
     }
-    if (isNaN(pageSize)){ //NaN -> Not a Number表示非數值, isNaN()判斷是否為非數值
+    if (isNaN(pageSize)){ 
         console.log('rrr');
         return res.json(resultMessage(1,'pageSize請輸入數字',''))
     }
