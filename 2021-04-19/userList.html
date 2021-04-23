@@ -112,7 +112,7 @@
                     <td>${Memo}</td>
                     <td>
                         <button>編輯</button>
-                        <button onclick="deleteUser(${pageIndex}, ${pageSize}, ${selectKeyWord}, ${Id})">刪除</button>
+                        <button onclick="deleteUser(${pageIndex}, pageSize, selectKeyWord, ${Id})">刪除</button>
                     </td>
                 </tr>`;
             }
@@ -141,10 +141,15 @@
 
         async function deleteUser(pageIndex, pageSize, selectKeyWord, id) {
 
-            let res = await fetch(`/deleteUser?pageIndex=${pageIndex}&pageSize=${pageSize}&selectKeyWord=${selectKeyWord}&id=${id}`)
+            let res = await fetch(`/deleteUser?id=${id}`)
             let json = await res.json();
             
-            getUserList(pageIndex, pageSize, selectKeyWord)
+            if (json.resultCode === 0){
+                getUserList(pageIndex, pageSize, selectKeyWord)
+            }
+            else{
+                alert (json.resultMessage);
+            }
         }
 
         getUserList(1, pageSize, selectKeyWord)

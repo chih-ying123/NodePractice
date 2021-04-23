@@ -9,24 +9,29 @@ let fileName = './datas.json'
 
 app.get('/deleteUser', async (req, res) => {
     
-    let pageIndex = parseInt(req.query.pageIndex, 10); 
-    let pageSize = parseInt(req.query.pageSize, 10);  
-    let selectKeyWord = req.query.selectKeyWord;
     let id =  parseInt(req.query.id, 10);
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
 
     for (let i = 0; i < dataJSON.length; i++){
-        if (dataJSON[i] === id-1){
+        if (dataJSON[i].Id === id){
             dataJSON.splice(i, 1);
         }
     }
 
-    writeFile(fileName,JSON.stringify(dataJSON));
+    let writeFileSuccess = await writeFile(fileName,JSON.stringify(dataJSON));
 
-    let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
-
-    res.json(resDatas);
+    if (writeFileSuccess) {
+        res.json({
+            resultCode: 0,
+            resultMessage: '刪除成功'
+        });
+    }else{
+        res.json({
+            resultCode: 1,
+            resultMessage: '刪除失敗'
+        })
+    }
     
     //編輯功能 ↓
     // array.splice(要編輯的索引處, 編輯幾個元素, '編輯內容');
@@ -38,6 +43,9 @@ app.get('/getUserList', async (req, res) => {
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
     let selectKeyWord = req.query.selectKeyWord;
+    console.log (typeof pageIndex);
+    console.log (typeof pageSize);
+    console.log (typeof selectKeyWord);
 
     let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
 
