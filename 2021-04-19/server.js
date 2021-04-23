@@ -43,9 +43,6 @@ app.get('/getUserList', async (req, res) => {
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
     let selectKeyWord = req.query.selectKeyWord;
-    console.log (typeof pageIndex);
-    console.log (typeof pageSize);
-    console.log (typeof selectKeyWord);
 
     let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
 
