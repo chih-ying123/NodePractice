@@ -97,10 +97,13 @@
             // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
             let res = await fetch(`/getUserList?pageIndex=${pageIndex}&pageSize=${pageSize}&selectKeyWord=${selectKeyWord}`)
             let json = await res.json();
-            //console.log(json);
             
-            let userList = json.userList;
-            let {currentPage, startPage, endPage, prePage, nextPage} = json.pageInfo;
+            if (json.resultCode === 1){
+                alert (resultMessage);
+            }
+            else{
+                let userList = json.Datas.userList;
+            let {currentPage, startPage, endPage, prePage, nextPage} = json.Datas.pageInfo;
 
             let dataContent ='';
             for (var i = 0; i <= userList.length-1; i++) {
@@ -137,7 +140,9 @@
                 <li onclick="getUserList(${nextPage}, pageSize, selectKeyWord)">下一頁</li>
             </ul></td></tr>`; 
             
-        }
+            }
+            
+        }    
 
         async function deleteUser(pageIndex, pageSize, selectKeyWord, id) {
 

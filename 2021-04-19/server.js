@@ -5,7 +5,16 @@ const { readFile, writeFile } = require('./fsUtil')
 
 let fileName = './datas.json'
 
-//app.use(express.static('web'));
+/*
+    server端處理請求的結果要傳出去給網頁端 用( resultCode, resultMessage, Datas) 包裝
+    這樣網頁端才知道怎麼反應
+*/
+function resultMessage( resultCode, resultMessage, Datas ){
+    return {
+        resultCode, resultMessage, Datas
+    }
+}
+
 
 app.get('/deleteUser', async (req, res) => {
     
@@ -42,22 +51,34 @@ app.get('/getUserList', async (req, res) => {
 
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
+
+    //請求進來的參數要做防呆，防止使用者輸入錯誤內容
+    if (isNaN(pageIndex)){ //NaN -> Not a Number表示非數值, isNaN()判斷是否為非數值
+        console.log('rrr');
+        return res.json(resultMessage(1,'pageIndex請輸入數字',''))
+    }
+    if (isNaN(pageSize)){ //NaN -> Not a Number表示非數值, isNaN()判斷是否為非數值
+        console.log('rrr');
+        return res.json(resultMessage(1,'pageSize請輸入數字',''))
+    }
+
     let selectKeyWord = req.query.selectKeyWord;
 
     let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
 
-    res.json(resDatas);
+    res.json(resultMessage(0,'', resDatas));
 });
 
 app.get('/', async (req, res) => {
     res.sendFile(__dirname + "/" + "userList.html");
 });
 
+
+
 async function getUserList(pageIndex, pageSize, selectKeyWord) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
     let listSize = 4;
-    
 
     let seleList = [];
     if (selectKeyWord !== ''){
