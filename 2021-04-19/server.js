@@ -1,17 +1,37 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
-const { readFile } = require('./fsUtil')
+const { readFile, writeFile } = require('./fsUtil')
 
 let fileName = './datas.json'
 
 //app.use(express.static('web'));
 
+app.get('/deleteUser', async (req, res) => {
+    
+    let id =  parseInt(req.query.id, 10);
+    let data = await readFile(fileName); //字串
+    let dataJSON = JSON.parse(data);
+
+    for (let i = 0; i < dataJSON.length; i++){
+        if (dataJSON[i] === id-1){
+            dataJSON.splice(i, 1);
+        }
+    }
+
+    writeFile(fileName,JSON.stringify(dataJSON));
+
+    //res.json(resDatas); 很奇怪喔
+    //編輯功能 ↓
+    // array.splice(要編輯的索引處, 編輯幾個元素, '編輯內容');
+});
+
+
 app.get('/getUserList', async (req, res) => {
 
     let pageIndex = parseInt(req.query.pageIndex, 10); //pageIndex、 pageSize 字串
     let pageSize = parseInt(req.query.pageSize, 10);  // 要轉成int，不然四則運算可能會錯
-    let selectKeyWord = (req.query.selectKeyWord);
+    let selectKeyWord = req.query.selectKeyWord;
 
     let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
 
@@ -25,13 +45,13 @@ app.get('/', async (req, res) => {
 async function getUserList(pageIndex, pageSize, selectKeyWord) {
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
-    let totalRows = dataJSON.length;
     let listSize = 4;
-    var re = new RegExp(selectKeyWord);
+    
 
     let seleList = [];
     if (selectKeyWord !== ''){
-
+        
+        var re = new RegExp(selectKeyWord);
         seleList = dataJSON.filter(data=>{
             return re.test(data.Memo)
         })
@@ -40,8 +60,6 @@ async function getUserList(pageIndex, pageSize, selectKeyWord) {
     else{
         seleList = dataJSON;
     }
-
-    
 
     let startRow = pageSize * (pageIndex - 1);
     let endRow = (pageSize - 1) + pageSize * (pageIndex - 1);
