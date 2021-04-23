@@ -9,6 +9,9 @@ let fileName = './datas.json'
 
 app.get('/deleteUser', async (req, res) => {
     
+    let pageIndex = parseInt(req.query.pageIndex, 10); 
+    let pageSize = parseInt(req.query.pageSize, 10);  
+    let selectKeyWord = req.query.selectKeyWord;
     let id =  parseInt(req.query.id, 10);
     let data = await readFile(fileName); //字串
     let dataJSON = JSON.parse(data);
@@ -21,7 +24,10 @@ app.get('/deleteUser', async (req, res) => {
 
     writeFile(fileName,JSON.stringify(dataJSON));
 
-    //res.json(resDatas); 很奇怪喔
+    let resDatas = await getUserList(pageIndex, pageSize, selectKeyWord);
+
+    res.json(resDatas);
+    
     //編輯功能 ↓
     // array.splice(要編輯的索引處, 編輯幾個元素, '編輯內容');
 });
