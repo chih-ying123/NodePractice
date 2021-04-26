@@ -6,7 +6,7 @@ function express() {
     let app = function (req, res) {
 
         let reqPath = url.parse(req.url).pathname;
-        let reqMethod = req.method.toLowerCase();
+        let reqMethod = req.method.toLowerCase(); //toLowerCase() 字串轉為英文小寫字母
 
         for (let i = 0; i < app.routes.length; i++) {
             let route = app.routes[i];
