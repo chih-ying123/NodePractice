@@ -8,16 +8,37 @@ function express() {
         let reqPath = url.parse(req.url).pathname;
         let reqMethod = req.method.toLowerCase(); //toLowerCase() 字串轉為英文小寫字母
 
-        for (let i = 0; i < app.routes.length; i++) {
-            let route = app.routes[i];
-            if (route.method === reqMethod && route.path === reqPath) {
-                route.handler(req, res);
+        let idx = 0;
+        function next(){
+
+            //console.log(app.routes.length);
+
+            if (idx >= app.routes.length){
+                return res.end(`can not ${reqMethod} ${reqPath}`);
             }
+            let route = app.routes[idx++];  // 0 1 2...
+
+            if (route.method === reqMethod && route.path === reqPath) {
+                route.handler(req, res, next);
+            }else{
+                next();
+            }           
         }
-        return res.end(`can not ${reqMethod} ${reqPath}`);
+        next() ;      
     }
 
-    app.routes = [];
+    app.routes = [];  // 因為有這個陣列，可以進一步控制流程  (要不要往下走)
+    /*
+
+        [
+            {
+              method: 'get'
+                , path
+                , handler
+            },..... 3個
+        ]
+
+    */
     app.get = function (path, handler) {
         app.routes.push({
             method: 'get'
@@ -26,55 +47,15 @@ function express() {
         }) 
     }    
 
-    app.listen = function () {
+    app.listen = function (port, cb) {
         let server = http.createServer(app);
-        server.listen(...arguments);  // 3000, fn
+        server.listen(port, cb);  // 3000, fn
     }
 
     return app;    
 }
 
 module.exports = express;
-
-
-
-/*
-
-function express() {
-
-    let app = function (req, res) {
-
-        let reqPath = url.parse(req.url).pathname;
-        let reqMethod = req.method.toLowerCase();
-
-        for (let i = 0; i < app.routes.length; i++) {
-            let route = app.routes[i];
-            if (route.method === reqMethod && route.path === reqPath) {
-                route.handler(req, res);
-            }
-        }
-        return res.end(`can not ${reqMethod} ${reqPath}`);
-
-    };
-
-    app.routes = [];
-    app.get = function (path, handler) {
-        app.routes.push({
-            method: 'get'
-            , path
-            , handler
-        })
-    }
-
-    app.listen = function () {
-        let server = http.createServer(app);
-        server.listen(...arguments);
-    }
-
-    return app;
-}
-*/
-
 
 
 /*
@@ -86,7 +67,7 @@ function express() {
 		http.createServer = function(callBack){
 
 			let request  = 解析http請求文本 ... {請求headers、請求路徑、請求方法}
-			let response = ....
+			let response = 讓你可以響應內容到客戶端
 
 			http.on('request', function(){  // 當 `每一次` 請求到來的時候調用
 
