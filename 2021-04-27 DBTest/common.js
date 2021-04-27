@@ -4,44 +4,44 @@ const jwt = require('jsonwebtoken');
 const { v4 } = require('uuid');
 const crypto = require('crypto');
 
-// 檢查登入狀態，各路由都會用到
-async function checkLogin(req, res, next) {
-
+// 調用API前先檢查登入狀態 (中間件)
+async function checkLoginForAPI(req, res, next) {
     try {
-        let tokenHeaderName = 'token'
-        let data = await common.jwtVerify(req.get(tokenHeaderName));
 
-        if (data.ip !== req.ip) { //簽出去的token載體，要包含ip，不然會gg            
+        let _token = req.get('token') || '';
+        let data = await common.jwtVerify(_token);
 
-            res.json(resultMessage(1, 'IP變動，請重新登入'));
-
-            /*
-                區分出請求類型
-                    html -> 轉址
-                    json -> 回應 重新登入
-            */
-
-            let reqContentType = req.get('Content-Type');
-            console.log('checkLogin: --->' + reqContentType);
-
+        if (data.ip !== req.ip) { //簽出去的token載體，要包含ip，不然會gg								
+            res.json(resultMessage(-1, 'IP變動，請重新登入'));
         }
         else {
             req.userData = data;
+            next();
         }
-        next();
     }
     catch (err) {
-
-        log('checkLoginFail.txt', err.stack);
-        res.json(resultMessage(1, '請重新登入'));
+        //log('checkLoginFail.txt', err.stack);
+        res.json(resultMessage(-1, '請重新登入'));
     }
 }
 
-function resultMessage(resultCode, resultMessage, datas) {
-    return {
-        resultCode
-        , resultMessage
-        , datas
+function resultMessage(resultCode, resultMessage, result) {
+
+    if (Object.prototype.toString.call(result) === '[object Array]') {
+        return {
+            resultCode
+            , resultMessage
+            , datas: result
+        }
+
+    }
+    else {
+
+        return {
+            resultCode
+            , resultMessage
+            , data: result
+        }
     }
 }
 
@@ -139,9 +139,11 @@ function log(fileName, text) {
 
 function getYYYYMMDDhhmmss(_date) {
 
-    //console.log(new Date().toTimeString());
-    //console.log(new Date().toUTCString());
-    //console.log(new Date().toISOString());
+    /*
+        console.log(new Date().toTimeString());
+        console.log(new Date().toUTCString());
+        console.log(new Date().toISOString());
+    */
 
     _date = _date || new Date();
     let year = _date.getFullYear();
@@ -176,9 +178,9 @@ function getYYYYMMDDhhmmss(_date) {
 
 function dateSplitByMin(date, min) {
     // date 是一個 yyyy-MM-dd 的字串
-    let y = date.slice(0, 4); //不含end
-    let m = date.slice(5, 7);
-    let d = date.slice(8, 10);
+    let y = date.slice(0, 4);	// 不含end => 0 1 2 3 = yyyy 
+    let m = date.slice(5, 7);	// 不含end => 5 6     = MM
+    let d = date.slice(8, 10);	// 不含end => 8 9     = dd
 
     let count = (24 * 60) / min; // 算出一天全部有多少分鐘，再除掉min，得到迴圈計數器(以秒為單位)
 
@@ -204,6 +206,60 @@ function dateSplitByMin(date, min) {
     return list;
 }
 
+function getPagination(totalRows, pageSize, currentPage, listSize) {
+
+    let totalPages = 0; //總頁數
+    let startPage = 0;
+    let endPage = 0;
+
+
+    //計算總頁數
+    if (totalRows === 0) {
+        totalPages = 1;
+    } else if (totalRows % pageSize == 0) {
+        totalPages = totalRows / pageSize;
+    } else {
+        /*取地板值*/
+        totalPages = Math.floor(totalRows / pageSize) + 1; //Math.floor() 回傳小於等於所給數字的最大整數
+    }
+
+    //防呆: 當前頁次超出總頁數
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    if (totalPages <= listSize) {
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+
+        startPage = currentPage - (listSize / 2)+1 ;
+        endPage = currentPage + (listSize / 2);
+
+        if (startPage < 1) {
+            startPage = 1;
+            endPage = listSize;
+        }
+
+        if (endPage > totalPages) {
+            endPage = totalPages;
+            startPage = totalPages - (listSize - 1);
+        }
+    }
+
+    let prePage = currentPage - 1 <= 0 ? 1 : currentPage - 1;
+    let nextPage = currentPage + 1 > totalPages ? totalPages : currentPage + 1;
+
+    return {
+        currentPage
+        , startPage
+        , endPage
+        , prePage
+        , nextPage
+    };
+    
+}
+
 function delay(s) {
     return new Promise(resolve =>
         setTimeout(resolve, s * 1000)
@@ -221,18 +277,19 @@ module.exports = {
     , dateSplitByMin
     , delay
     , resultMessage
+	, getPagination
 }
 
 
 
 /*
-    登入成功後存下token: sessionStorage.setItem('token', token);
+    登入成功後存下token: localStorage.setItem('token', token);
 
     fetch(url
         , {
             headers: {
                 'content-type': 'application/json'
-                , 'token': sessionStorage.getItem('token')
+                , 'token': localStorage.getItem('token')
             }
             , body: JSON.stringify(data)
         }
