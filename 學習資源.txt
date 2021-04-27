@@ -9,4 +9,7 @@ Express.JS
     |- 官方API文檔:  https://expressjs.com/en/4x/api.html
     |- W3CSchool:    https://www.w3cschool.cn/nodejs/nodejs-express-framework.html
 
+
+Promise
+    |- 入門到精通 https://www.bilibili.com/video/BV1uo4y1d7ja?p=2
    
