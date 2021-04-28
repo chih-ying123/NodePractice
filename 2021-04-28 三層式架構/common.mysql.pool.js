@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const common = require('./common');
 
 const options = {
-    "host": "127.0.0.1",
+    "host": "192.168.202.1",
     "user": "root",
     "password": "ixwn4uwc",
     "database": "Study",

@@ -9,9 +9,18 @@ const router = express.Router();				// 路由管理
 
 router.get('/list', async (req, res) => {
 
-    let { pageIndex, pageSize } = req.query;
+    let pageIndex = parseInt(req.query.pageIndex, 10); 
+    let pageSize = parseInt(req.query.pageSize, 10);
 
-    //請求參數的處理 => 轉型， 驗證參數是否有效
+    if (isNaN(pageIndex)){
+        console.log('pageIndex輸入錯誤');
+        return res.json(resultMessage(1,'pageIndex請輸入數字',''))
+    }
+    if (isNaN(pageSize)){ 
+        console.log('pageSize輸入錯誤');
+        return res.json(resultMessage(1,'pageSize請輸入數字',''))
+    }
+
     let userList = await bll.getUserList(pageIndex, pageSize);
     res.json(userList);
 
@@ -19,7 +28,7 @@ router.get('/list', async (req, res) => {
 
 
 // /user/add
-router.get('/add', async (req, res) => {
+router.post('/add', async (req, res) => {
 
     res.json(resultMessage(0, 'userAdd'));
 });

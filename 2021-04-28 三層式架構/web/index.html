@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            margin: 10px auto;
+            width: 60%;
+            display: flex;
+            justify-content: space-between;
+        }
+        table {
+            text-align: center;
+            border: 1px solid black;
+            width: 60%;
+            margin: 0 auto;
+        }
+        table td,
+        table th {
+            border: 1px solid black
+        }
+        ul {
+            display: flex;
+            list-style-type: none;
+        }
+        li {
+            margin: 0px 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        li:hover {
+            color: rgb(108, 164, 247);
+            border: 1px solid rgb(108, 164, 247);
+        }
+
+        li.selected {
+            background-color: rgb(203, 222, 250);
+        }
+        a {
+            display: inline-block;
+            padding: 10px;
+            color: black;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="box">
+            <input type="text" id='selectKeyInput' value=""> <button id ='selectbutton'>查詢</button>
+        </div>
+        <div class="box">
+            <a href="add.html">新增+</a>
+        </div>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>暱稱</th>
+                <th>帳號</th>
+                <th>密碼</th>
+                <th>備註</th>
+                <th>日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="dataList">
+            <!--
+                <tr>
+                <th>1</th>
+                <th>嚶嚶怪</th>
+                <th>Jess0001</th>
+                <th>e10adc3949ba59abbe56e057f20f883e</th>
+                <th>肚子餓會鬧脾氣</th>
+                <th>日期</th>
+                <th><button>編輯</button><button>刪除</button></th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th>嚶嚶怪</th>
+                <th>Jess0002</th>
+                <th>e10adc3949ba59abbe56e057f20f883e</th>
+                <th>肚子餓會鬧脾氣</th>
+                <th>日期</th>
+                <th><button>編輯</button><button>刪除</button></th>
+            </tr>
+            -->
+            
+        </tbody>
+
+        <tfoot id='pageNum'>
+            <!--
+                <tr>
+                    <th colspan="7">分頁列表 1 2 3 . . .</th>
+                </tr>
+            -->
+        </tfoot>
+        
+    </table>
+
+    <script>
+        let pageSize = 20;
+
+        async function getUserList(pageIndex, pageSize){
+
+            let res = await fetch(`/user/list?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+            let json = await res.json();
+
+            if (json.resultCode === 1){
+                alert (json.resultMessage);
+            }
+            else{
+                let userList = json.result.datas;
+                let {currentPage, startPage, endPage, prePage, nextPage} = json.result.pageInfo;
+
+                let dataContent ='';
+                for (var i = 0; i <= userList.length-1; i++) {
+                    let { Id, UserName, UserAccount, UserPassword, Memo, CreateDate } = userList[i]
+                    dataContent += `
+                    <tr>
+                        <td>${Id}</td>
+                        <td>${UserName}</td>
+                        <td>${UserAccount}</td>
+                        <td>${UserPassword}</td>
+                        <td>${Memo}</td>
+                        <td>${CreateDate}</td>
+                        <td>
+                            <button>編輯</button>
+                            <button>刪除</button>
+                        </td>
+                    </tr>`;
+                }
+                dataList.innerHTML = dataContent;
+
+
+                let page_num = "";
+                for (var p=startPage; p<=endPage; p++){
+                    if(p===currentPage){
+                        page_num += `<li onclick="getUserList(${p}, pageSize)" class="selected">${p}</li>`; 
+                    }
+                    else{
+                        page_num += `<li onclick="getUserList(${p}, pageSize)">${p}</li>`; 
+                    }
+                }
+                pageNum.innerHTML = `
+                <tr><td colspan="7"><ul>
+                    <li onclick="getUserList(${prePage}, pageSize)">上一頁</li>
+                    ${page_num}
+                    <li onclick="getUserList(${nextPage}, pageSize)">下一頁</li>
+                </ul></td></tr>`; 
+            }
+        }
+
+
+        getUserList(1, pageSize)
+    </script>
+</body>
+
+</html>

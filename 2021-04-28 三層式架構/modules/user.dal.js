@@ -26,7 +26,7 @@ async function getUserList(pageIndex, pageSize) {
     let result = await executeSQL(`
         SELECT 
             Id
-            ,UserName
+            , UserName
             , UserAccount
             , UserPassword
             , Memo
