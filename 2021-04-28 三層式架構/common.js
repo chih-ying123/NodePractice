@@ -26,22 +26,10 @@ async function checkLoginForAPI(req, res, next) {
 }
 
 function resultMessage(resultCode, resultMessage, result) {
-
-    if (Object.prototype.toString.call(result) === '[object Array]') {
-        return {
-            resultCode
-            , resultMessage
-            , datas: result
-        }
-
-    }
-    else {
-
-        return {
-            resultCode
-            , resultMessage
-            , data: result
-        }
+    return {
+        resultCode
+        , resultMessage
+        , result
     }
 }
 
@@ -233,7 +221,7 @@ function getPagination(totalRows, pageSize, currentPage, listSize) {
         endPage = totalPages;
     } else {
 
-        startPage = currentPage - (listSize / 2)+1 ;
+        startPage = currentPage - (listSize / 2) + 1;
         endPage = currentPage + (listSize / 2);
 
         if (startPage < 1) {
@@ -257,7 +245,7 @@ function getPagination(totalRows, pageSize, currentPage, listSize) {
         , prePage
         , nextPage
     };
-    
+
 }
 
 function delay(s) {
@@ -277,7 +265,7 @@ module.exports = {
     , dateSplitByMin
     , delay
     , resultMessage
-	, getPagination
+    , getPagination
 }
 
 
