@@ -1,0 +1,8 @@
+路由管理   ( Router)
+商業邏輯層 ( Business Logic Layer,  簡稱 BLL )
+資料存取層 ( Database Access Layer, 簡稱 DAL )
+
+modules
+     |- user.router.js      (Router)
+     |- user.bll.js         (BLL)
+     |- user.dal.js         (DAL)
