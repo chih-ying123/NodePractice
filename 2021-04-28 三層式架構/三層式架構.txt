@@ -3,6 +3,12 @@
 資料存取層 ( Database Access Layer, 簡稱 DAL )
 
 modules
+<<<<<<< HEAD
      |- user.router.js      (Router)只處理參數相關
      |- user.bll.js         (BLL)   不是請求參數也不是SQL語法扔在這邊處理
      |- user.dal.js         (DAL)   只處理資料庫(SQL語法)
+=======
+     |- user.router.js      (Router) 只處理請求參數相關
+     |- user.bll.js         (BLL)    不是請求參數，也不是SQL語句， 扔在這邊處理
+     |- user.dal.js         (DAL)    只處理資料庫(SQL語句)
+>>>>>>> 73d3c36f398804fae04570273f928507d7840674
