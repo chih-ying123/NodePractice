@@ -45,7 +45,7 @@ router.post('/add', async (req, res) => {
         return res.json(resultMessage(1,'暱稱最少4個字',''))
     }
 
-    let addList = await dal.addUserList(UserName, UserAccount, UserPassword, Email, Memo);
+    let addList = await dal.addUser(UserName, UserAccount, UserPassword, Email, Memo);
     res.json(addList);
 });
 

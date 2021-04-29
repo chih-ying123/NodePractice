@@ -122,7 +122,7 @@
     </table>
 
     <script>
-        let pageSize = 25;
+        let pageSize = 20;
 
         async function getUserList(pageIndex, pageSize){
 
@@ -178,7 +178,9 @@
 
         async function update(Id){
             let res = await fetch(`/update.html?Id=${Id}`)
-            
+            let json = await res.json();
+
+            console.log(json);
         }
 
     </script>

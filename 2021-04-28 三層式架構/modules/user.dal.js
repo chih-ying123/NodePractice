@@ -81,13 +81,13 @@ async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) 
 }
 
 
-
+/*
 addUser('jess', 'jessJess5001', '123456', '123@123.com', 'Memo').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
 });
-
+*/
 
 module.exports = {
     getUserList
