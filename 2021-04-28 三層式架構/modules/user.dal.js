@@ -42,17 +42,31 @@ async function getUserList(pageIndex, pageSize) {
     }
 }
 
-async function addUserList(UserName, UserAccount, UserPassword, Email, Memo){
-    await executeSQL(`
-        INSERT INTO  \`User\`(UserName, UserAccount, UserPassword, Email, Memo)
-        VALUES
-        ( ${UserName}, ${UserAccount}, ${UserPassword}, ${Email}, ${Memo})
-        ;`
+async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
+
+    // 先檢查帳號是否已經存在
+
+    let r = await executeSQL(`
+        INSERT INTO \`user\`
+        SET
+            UserName = N'${UserName}'
+            , UserAccount = N'${UserAccount}'
+            , UserPassword = MD5('${UserPassword}')
+            , Email = '${Email}'
+            , Memo = N'${Memo}'
+            , CreateDate = CURRENT_TIMESTAMP ;`
     );
-    
+    if (r.affectedRows === 1) {
+        //寫成功
+    }
+    else {
+        //失敗
+    }
+    console.log(r);
+
 }
 
-async function updateUserList(Id,UserName, UserAccount, UserPassword, Email, Memo){
+async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) {
     await executeSQL(`
         UPDATE  \`User\`
         SET (UserName = ${UserName}
@@ -63,20 +77,21 @@ async function updateUserList(Id,UserName, UserAccount, UserPassword, Email, Mem
         WHERE Id = ${Id}
         ;`
     );
-    
+
 }
 
-/*
-getUserList(1, 30).then(() => {
+
+
+addUser('jess', 'jessJess5001', '123456', '123@123.com', 'Memo').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
 });
-*/
+
 
 module.exports = {
     getUserList
-    , addUserList
-    , updateUserList
+    , addUser
+    , updateUser
 
 }
