@@ -1,6 +1,8 @@
+// 只處理參數相關
 const express = require("express");
 const { resultMessage } = require('../common');
 const bll = require('./user.bll.js');
+const dal = require('./user.dal.js');
 
 const router = express.Router();				// 路由管理
 
@@ -25,15 +27,29 @@ router.get('/list', async (req, res) => {
     res.json(userList);
 
 });
+router.get('/update.html', async (req, res) => {
+
+    let Id = parseInt(req.query.Id, 10); 
+    console.log(Id);
+    res.end();
+});
 
 
 // /user/add
 router.post('/add', async (req, res) => {
 
-    res.json(resultMessage(0, 'userAdd'));
+    let {UserName, UserAccount, UserPassword, Email, Memo} = req.body;
+    
+    if (UserName.length < 4){
+        console.log('UserName輸入錯誤');
+        return res.json(resultMessage(1,'暱稱最少4個字',''))
+    }
+
+    let addList = await dal.addUserList(UserName, UserAccount, UserPassword, Email, Memo);
+    res.json(addList);
 });
 
-router.get('/update', async (req, res) => {
+router.post('/update', async (req, res) => {
 
     res.json(resultMessage(0, 'userUpdate'));
 

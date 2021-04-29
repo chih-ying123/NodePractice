@@ -29,6 +29,8 @@
         }
         ul {
             display: flex;
+            justify-content: center;
+            margin: 5px 0;
             list-style-type: none;
         }
         li {
@@ -46,15 +48,20 @@
         li.selected {
             background-color: rgb(203, 222, 250);
         }
+        .header a {
+            padding: 10px;
+        }
         a {
             display: inline-block;
-            padding: 10px;
+            padding: 3px;
             color: black;
             border: 1px solid black;
             border-radius: 5px;
             text-decoration: none;
         }
-
+        a:hover {
+            background-color: rgb(211, 209, 208);
+        }
     </style>
 </head>
 
@@ -74,7 +81,7 @@
                 <th>編號</th>
                 <th>暱稱</th>
                 <th>帳號</th>
-                <th>密碼</th>
+                <th>信箱</th>
                 <th>備註</th>
                 <th>日期</th>
                 <th>操作</th>
@@ -115,11 +122,11 @@
     </table>
 
     <script>
-        let pageSize = 20;
+        let pageSize = 25;
 
         async function getUserList(pageIndex, pageSize){
 
-            let res = await fetch(`/user/list?pageIndex=${pageIndex}&pageSize=${pageSize}`)
+            let res = await fetch(`/user/list?pageIndex=${pageIndex}&pageSize=${pageSize}`);
             let json = await res.json();
 
             if (json.resultCode === 1){
@@ -131,18 +138,18 @@
 
                 let dataContent ='';
                 for (var i = 0; i <= userList.length-1; i++) {
-                    let { Id, UserName, UserAccount, UserPassword, Memo, CreateDate } = userList[i]
+                    let { Id, UserName, UserAccount, Email, Memo, CreateDate } = userList[i]
                     dataContent += `
                     <tr>
                         <td>${Id}</td>
                         <td>${UserName}</td>
                         <td>${UserAccount}</td>
-                        <td>${UserPassword}</td>
+                        <td>${Email}</td>
                         <td>${Memo}</td>
                         <td>${CreateDate}</td>
                         <td>
-                            <button>編輯</button>
-                            <button>刪除</button>
+                            <a herf='update.html' onclick='update(${Id})'>編輯</a>
+                            <a>刪除</a>
                         </td>
                     </tr>`;
                 }
@@ -167,8 +174,13 @@
             }
         }
 
-
         getUserList(1, pageSize)
+
+        async function update(Id){
+            let res = await fetch(`/update.html?Id=${Id}`)
+            
+        }
+
     </script>
 </body>
 

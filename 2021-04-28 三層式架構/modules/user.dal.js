@@ -7,7 +7,7 @@ async function getUserList(pageIndex, pageSize) {
     let ids = await executeSQL(`SELECT Id FROM \`User\` ORDER BY Id ASC ;`);
     totalRows = ids.length;  // 取得資料總筆數   
     ids = ids.map(item => { return item.Id });
-    console.log(ids);
+    //console.log(ids);
 
     let startIndex = (pageIndex - 1) * pageSize;  // 陣列是 0 Base
     let endIndex = pageIndex * pageSize;
@@ -21,14 +21,14 @@ async function getUserList(pageIndex, pageSize) {
     }
 
     let targets = ids.slice(startIndex, endIndex);
-    console.log(targets);
+    //console.log(targets);
 
     let result = await executeSQL(`
         SELECT 
             Id
             , UserName
             , UserAccount
-            , UserPassword
+            , Email
             , Memo
             , CreateDate 
         FROM \`User\` 
@@ -42,6 +42,29 @@ async function getUserList(pageIndex, pageSize) {
     }
 }
 
+async function addUserList(UserName, UserAccount, UserPassword, Email, Memo){
+    await executeSQL(`
+        INSERT INTO  \`User\`(UserName, UserAccount, UserPassword, Email, Memo)
+        VALUES
+        ( ${UserName}, ${UserAccount}, ${UserPassword}, ${Email}, ${Memo})
+        ;`
+    );
+    
+}
+
+async function updateUserList(Id,UserName, UserAccount, UserPassword, Email, Memo){
+    await executeSQL(`
+        UPDATE  \`User\`
+        SET (UserName = ${UserName}
+            , UserAccount = ${UserAccount}
+            , UserPassword = ${UserPassword}
+            , Email = ${Email}
+            , Memo = ${Memo})
+        WHERE Id = ${Id}
+        ;`
+    );
+    
+}
 
 /*
 getUserList(1, 30).then(() => {
@@ -53,6 +76,7 @@ getUserList(1, 30).then(() => {
 
 module.exports = {
     getUserList
-
+    , addUserList
+    , updateUserList
 
 }
