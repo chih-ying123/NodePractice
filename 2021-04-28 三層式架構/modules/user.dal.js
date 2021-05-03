@@ -53,10 +53,10 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
     for (let i=0; i<selectUserAccount.length; i++){
         // 先檢查帳號是否已經存在
         if ( selectUserAccount[i].UserAccount === UserAccount){
-            console.log('帳號重複使用');
+            console.log('帳號已有人使用');
             return {
                 resultCode: 1
-                , resultMessage: '帳號已存在'
+                , resultMessage: '帳號已有人使用'
             }
         }
     }
