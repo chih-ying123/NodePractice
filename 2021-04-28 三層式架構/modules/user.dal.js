@@ -42,38 +42,58 @@ async function getUserList(pageIndex, pageSize) {
     }
 }
 
+
 async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 
-    // 先檢查帳號是否已經存在
+    let selectUserAccount = await executeSQL(`
+        SELECT UserAccount
+        FROM \`User\` ;`
+    );
 
+    for (let i=0; i<selectUserAccount.length; i++){
+        // 先檢查帳號是否已經存在
+        if ( selectUserAccount[i].UserAccount === UserAccount){
+            console.log('帳號重複使用');
+            return {
+                resultCode: 1
+                , resultMessage: '帳號已存在'
+            }
+        }
+    }
     let r = await executeSQL(`
-        INSERT INTO \`user\`
-        SET
-            UserName = N'${UserName}'
-            , UserAccount = N'${UserAccount}'
-            , UserPassword = MD5('${UserPassword}')
-            , Email = '${Email}'
-            , Memo = N'${Memo}'
-            , CreateDate = CURRENT_TIMESTAMP ;`
+    INSERT INTO \`user\`
+    SET
+        UserName = N'${UserName}'
+        , UserAccount = N'${UserAccount}'
+        , UserPassword = MD5('${UserPassword}')
+        , Email = '${Email}'
+        , Memo = N'${Memo}'
+        , CreateDate = CURRENT_TIMESTAMP ;`
     );
     if (r.affectedRows === 1) {
-        //寫成功
+        return {
+            resultCode: 0
+            , resultMessage: '資料新增成功'
+        }
     }
     else {
-        //失敗
+        return {
+            resultCode: 1
+            , resultMessage: '資料新增失敗'
+        }
     }
-    console.log(r);
+
 
 }
 
 async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) {
-    await executeSQL(`
+    let r = await executeSQL(`
         UPDATE  \`User\`
-        SET (UserName = ${UserName}
-            , UserAccount = ${UserAccount}
-            , UserPassword = ${UserPassword}
-            , Email = ${Email}
-            , Memo = ${Memo})
+        SET UserName = N'${UserName}'
+            , UserAccount = N'${UserAccount}'
+            , UserPassword = MD5('${UserPassword}')
+            , Email = '${Email}'
+            , Memo = N'${Memo}'
         WHERE Id = ${Id}
         ;`
     );
