@@ -13,20 +13,34 @@ async function getUserList(pageIndex, pageSize) {
     });
 }
 
+async function ifUserNameExists(UserAccount) {
+
+    let result = await dal.ifUserNameExists(UserAccount);
+    return result;
+
+}
+
 async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
+
+    // 先判斷帳號是否存在
+    let ifUserNameExists = ifUserNameExists(UserAccount);
+    if (ifUserNameExists.length > 0) {
+        return resultMessage(1, '帳號重複');
+    }
 
     let addresult = await dal.addUser(UserName, UserAccount, UserPassword, Email, Memo);
 
-    if (addresult.resultCode === 0){
-        return resultMessage(0, addresult.resultMessage, '');
+    if (addresult.affectedRows === 1) {
+
+        return resultMessage(0, '資料新增成功');
     }
-    else{
-        return resultMessage(1, addresult.resultMessage, '' );
+    else {
+        return resultMessage(1, '資料新增失敗');
     }
 }
 
 module.exports = {
     getUserList
     , addUser
-
+    
 }
