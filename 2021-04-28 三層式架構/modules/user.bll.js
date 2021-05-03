@@ -23,7 +23,7 @@ async function ifUserNameExists(UserAccount) {
 async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 
     // 先判斷帳號是否存在
-    let ifUserNameExists = ifUserNameExists(UserAccount);
+    let ifUserNameExists = await ifUserNameExists(UserAccount);
     if (ifUserNameExists.length > 0) {
         return resultMessage(1, '帳號重複');
     }
