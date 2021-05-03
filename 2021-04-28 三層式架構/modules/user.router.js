@@ -28,13 +28,6 @@ router.get('/list', async (req, res) => {
 
 });
 
-router.get('/update.html', async (req, res) => {
-
-    let Id = parseInt(req.query.Id, 10);
-    console.log(Id);
-    res.end();
-});
-
 
 // /user/add
 router.post('/add', async (req, res) => {
