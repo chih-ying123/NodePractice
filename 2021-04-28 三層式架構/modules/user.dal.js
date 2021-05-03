@@ -42,24 +42,24 @@ async function getUserList(pageIndex, pageSize) {
     }
 }
 
+async function ifUserNameExists(UserAccount) {
 
-async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 
     let selectUserAccount = await executeSQL(`
         SELECT UserAccount
-        FROM \`User\` ;`
+        FROM \`User\` 
+        Where UserAccount = N'${UserAccount}';`
     );
 
-    for (let i=0; i<selectUserAccount.length; i++){
-        // 先檢查帳號是否已經存在
-        if ( selectUserAccount[i].UserAccount === UserAccount){
-            console.log('帳號重複使用');
-            return {
-                resultCode: 1
-                , resultMessage: '帳號已存在'
-            }
-        }
-    }
+    console.log(selectUserAccount)
+
+    return selectUserAccount;  // 這是一個陣列
+
+}
+
+
+async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
+
     let r = await executeSQL(`
     INSERT INTO \`user\`
     SET
@@ -70,19 +70,7 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
         , Memo = N'${Memo}'
         , CreateDate = CURRENT_TIMESTAMP ;`
     );
-    if (r.affectedRows === 1) {
-        return {
-            resultCode: 0
-            , resultMessage: '資料新增成功'
-        }
-    }
-    else {
-        return {
-            resultCode: 1
-            , resultMessage: '資料新增失敗'
-        }
-    }
-
+    return r;
 
 }
 
@@ -101,13 +89,13 @@ async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) 
 }
 
 
-/*
-addUser('jess', 'jessJess5001', '123456', '123@123.com', 'Memo').then(() => {
+
+ifUserNameExists('1313').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
 });
-*/
+
 
 module.exports = {
     getUserList
