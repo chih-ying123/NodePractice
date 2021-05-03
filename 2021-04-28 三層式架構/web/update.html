@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <form action="/user/update" method="POST">
         <h4>資料修改</h4>
@@ -19,8 +21,16 @@
     </form>
 
     <script>
-        
+
+        let locationHref = location.href;  // http://localhost:3000/update.html?id=1000
+        let url = new URL(locationHref);
+        let id = url.searchParams.get('id');
+
+        alert(id)
+
+        // 拿id 去跟server要資料 fetch ('/user/getById') 把id 帶上去
 
     </script>
 </body>
+
 </html>

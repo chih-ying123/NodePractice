@@ -13,7 +13,7 @@ async function getUserList(pageIndex, pageSize) {
     });
 }
 
-async function ifUserNameExists(UserAccount) {
+async function ifUserAccountExists(UserAccount) {
 
     let result = await dal.ifUserNameExists(UserAccount);
     return result;
@@ -23,8 +23,8 @@ async function ifUserNameExists(UserAccount) {
 async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 
     // 先判斷帳號是否存在
-    let ifUserNameExists = await ifUserNameExists(UserAccount);
-    if (ifUserNameExists.length > 0) {
+    let _ifUserAccountExistsResult = await ifUserAccountExists(UserAccount);
+    if (_ifUserAccountExistsResult.length > 0) {
         return resultMessage(1, '帳號重複');
     }
 
@@ -42,5 +42,5 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 module.exports = {
     getUserList
     , addUser
-    
+
 }
