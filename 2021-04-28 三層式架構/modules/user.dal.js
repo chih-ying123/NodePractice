@@ -89,12 +89,12 @@ async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) 
 }
 
 
-
+/*
 ifUserNameExists('1313').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
-});
+});*/
 
 
 module.exports = {
