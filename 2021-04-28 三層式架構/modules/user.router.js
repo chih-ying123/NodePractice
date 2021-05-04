@@ -16,11 +16,11 @@ router.get('/list', async (req, res) => {
 
     if (isNaN(pageIndex)) {
         console.log('pageIndex輸入錯誤');
-        return res.json(resultMessage(1, 'pageIndex請輸入數字', ''))
+        return res.json(resultMessage(1, 'pageIndex請輸入數字' ))
     }
     if (isNaN(pageSize)) {
         console.log('pageSize輸入錯誤');
-        return res.json(resultMessage(1, 'pageSize請輸入數字', ''))
+        return res.json(resultMessage(1, 'pageSize請輸入數字'))
     }
 
     let userList = await bll.getUserList(pageIndex, pageSize);
@@ -47,6 +47,18 @@ router.post('/add', async (req, res) => {
 router.post('/update', async (req, res) => {
 
     res.json(resultMessage(0, 'userUpdate'));
+
+});
+
+router.post('/getById', async (req, res) => {
+
+    let id = parseInt(req.query.id, 10);
+    if (isNaN(id)) {
+        console.log('id輸入錯誤');
+        return res.json(resultMessage(1, 'id請輸入數字'))
+    }
+    console.log(id);
+    res.json();
 
 });
 

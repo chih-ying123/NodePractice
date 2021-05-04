@@ -31,6 +31,10 @@
         // 拿id 去跟server要資料 fetch ('/user/getById') 把id 帶上去
         async function updateUser(id){
 
+            let res = await fetch(`/user/getById?id=${id}`);
+            let json = await res.json();
+            console.log(json);
+
         }
         updateUser(id);
     </script>
