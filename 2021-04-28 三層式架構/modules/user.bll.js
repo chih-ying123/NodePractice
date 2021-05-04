@@ -15,7 +15,7 @@ async function getUserList(pageIndex, pageSize) {
 
 async function ifUserAccountExists(UserAccount) {
 
-    let result = await dal.ifUserNameExists(UserAccount);
+    let result = await dal.ifUserAccountExists(UserAccount);
     return result;
 
 }

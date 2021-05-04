@@ -42,7 +42,7 @@ async function getUserList(pageIndex, pageSize) {
     }
 }
 
-async function ifUserNameExists(UserAccount) {
+async function ifUserAccountExists(UserAccount) {
 
     let selectUserAccount = await executeSQL(`
         SELECT UserAccount
@@ -50,7 +50,7 @@ async function ifUserNameExists(UserAccount) {
         Where UserAccount = N'${UserAccount}';`
     );
 
-    console.log(selectUserAccount)
+    //console.log(selectUserAccount)
 
     return selectUserAccount;  // 這是一個陣列
 
@@ -89,7 +89,7 @@ async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) 
 
 
 /*
-ifUserNameExists('1313').then(() => {
+ifUserAccountExists('1313').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
@@ -100,6 +100,6 @@ module.exports = {
     getUserList
     , addUser
     , updateUser
-    , ifUserNameExists
+    , ifUserAccountExists
 
 }

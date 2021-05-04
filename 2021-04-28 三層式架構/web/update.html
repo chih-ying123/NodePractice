@@ -22,14 +22,17 @@
 
     <script>
 
-        let locationHref = location.href;  // http://localhost:3000/update.html?id=1000
-        let url = new URL(locationHref);
-        let id = url.searchParams.get('id');
+        let locationHref = location.href;  //拿到網址 http://localhost:3000/update.html?id=1000
+        let url = new URL(locationHref);   //解析
+        let id = url.searchParams.get('id'); //抓取
 
-        alert(id)
+        //alert(id)
 
         // 拿id 去跟server要資料 fetch ('/user/getById') 把id 帶上去
+        async function updateUser(id){
 
+        }
+        updateUser(id);
     </script>
 </body>
 

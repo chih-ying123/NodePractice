@@ -40,6 +40,7 @@ router.post('/add', async (req, res) => {
     }
 
     let addresult = await bll.addUser(UserName, UserAccount, UserPassword, Email, Memo);
+    
     res.json(addresult);
 });
 
