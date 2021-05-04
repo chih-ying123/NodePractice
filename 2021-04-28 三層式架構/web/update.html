@@ -11,6 +11,7 @@
 <body>
     <form action="/user/update" method="POST">
         <h4>資料修改</h4>
+        <input type="hidden" name="id" id="id">
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
         <br>帳號: <input type="text" name="UserAccount" id="UserAccount" required="required">
         <br>信箱: <input type="email" name="Email" id="Email" required="required">
@@ -39,17 +40,19 @@
                 alert (json.resultMessage);
             }
             else{
+                let id= document.getElementById('id');
                 let UserName = document.getElementById('UserName');
                 let UserAccount = document.getElementById('UserAccount');
                 let Email = document.getElementById('Email');
                 let Memo = document.getElementById('Memo');
                 //let UserPassword = document.getElementById('UserPassword');
+                id.value = data.Id;
                 UserName.value = data.UserName;
                 UserAccount.value = data.UserAccount;
                 Email.value = data.Email;
                 Memo.value = data.Memo;
                 //UserPassword.value = data.UserPassword;
-                
+
             }
 
         }

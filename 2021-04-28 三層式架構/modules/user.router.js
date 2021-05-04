@@ -46,7 +46,11 @@ router.post('/add', async (req, res) => {
 
 router.post('/update', async (req, res) => {
 
-    res.json(resultMessage(0, 'userUpdate'));
+    let id = parseInt(req.body.id, 10);
+    let { UserName, UserAccount, UserPassword, Email, Memo } = req.body;
+    let updateresult = await bll.updateUser(id, UserName, UserAccount, UserPassword, Email, Memo);
+
+    res.json(updateresult)
 
 });
 

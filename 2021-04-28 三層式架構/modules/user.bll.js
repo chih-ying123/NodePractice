@@ -39,8 +39,6 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
     }
 }
 
-
-
 async function getUserdata(id){
     //id是否存在
     let getUserdata = await dal.getUserdata(id);
@@ -55,9 +53,26 @@ async function getUserdata(id){
 
 }
 
+async function updateUser(id, UserName, UserAccount, UserPassword, Email, Memo){
+
+    // 判斷帳號是否有人使用
+
+    
+
+    let updateresult = await dal.updateUser(id, UserName, UserAccount, UserPassword, Email, Memo);
+    if (updateresult.affectedRows === 1) {
+
+        return resultMessage(0, '資料修改完成');
+    }
+    else {
+        return resultMessage(1, '資料新增失敗');
+    }
+}
+
 module.exports = {
     getUserList
     , addUser
     , getUserdata
+    , updateUser
 
 }

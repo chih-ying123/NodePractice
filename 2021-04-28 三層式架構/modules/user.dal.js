@@ -86,6 +86,7 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 }
 
 async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) {
+
     let r = await executeSQL(`
         UPDATE  \`User\`
         SET UserName = N'${UserName}'
@@ -97,6 +98,8 @@ async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo) 
         ;`
     );
 
+    return r;
+
 }
 
 
@@ -105,8 +108,8 @@ ifUserAccountExists('1313').then(() => {
     dbConnection.end();
 }).catch(() => {
     dbConnection.end();
-});*/
-
+});
+*/
 
 module.exports = {
     getUserList
