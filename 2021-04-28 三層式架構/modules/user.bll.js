@@ -43,6 +43,7 @@ async function getUserdata(id){
     //id是否存在
     let getUserdata = await dal.getUserdata(id);
     if (getUserdata.length === 0) {
+        console.log('Id不存在');
         return resultMessage(1, 'Id不存在');
     }
 
@@ -54,10 +55,6 @@ async function getUserdata(id){
 }
 
 async function updateUser(id, UserName, UserAccount, UserPassword, Email, Memo){
-
-    // 判斷帳號是否有人使用
-
-    
 
     let updateresult = await dal.updateUser(id, UserName, UserAccount, UserPassword, Email, Memo);
     if (updateresult.affectedRows === 1) {

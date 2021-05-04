@@ -13,7 +13,7 @@
         <h4>資料修改</h4>
         <input type="hidden" name="id" id="id">
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
-        <br>帳號: <input type="text" name="UserAccount" id="UserAccount" required="required">
+        <br>帳號: <input type="text" name="UserAccount" id="UserAccount"  readonly="readonly">
         <br>信箱: <input type="email" name="Email" id="Email" required="required">
         <br>密碼: <input type="password" name="UserPassword" id="UserPassword" required="required">
         <br>備註: <input type="text" name="Memo" id="Memo" required="required">
@@ -54,6 +54,7 @@
                 //UserPassword.value = data.UserPassword;
 
             }
+
 
         }
         updateUser(id);
