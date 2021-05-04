@@ -23,9 +23,8 @@
     <script>
         // 改成fetch， 不要讓頁面刷新
 
-        let addUserForm = document.getElementById('addUserForm');
-     
-	    addUserForm.addEventListener('submit',(e)=>{
+    let addUserForm = document.getElementById('addUserForm');
+	addUserForm.addEventListener('submit',(e)=>{
 
         let UserName = document.getElementById('UserName').value;
         let UserAccount = document.getElementById('UserAccount').value;
@@ -37,7 +36,7 @@
 
 		let action = addUserForm.action;
 		let postPostBody =          
-        ` UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
+        `UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
 
 		let postOptions = {
 			method: 'POST',

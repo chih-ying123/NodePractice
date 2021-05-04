@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="/user/update" method="POST">
+    <form action="/user/update" method="POST" id="updateUserForm">
         <h4>資料修改</h4>
         <input type="hidden" name="id" id="id">
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
@@ -54,9 +54,41 @@
                 //UserPassword.value = data.UserPassword;
 
             }
-
-
         }
+
+    let addUserForm = document.getElementById('updateUserForm');
+	addUserForm.addEventListener('submit',(e)=>{
+
+        let id = document.getElementById('id').value;
+        let UserName = document.getElementById('UserName').value;
+        let UserAccount = document.getElementById('UserAccount').value;
+        let Email = document.getElementById('Email').value;
+        let UserPassword = document.getElementById('UserPassword').value;
+        let Memo = document.getElementById('Memo').value;
+
+		e.preventDefault();
+
+		let action = addUserForm.action;
+		let postPostBody =          
+        `id=${id}&UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
+
+		let postOptions = {
+			method: 'POST',
+			body: postPostBody,
+			headers: new Headers({
+				'Content-Type': 'application/x-www-form-urlencoded'
+			})
+		}
+
+		fetch(action, postOptions).then(res => res.json()).then(res=>{
+			alert(res.resultMessage);
+		});
+
+		return false; 
+
+
+	});
+
         updateUser(id);
     </script>
 </body>
