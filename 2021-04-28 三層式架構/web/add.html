@@ -24,18 +24,19 @@
         // 改成fetch， 不要讓頁面刷新
 
         let addUserForm = document.getElementById('addUserForm');
+     
+	    addUserForm.addEventListener('submit',(e)=>{
+
         let UserName = document.getElementById('UserName').value;
         let UserAccount = document.getElementById('UserAccount').value;
         let Email = document.getElementById('Email').value;
         let UserPassword = document.getElementById('UserPassword').value;
         let Memo = document.getElementById('Memo').value;
 
-	    addUserForm.addEventListener('submit',(e)=>{
-
 		e.preventDefault(); //不讓表單提交 step1 (自行搜尋功能 preventDefault())
 
 		let action = addUserForm.action;
-		let postPostBody =  
+		let postPostBody =          
         ` UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
 
 		let postOptions = {
