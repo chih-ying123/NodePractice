@@ -56,6 +56,18 @@ async function ifUserAccountExists(UserAccount) {
 
 }
 
+async function getUserdata(id) {
+
+    let selectId = await executeSQL(`
+        SELECT *
+        FROM \`User\` 
+        Where Id = ${id};`
+    );
+
+    return selectId;
+
+}
+
 
 async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
 
@@ -101,5 +113,6 @@ module.exports = {
     , addUser
     , updateUser
     , ifUserAccountExists
+    , getUserdata
 
 }

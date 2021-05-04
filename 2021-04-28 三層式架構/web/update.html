@@ -14,7 +14,7 @@
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
         <br>帳號: <input type="text" name="UserAccount" id="UserAccount" required="required">
         <br>信箱: <input type="email" name="Email" id="Email" required="required">
-        <br>密碼: <input type="text" name="UserPassword" id="UserPassword" required="required">
+        <br>密碼: <input type="password" name="UserPassword" id="UserPassword" required="required">
         <br>備註: <input type="text" name="Memo" id="Memo" required="required">
         <br><button type="submit">確定修改</button>
 
@@ -33,7 +33,24 @@
 
             let res = await fetch(`/user/getById?id=${id}`);
             let json = await res.json();
-            console.log(json);
+            let data = json.result.getUserdata;
+
+            if (json.resultCode === 1){
+                alert (json.resultMessage);
+            }
+            else{
+                let UserName = document.getElementById('UserName');
+                let UserAccount = document.getElementById('UserAccount');
+                let Email = document.getElementById('Email');
+                let Memo = document.getElementById('Memo');
+                //let UserPassword = document.getElementById('UserPassword');
+                UserName.value = data.UserName;
+                UserAccount.value = data.UserAccount;
+                Email.value = data.Email;
+                Memo.value = data.Memo;
+                //UserPassword.value = data.UserPassword;
+                
+            }
 
         }
         updateUser(id);

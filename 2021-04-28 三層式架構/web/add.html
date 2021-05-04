@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +29,7 @@
 		e.preventDefault(); //不讓表單提交 step1 (自行搜尋功能 preventDefault())
 
 		let action = addUserForm.action;
-		let postPostBody = $('#addUserForm').serialize() //jQuery用法ajax serialize()序列化表單值  key1=value1&key2=value2
+		let postPostBody =  //serialize()序列化表單值  key1=value1&key2=value2
 
 		let postOptions = {
 			method: 'POST',

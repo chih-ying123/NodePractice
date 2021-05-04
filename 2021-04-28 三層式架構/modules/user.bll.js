@@ -39,8 +39,25 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
     }
 }
 
+
+
+async function getUserdata(id){
+    //id是否存在
+    let getUserdata = await dal.getUserdata(id);
+    if (getUserdata.length === 0) {
+        return resultMessage(1, 'Id不存在');
+    }
+
+    getUserdata = getUserdata[0];
+    return resultMessage(0, '', {
+        getUserdata
+    });
+
+}
+
 module.exports = {
     getUserList
     , addUser
+    , getUserdata
 
 }
