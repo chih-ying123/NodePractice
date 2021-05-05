@@ -39,11 +39,11 @@ async function addUser(UserName, UserAccount, UserPassword, Email, Memo) {
     }
 }
 
-async function getUserdata(id){
-    //id是否存在
-    let getUserdata = await dal.getUserdata(id);
+async function getUserdata(Id){
+    //Id是否存在
+    let getUserdata = await dal.getUserdata(Id);
     if (getUserdata.length === 0) {
-        console.log('Id不存在');
+        //console.log('Id不存在');
         return resultMessage(1, 'Id不存在');
     }
 
@@ -54,9 +54,9 @@ async function getUserdata(id){
 
 }
 
-async function updateUser(id, UserName, UserAccount, UserPassword, Email, Memo){
+async function updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo){
 
-    let updateresult = await dal.updateUser(id, UserName, UserAccount, UserPassword, Email, Memo);
+    let updateresult = await dal.updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo);
     if (updateresult.affectedRows === 1) {
 
         return resultMessage(0, '資料修改完成');

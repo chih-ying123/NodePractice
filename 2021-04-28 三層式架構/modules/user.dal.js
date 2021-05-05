@@ -56,12 +56,12 @@ async function ifUserAccountExists(UserAccount) {
 
 }
 
-async function getUserdata(id) {
+async function getUserdata(Id) {
 
     let selectId = await executeSQL(`
         SELECT *
         FROM \`User\` 
-        Where Id = ${id};`
+        Where Id = ${Id};`
     );
 
     return selectId;

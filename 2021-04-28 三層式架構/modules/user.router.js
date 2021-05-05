@@ -46,9 +46,9 @@ router.post('/add', async (req, res) => {
 
 router.post('/update', async (req, res) => {
 
-    let id = parseInt(req.body.id, 10);
+    let Id = parseInt(req.body.Id, 10);
     let { UserName, UserAccount, UserPassword, Email, Memo } = req.body;
-    let updateresult = await bll.updateUser(id, UserName, UserAccount, UserPassword, Email, Memo);
+    let updateresult = await bll.updateUser(Id, UserName, UserAccount, UserPassword, Email, Memo);
 
     res.json(updateresult)
 
@@ -56,12 +56,12 @@ router.post('/update', async (req, res) => {
 
 router.get('/getById', async (req, res) => {
 
-    let id = parseInt(req.query.id, 10);
-    if (isNaN(id)) {
-        console.log('id輸入錯誤');
-        return res.json(resultMessage(1, 'id請輸入數字'))
+    let Id = parseInt(req.query.Id, 10);
+    if (isNaN(Id)) {
+        //console.log('Id輸入錯誤');
+        return res.json(resultMessage(1, 'Id請輸入數字'))
     }
-    let Userdata = await bll.getUserdata(id);
+    let Userdata = await bll.getUserdata(Id);
     res.json(Userdata);
 
 });

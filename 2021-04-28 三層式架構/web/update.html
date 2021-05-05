@@ -11,7 +11,7 @@
 <body>
     <form action="/user/update" method="POST" id="updateUserForm">
         <h4>資料修改</h4>
-        <input type="hidden" name="id" id="id">
+        <input type="hidden" name="Id" id="Id">
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
         <br>帳號: <input type="text" name="UserAccount" id="UserAccount"  readonly="readonly">
         <br>信箱: <input type="email" name="Email" id="Email" required="required">
@@ -25,14 +25,14 @@
 
         let locationHref = location.href;  //拿到網址 http://localhost:3000/update.html?id=1000
         let url = new URL(locationHref);   //解析
-        let id = url.searchParams.get('id'); //抓取
+        let Id = url.searchParams.get('Id'); //抓取
 
         //alert(id)
 
         // 拿id 去跟server要資料 fetch ('/user/getById') 把id 帶上去
-        async function updateUser(id){
+        async function updateUser(Id){
 
-            let res = await fetch(`/user/getById?id=${id}`);
+            let res = await fetch(`/user/getById?Id=${Id}`);
             let json = await res.json();
             let data = json.result.getUserdata;
 
@@ -40,13 +40,13 @@
                 alert (json.resultMessage);
             }
             else{
-                let id= document.getElementById('id');
+                let Id= document.getElementById('Id');
                 let UserName = document.getElementById('UserName');
                 let UserAccount = document.getElementById('UserAccount');
                 let Email = document.getElementById('Email');
                 let Memo = document.getElementById('Memo');
                 //let UserPassword = document.getElementById('UserPassword');
-                id.value = data.Id;
+                Id.value = data.Id;
                 UserName.value = data.UserName;
                 UserAccount.value = data.UserAccount;
                 Email.value = data.Email;
@@ -56,10 +56,10 @@
             }
         }
 
-    let addUserForm = document.getElementById('updateUserForm');
-	addUserForm.addEventListener('submit',(e)=>{
+    let updateUserForm = document.getElementById('updateUserForm');
+	updateUserForm.addEventListener('submit',(e)=>{
 
-        let id = document.getElementById('id').value;
+        let Id = document.getElementById('Id').value;
         let UserName = document.getElementById('UserName').value;
         let UserAccount = document.getElementById('UserAccount').value;
         let Email = document.getElementById('Email').value;
@@ -68,9 +68,9 @@
 
 		e.preventDefault();
 
-		let action = addUserForm.action;
+		let action = updateUserForm.action;
 		let postPostBody =          
-        `id=${id}&UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
+        `Id=${Id}&UserName=${UserName}&UserAccount=${UserAccount}&UserPassword=${UserPassword}&Email=${Email}&Memo=${Memo} `
 
 		let postOptions = {
 			method: 'POST',
@@ -89,7 +89,7 @@
 
 	});
 
-        updateUser(id);
+    updateUser(Id);
     </script>
 </body>
 
