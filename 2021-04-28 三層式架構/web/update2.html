@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/user/update" method="POST" id="updateUserForm">
+        <h4>資料修改</h4>
+        <input type="hidden" name="id" id="id">
+        暱稱: <input type="text" name="UserName" id="UserName" required="required">
+        <br>帳號: <input type="text" name="UserAccount" id="UserAccount" readonly="readonly">
+        <br>信箱: <input type="email" name="Email" id="Email" required="required">
+        <br>密碼: <input type="password" name="UserPassword" id="UserPassword" required="required">
+        <br>備註: <input type="text" name="Memo" id="Memo" required="required">
+        <br><button type="button" id='submitBtn'>確定修改</button>
+
+    </form>
+
+    <script>
+
+        function getUserId() {
+            let locationHref = location.href;  //拿到網址 http://localhost:3000/update.html?id=1000
+            let url = new URL(locationHref);   //解析
+            let id = url.searchParams.get('id'); //抓取
+            return id;
+        }
+
+        async function getUserById(id) {
+
+            if (id === null) {
+                alert('請輸入id');
+                return null;
+
+            }
+            else if (isNaN(parseInt(id))) {
+                alert('id須為數字');
+                return null;
+            }
+
+            let res = await fetch(`/user/getById?id=${id}`);
+            let json = await res.json();
+            let user = json.result.getUserdata;
+
+            if (json.resultCode === 1) {
+                alert(json.resultMessage);
+                return null;
+            }
+            return user;
+        }
+
+        async function start() {
+            let id = getUserId();
+            let user = await getUserById(id);
+            if (user === null) {
+                return alert('查無會員資料');
+            }
+            fillForm(user);
+        }
+
+        function fillForm(user) {
+            let inputs = Array.from(document.querySelectorAll('#updateUserForm>input'));
+            inputs.forEach((input) => {
+                input.value = user[input.name] || '';
+            });
+
+            // 傷心，表單的id跟user的Id 沒辦法對應上
+            document.getElementById('id').value = user.Id;
+        }
+        start();
+
+        let submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('click', async (e) => {
+
+            let inputs = Array.from(document.querySelectorAll('#updateUserForm>input'));
+            let postPostBody = [];
+            inputs.forEach((input) => {
+                postPostBody.push(`${input.name}=${input.value}`);
+            });
+
+            postPostBody = postPostBody.join('&')
+            let form = document.getElementById('updateUserForm');
+            let action = form.action;
+            let postOptions = {
+                method: 'POST',
+                body: postPostBody,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+
+            let res = await fetch(action, postOptions);
+            let json = await res.json();
+            alert(json.resultMessage);
+        });
+
+    </script>
+</body>
+
+</html>
