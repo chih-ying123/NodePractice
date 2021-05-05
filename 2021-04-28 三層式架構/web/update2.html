@@ -11,7 +11,7 @@
 <body>
     <form action="/user/update" method="POST" id="updateUserForm">
         <h4>資料修改</h4>
-        <input type="hidden" name="id" id="id">
+        <input type="hidden" name="Id" id="Id">
         暱稱: <input type="text" name="UserName" id="UserName" required="required">
         <br>帳號: <input type="text" name="UserAccount" id="UserAccount" readonly="readonly">
         <br>信箱: <input type="email" name="Email" id="Email" required="required">
@@ -26,23 +26,23 @@
         function getUserId() {
             let locationHref = location.href;  //拿到網址 http://localhost:3000/update.html?id=1000
             let url = new URL(locationHref);   //解析
-            let id = url.searchParams.get('id'); //抓取
-            return id;
+            let Id = url.searchParams.get('Id'); //抓取
+            return Id;
         }
 
-        async function getUserById(id) {
+        async function getUserById(Id) {
 
-            if (id === null) {
+            if (Id === null) {
                 alert('請輸入id');
                 return null;
 
             }
-            else if (isNaN(parseInt(id))) {
+            else if (isNaN(parseInt(Id))) {
                 alert('id須為數字');
                 return null;
             }
 
-            let res = await fetch(`/user/getById?id=${id}`);
+            let res = await fetch(`/user/getById?Id=${Id}`);
             let json = await res.json();
             let user = json.result.getUserdata;
 
@@ -54,8 +54,8 @@
         }
 
         async function start() {
-            let id = getUserId();
-            let user = await getUserById(id);
+            let Id = getUserId();
+            let user = await getUserById(Id);
             if (user === null) {
                 return alert('查無會員資料');
             }
@@ -68,8 +68,6 @@
                 input.value = user[input.name] || '';
             });
 
-            // 傷心，表單的id跟user的Id 沒辦法對應上
-            document.getElementById('id').value = user.Id;
         }
         start();
 
