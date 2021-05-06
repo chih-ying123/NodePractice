@@ -8,10 +8,12 @@ const router = express.Router(); // 路由管理
 
 //app.use -> 請求攔截 (濾網)
 router.use((req, res, next) => {
-	console.log('攔截-----------------------------------------');
+	//console.log('攔截-----------------------------------------');
 	//請求進來的參數會有兩個來源 req.query、 req.body
 	//有傳值進來 要檢查值是否正確
 	let Id = req.query.Id || req.body.Id; //記得!傳進來是字串
+	let pageIndex = req.query.pageIndex || req.body.pageIndex;
+	let pageSize = req.query.pageSize || req.body.pageSize;
 	//console.log(Id); //沒傳東西是 undefined
 	try {
 		if (typeof Id === 'string' && Id.length > 0) {
@@ -21,7 +23,18 @@ router.use((req, res, next) => {
 				throw Error('Id需為數字');
 			}
 		}
-		console.log('OK');
+		if (typeof pageIndex === 'string' && pageIndex.length > 0) {
+			let parsepageIndex = parseInt(pageIndex);
+			if (isNaN(parsepageIndex)) {
+				throw Error('pageIndex需為數字');
+			}
+		}
+		if (typeof pageSize === 'string' && pageSize.length > 0) {
+			let parsepageSize = parseInt(pageSize);
+			if (isNaN(parsepageSize)) {
+				throw Error('pageSize需為數字');
+			}
+		}
 		next();
 	} catch (err) {
 		res.json(resultMessage(1, err.message));
@@ -31,16 +44,15 @@ router.use((req, res, next) => {
 // /user/list
 
 router.get('/list', async (req, res) => {
-	let pageIndex = parseInt(req.query.pageIndex, 10);
-	let pageSize = parseInt(req.query.pageSize, 10);
-
-	if (isNaN(pageIndex)) {
-		console.log('pageIndex輸入錯誤');
-		return res.json(resultMessage(1, 'pageIndex請輸入數字'));
+	let pageIndex = req.query.pageIndex || req.body.pageIndex;
+	if (typeof pageIndex === 'undefined' || pageIndex.length == 0) {
+		console.log('請輸入pageIndex');
+		res.json(resultMessage(1, '請輸入pageIndex'));
 	}
-	if (isNaN(pageSize)) {
-		console.log('pageSize輸入錯誤');
-		return res.json(resultMessage(1, 'pageSize請輸入數字'));
+	let  pageSize = req.query. pageSize || req.body. pageSize;
+	if (typeof  pageSize === 'undefined' ||  pageSize.length == 0) {
+		console.log('請輸入 pageSize');
+		res.json(resultMessage(1, '請輸入 pageSize'));
 	}
 
 	let userList = await bll.getUserList(pageIndex, pageSize);
