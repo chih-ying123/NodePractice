@@ -63,7 +63,7 @@ function callAPI(startDateTime, endDateTime, pageIndex, pageSize) {
         }
 
         let postBodyArray = [];
-        for (key in postBody) {
+        for (let key in postBody) {
             postBodyArray.push(`${key}=${postBody[key]}`);
         }
         let postBodyStr = postBodyArray.join('&');
