@@ -6,4 +6,11 @@
     fsutil file createNew JiLiFishing\JiLiFishing.dall.js 0
     fsutil file createNew JiLiFishing\JiLiFishing.config.js 0
 
+
+    md PG
+    fsutil file createNew PG\PG.router.js 0
+    fsutil file createNew PG\PG.bll.js 0
+    fsutil file createNew PG\PG.dall.js 0
+    fsutil file createNew PG\PG.config.js 0
+
 */

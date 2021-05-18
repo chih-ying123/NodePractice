@@ -7,3 +7,13 @@ module.exports = {
     envValue: envValue,
     env: envValue.Dev
 }
+
+/*
+
+module.exports = {
+    envValue: envValue,
+    env: "development"
+}
+
+
+*/

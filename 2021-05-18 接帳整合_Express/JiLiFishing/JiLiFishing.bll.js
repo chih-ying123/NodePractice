@@ -39,6 +39,7 @@ async function getBetData(startDateTime, endDateTime, pageIndex, pageSize) {
     // todo : 例外處理
     // 分頁處理
     // 把資料回寫到資料庫中
+    return result;
 }
 
 function callAPI(startDateTime, endDateTime, pageIndex, pageSize) {
