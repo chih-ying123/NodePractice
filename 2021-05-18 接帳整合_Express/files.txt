@@ -1,0 +1,9 @@
+/*
+
+    md JiLiFishing
+    fsutil file createNew JiLiFishing\JiLiFishing.router.js 0
+    fsutil file createNew JiLiFishing\JiLiFishing.bll.js 0
+    fsutil file createNew JiLiFishing\JiLiFishing.dall.js 0
+    fsutil file createNew JiLiFishing\JiLiFishing.config.js 0
+
+*/
