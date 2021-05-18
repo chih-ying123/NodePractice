@@ -32,7 +32,16 @@ function generateKey(startDateTime, endDateTime, pageIndex, pageSize) {
     return key;
 }
 
-function getBetData(startDateTime, endDateTime, pageIndex, pageSize) {
+async function getBetData(startDateTime, endDateTime, pageIndex, pageSize) {
+
+    let result = await callAPI(startDateTime, endDateTime, pageIndex, pageSize);
+
+    // todo : 例外處理
+    // 分頁處理
+    // 把資料回寫到資料庫中
+}
+
+function callAPI(startDateTime, endDateTime, pageIndex, pageSize) {
 
     // 煩死 時間要加T '2020-09-02T00:00:00';
     startDateTime = startDateTime.replace(' ', 'T');
