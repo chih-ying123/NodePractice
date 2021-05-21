@@ -73,16 +73,16 @@
         let index = 0;
         json.forEach(dateObj => {
 
-            let herf = `/JiLiFishing/getBetData?start=${dateObj.start}&end=${dateObj.end}`;
+            let href = `/JiLiFishing/getBetData?start=${dateObj.start}&end=${dateObj.end}`;
 
             html += `
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="${herf}" target='_blank'>${dateObj.start} ~ ${dateObj.end}</a>
+                        <a href="${href}" target='_blank'>${dateObj.start} ~ ${dateObj.end}</a>
                     </td>
                 </tr>
             `
-            apiCalls.push(herf);  // 把請求放到陣列中
+            apiCalls.push(href);  // 把請求放到陣列中
 
         });
 
