@@ -7,4 +7,5 @@ app.use(express.json());
 
 // 加載路由
 app.use('/JiLiFishing', require('./JiLiFishing/JiLiFishing.router'));  // 吉利捕魚
+app.use('/PG', require('./PG/PG.router'));
 app.listen(3000);
