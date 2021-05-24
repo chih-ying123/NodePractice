@@ -10,6 +10,7 @@ import { AginModule } from './agin/agin.module';
 import { SboModule } from './sbo/sbo.module';
 import { JiliModule } from './jili/Jili.module';
 import { JiLiFishingModule } from './JiLiFishing/ji-li-fishing.module';
+import { PgModule } from './PG/pg.module';
 
 let env_path = "./public/share/prod.env";
 if (!fs.existsSync(env_path)) env_path = "./public/share/.env";
@@ -21,7 +22,8 @@ if (!fs.existsSync(env_path)) env_path = "./public/share/.env";
     AginModule,
     SboModule, 
     JiliModule,
-    JiLiFishingModule
+    JiLiFishingModule,
+    PgModule
   ],
   controllers: [AppController],
   providers: [AppService],
