@@ -1,4 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PgService {}
+export class PgService {
+
+    public async getBetData(startTime, endTime){
+        return '123';
+    };
+
+}
