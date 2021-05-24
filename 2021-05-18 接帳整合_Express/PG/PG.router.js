@@ -16,4 +16,19 @@ router.get('/getDateTimeList', function (req, res) {
 
 });
 
+router.get('/getBetData',async function (req, res) {
+
+    let startTime = req.query.start;
+    let endTime = req.query.end;
+
+    let pageIndex = 1;
+    let pageSize = 1500;
+    let datas = await bll.getBetData(startTime, endTime);
+
+
+    res.json(resultMessage(0, '', datas));
+
+
+});
+
 module.exports = router;
