@@ -82,7 +82,7 @@ async function getUserList(pageIndex, pageSize, selectKeyWord) {
     if (selectKeyWord !== ''){
         
         var re = new RegExp(selectKeyWord);
-        seleList = dataJSON.filter(data=>{
+        seleList = dataJSON.filter(data=>{ //filter() 回傳陣列，條件 return後方為true的物件
             return re.test(data.Memo)
         })
 

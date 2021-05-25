@@ -107,17 +107,17 @@
 
                 let dataContent ='';
                 for (var i = 0; i <= userList.length-1; i++) {
-                let { Id, UserName, Memo } = userList[i]
-                dataContent += `
-                <tr>
-                        <td>${Id}</td>
-                        <td>${UserName}</td>
-                        <td>${Memo}</td>
-                        <td>
-                            <button>編輯</button>
-                            <button onclick="deleteUser(${pageIndex}, pageSize, selectKeyWord, ${Id})">刪除</button>
-                        </td>
-                    </tr>`;
+                    let { Id, UserName, Memo } = userList[i]
+                    dataContent += `
+                    <tr>
+                            <td>${Id}</td>
+                            <td>${UserName}</td>
+                            <td>${Memo}</td>
+                            <td>
+                                <button>編輯</button>
+                                <button onclick="deleteUser(${pageIndex}, pageSize, selectKeyWord, ${Id})">刪除</button>
+                            </td>
+                        </tr>`;
                 }
 
                 dataList.innerHTML = dataContent;

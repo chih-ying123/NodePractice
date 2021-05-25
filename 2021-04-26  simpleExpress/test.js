@@ -1,6 +1,6 @@
 function fn() {
 
-    console.log(arguments);
+    console.log(...arguments);
 
 
 }

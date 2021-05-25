@@ -1,11 +1,13 @@
 const http = require('http');
 const url = require('url');
 
-function express(){
+function express() {
 
-    let app = (req,res)=>{
+    let app = function (req, res) {
+
         let reqPath = url.parse(req.url).pathname;
         let reqMethod = req.method.toLowerCase(); //toLowerCase() 字串轉為英文小寫字母
+
         for (let i = 0; i < app.routes.length; i++) {
             let route = app.routes[i];
             if (route.method === reqMethod && route.path === reqPath) {
@@ -23,16 +25,33 @@ function express(){
             , handler
         }) 
     }    
-    
 
-    app.listen = function(){
-        const server = http.createServer(app)
-        server.listen(...arguments);
+    app.listen = function () {
+        let server = http.createServer(app);
+        server.listen(...arguments);  // 3000, fn
     }
 
-    return app ;
+    return app;    
 }
 
-http.createServer(app);
-
 module.exports = express;
+
+/*
+
+	http.createServer(app);
+
+	=> 內部實現偽代碼(示意用， 不是真正的實現)
+
+		http.createServer = function(callBack){
+
+			let request  = 解析http請求文本 ... {請求headers、請求路徑、請求方法}
+			let response = ....
+
+			http.on('request', function(){  // 當 `每一次` 請求到來的時候調用
+
+				callBack(request, response)
+			
+			}) ;
+		}
+
+*/
