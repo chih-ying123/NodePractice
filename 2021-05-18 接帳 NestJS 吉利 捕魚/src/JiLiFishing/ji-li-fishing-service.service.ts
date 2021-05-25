@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Common } from '../util/Common'
+import { Common } from '../util/Common';
 import * as moment from 'moment';
 import * as fetch from 'node-fetch';
 import { IEnv } from './Env.interface'; // 這是設定檔
