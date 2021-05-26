@@ -32,17 +32,33 @@ export class JiLiFishingService {
 
     public async SaveDataIntoDB(datas:Array<Result>):Promise<void>{
 
-        // 去抄小透的
+        //痴yinG寫: 去抄小透的
 
     }
 
-    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize):Promise<IResponse> {
+    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize):Promise<IResponse| IResponse[] > {
 
         let apiResponse = await this.callAPI(startDateTime, endDateTime, pageIndex, pageSize);
-        // 把資料回寫到資料庫中
-        if (apiResponse.ErrorCode === '0')
+       
+        if (apiResponse.ErrorCode === '0')// API調用成功狀態
         {
-            this.SaveDataIntoDB(apiResponse.Data.Result)
+            this.SaveDataIntoDB(apiResponse.Data.Result) ;  // 把資料回寫到資料庫中           
+            
+            //分頁處理
+             let totalPages = apiResponse.Data.Pagination.TotalPages;
+            if(pageIndex === 1 && totalPages > 1) {// 當前頁次為1，並且有其它頁需要再調用api
+                
+                let result = [];
+                result.push(apiResponse);//保存第一頁調用結果
+                for(let i=2; i<=totalPages; i++) // 由第2頁開始往後逐頁讀取
+                {
+                    let nextAPIResponse = await this.callAPI(startDateTime, endDateTime, i, pageSize);
+                    result.push(nextAPIResponse); 
+                    this.SaveDataIntoDB(nextAPIResponse.Data.Result) ;  // 把資料回寫到資料庫中
+                    
+                }
+                return result;
+            }
         }
 
         return apiResponse;
