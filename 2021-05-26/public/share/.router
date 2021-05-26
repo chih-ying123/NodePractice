@@ -1,0 +1,7 @@
+[    
+    { "Name": "AGIN", "URI": "agin" }
+    , { "Name": "RTG", "URI": "wrv/rtg/bet-data" }
+    , { "Name": "SBO", "URI": "wrv/sbo/bet-data" }
+    , { "Name": "JILI", "URI": "wrv/jili/bet-data" }
+    , { "Name": "JiLiFishing", "URI": "wrv/JiLiFishing/bet-data" }
+]

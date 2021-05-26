@@ -1,0 +1,28 @@
+INSERT INTO Game_List SET GameEName='ChainLong Fishing', GameName='钱龙捕鱼', GameVendor=50, TheirGameId='1', GameType=2 ,Note='Fishing';
+INSERT INTO Game_List SET GameEName='Hot Chilli', GameName='火热辣椒', GameVendor=50, TheirGameId='5', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Chin Shi Huang', GameName='秦皇传说', GameVendor=50, TheirGameId='2', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Gem Party', GameName='宝石派对', GameVendor=50, TheirGameId='10', GameType=2 ;
+INSERT INTO Game_List SET GameEName='War Of Dragons', GameName='舞龙争霸', GameVendor=50, TheirGameId='9', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Fortune Tree', GameName='发财树', GameVendor=50, TheirGameId='6', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Lucky Ball', GameName='球好运', GameVendor=50, TheirGameId='13', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Hyper Burst', GameName='超爆', GameVendor=50, TheirGameId='14', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Shanghai Beauty', GameName='上海甜心', GameVendor=50, TheirGameId='17', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Fa Fa Fa', GameName='极速发发发', GameVendor=50, TheirGameId='21', GameType=2 ;
+INSERT INTO Game_List SET GameEName='God Of Martial', GameName='关云长', GameVendor=50, TheirGameId='4', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Bombing Fishing', GameName='炸鱼来了', GameVendor=50, TheirGameId='20', GameType=2 ,Note='Fishing';
+INSERT INTO Game_List SET GameEName='Triple Wu Kong', GameName='极速三倍悟空', GameVendor=50, TheirGameId='22', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Hawaii Beauty', GameName='海岛甜心', GameVendor=50, TheirGameId='26', GameType=2 ;
+INSERT INTO Game_List SET GameEName='SevenSevenSeven', GameName='极速777', GameVendor=50, TheirGameId='27', GameType=2 ;
+INSERT INTO Game_List SET GameEName='CrazySeven', GameName='疯狂777', GameVendor=50, TheirGameId='35', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Bubble Beauty', GameName='人鱼甜心', GameVendor=50, TheirGameId='30', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Jackpot Fishing', GameName='极速彩金捕鱼', GameVendor=50, TheirGameId='32', GameType=2 ,Note='Fishing';
+INSERT INTO Game_List SET GameEName='Bao boon chin', GameName='包青天', GameVendor=50, TheirGameId='36', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Crazy FaFaFa', GameName='疯狂一路发', GameVendor=50, TheirGameId='40', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Dinosaur Tycoon', GameName='猎龙大亨', GameVendor=50, TheirGameId='42', GameType=2 ,Note='Fishing';
+INSERT INTO Game_List SET GameEName='XiYangYang', GameName='喜洋洋', GameVendor=50, TheirGameId='43', GameType=2 ;
+INSERT INTO Game_List SET GameEName='GoldenBank', GameName='疯狂抢金乐', GameVendor=50, TheirGameId='45', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Lucky Goldbricks', GameName='霸金砖', GameVendor=50, TheirGameId='48', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Dragon Treasure', GameName='神龙夺宝', GameVendor=50, TheirGameId='46', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Charge Buffalo', GameName='冲锋野牛', GameVendor=50, TheirGameId='47', GameType=2 ;
+INSERT INTO Game_List SET GameEName='Super Ace', GameName='超级王牌', GameVendor=50, TheirGameId='49', GameType=2 ;
+
