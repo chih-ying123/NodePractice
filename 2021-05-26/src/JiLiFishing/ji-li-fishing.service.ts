@@ -5,6 +5,8 @@ import { IEnv } from './Env.interface';
 import { v1 as uuidV1 } from 'uuid';
 import { Common } from '../util/Common';
 import * as fetch from 'node-fetch';
+import { IResponse } from './res.interface';
+import { Result } from 'src/jili/model/res.interface';
 
 @Injectable()
 export class JiLiFishingService {
@@ -28,14 +30,22 @@ export class JiLiFishingService {
         return key;
     }
 
-    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize) {
+    public async SaveDataIntoDB(datas:Array<Result>):Promise<void>{
 
-        let result = await this.callAPI(startDateTime, endDateTime, pageIndex, pageSize);
-    
-        // todo : 例外處理
-        // 分頁處理
+        // 去抄小透的
+
+    }
+
+    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize):Promise<IResponse> {
+
+        let apiResponse = await this.callAPI(startDateTime, endDateTime, pageIndex, pageSize);
         // 把資料回寫到資料庫中
-        return result;
+        if (apiResponse.ErrorCode === '0')
+        {
+            this.SaveDataIntoDB(apiResponse.Data.Result)
+        }
+
+        return apiResponse;
     }
 
     public callAPI(startDateTime, endDateTime, pageIndex, pageSize) {
@@ -44,7 +54,7 @@ export class JiLiFishingService {
         endDateTime = endDateTime.replace(' ', 'T');
         console.log(startDateTime, endDateTime);
     
-        return new Promise(async (resolve, reject) => {
+        return new Promise<IResponse>(async (resolve, reject) => {
     
             let postBody = {
                 "AgentId": this.env.API_AgentId,
