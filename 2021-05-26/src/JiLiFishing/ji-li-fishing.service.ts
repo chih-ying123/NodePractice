@@ -36,32 +36,33 @@ export class JiLiFishingService {
 
     }
 
-    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize):Promise<IResponse| IResponse[] > {
+    public async getBetData(startDateTime, endDateTime, pageIndex, pageSize):Promise<IResponse | IResponse[] > {
 
         let apiResponse = await this.callAPI(startDateTime, endDateTime, pageIndex, pageSize);
        
-        if (apiResponse.ErrorCode === '0')// API調用成功狀態
+        if (apiResponse.ErrorCode === '0')// API調用成功狀態，請參考文件
         {
             this.SaveDataIntoDB(apiResponse.Data.Result) ;  // 把資料回寫到資料庫中           
             
             //分頁處理
-             let totalPages = apiResponse.Data.Pagination.TotalPages;
-            if(pageIndex === 1 && totalPages > 1) {// 當前頁次為1，並且有其它頁需要再調用api
+            let totalPages = apiResponse.Data.Pagination.TotalPages;
+            if(totalPages > 1) {// 有其它頁需要再調用api
                 
                 let result = [];
                 result.push(apiResponse);//保存第一頁調用結果
                 for(let i=2; i<=totalPages; i++) // 由第2頁開始往後逐頁讀取
                 {
-                    let nextAPIResponse = await this.callAPI(startDateTime, endDateTime, i, pageSize);
-                    result.push(nextAPIResponse); 
-                    this.SaveDataIntoDB(nextAPIResponse.Data.Result) ;  // 把資料回寫到資料庫中
-                    
+                    let nextAPIResponse = await this.callAPI(startDateTime, endDateTime, i/*傳i進去*/, pageSize);                    
+                    if (nextAPIResponse.ErrorCode === '0')
+                    {
+                        result.push(nextAPIResponse); 
+                        this.SaveDataIntoDB(nextAPIResponse.Data.Result) ;  // 把資料回寫到資料庫中
+                    }                    
                 }
-                return result;
+                return result; // 有多頁就回傳一個陣列
             }
         }
-
-        return apiResponse;
+        return apiResponse; // 只有一頁就回傳一個物件
     }
 
     public callAPI(startDateTime, endDateTime, pageIndex, pageSize) {
