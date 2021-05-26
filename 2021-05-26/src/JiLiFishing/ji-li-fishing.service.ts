@@ -89,7 +89,9 @@ export class JiLiFishingService {
                 postBodyArray.push(`${key}=${postBody[key]}`);
             }
             let postBodyStr = postBodyArray.join('&');
+            
             console.log(postBodyStr);
+            console.log('嚶嚶嚶 嚶嚶嚶 ---------------------愛哭的分隔線');
             
     
             let url = `${this.env.API_URI}GetFishBetRecordByTime`;
