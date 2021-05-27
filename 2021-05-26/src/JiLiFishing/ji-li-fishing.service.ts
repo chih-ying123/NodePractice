@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger  } from '@nestjs/common';
 import * as moment from 'moment';
 import { Config, Dial, Loader, Log } from 'src/util';
 import { IEnv } from './Env.interface';
 import { v1 as uuidV1 } from 'uuid';
 import { Common } from '../util/Common';
 import * as fetch from 'node-fetch';
-import { IResponse } from './res.interface';
-import { Result } from 'src/jili/model/res.interface';
+import { IResponse, Result, ResponseList } from './res.interface';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class JiLiFishingService {
@@ -16,6 +16,7 @@ export class JiLiFishingService {
         this.env = Loader.GetENV<IEnv>("./public/JiLiFishing/env.json");
     }
 
+    //製作MD5
     public generateKey(startDateTime, endDateTime, pageIndex, pageSize) {
         
         let now = moment().utc().subtract(4, "h").format("GGMMD");
@@ -30,9 +31,50 @@ export class JiLiFishingService {
         return key;
     }
 
+    private conn: Connection;
+
+    public WriteToFile(data: any) {
+        Log.WriteToFile("Jili", data)
+    }
     public async SaveDataIntoDB(datas:Array<Result>):Promise<void>{
 
-        //痴yinG寫: 去抄小透的
+        if (this.conn == null) {
+            this.conn = await Dial.GetSQLConn(Config.DB);
+            if (this.conn == null) {
+                this.WriteToFile("[JILIService]build conn fail")
+                return
+            }
+        }
+        datas.forEach(x => {
+
+            let WagersTime = moment(x.WagersTime).utc().add(8, "h").format(Common.Formatter_Moment_1);
+            let PayoffTime = moment(x.PayoffTime).utc().add(8, "h").format(Common.Formatter_Moment_1);
+            let SettlementTime = moment(x.SettlementTime).utc().add(8, "h").format(Common.Formatter_Moment_1);
+            let Account = x.Account.replace("VI_","");
+            let cmd = `CALL NSP_BetData_Insert_JILI(
+            "${Account}",
+            "${x.WagersId}",
+            "${x.GameId}",
+            "${WagersTime}",
+            "${(Math.abs(x.BetAmount))}",
+            "${PayoffTime}",
+            "${x.PayoffAmount}",
+            "${x.Status}",
+            "${SettlementTime}",
+            "${x.GameCategoryId}",
+            "${x.VersionKey}",
+            "${x.Jackpot}",
+            "${x.Type}"
+            );`;
+                
+            this.conn.query(cmd).catch(e => {
+                Logger.debug(e, "JILIService")
+                this.WriteToFile(e);
+                this.WriteToFile(cmd);
+            });
+            
+
+        });
 
     }
 
@@ -89,9 +131,7 @@ export class JiLiFishingService {
                 postBodyArray.push(`${key}=${postBody[key]}`);
             }
             let postBodyStr = postBodyArray.join('&');
-            
             console.log(postBodyStr);
-            console.log('嚶嚶嚶 嚶嚶嚶 ---------------------愛哭的分隔線');
             
     
             let url = `${this.env.API_URI}GetFishBetRecordByTime`;
