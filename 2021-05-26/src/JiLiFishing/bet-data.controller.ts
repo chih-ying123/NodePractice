@@ -1,7 +1,6 @@
 import { Controller, Get, Query, Logger, Req, Param } from '@nestjs/common';
 import { Common } from 'src/util';
 import { JiLiFishingService } from './ji-li-fishing.service';
-import { Result, IResponse, Pagination, ResponseList } from './res.interface';
 
 @Controller('wrv/JiLiFishing/bet-data')
 export class BetDataController {
@@ -27,6 +26,7 @@ export class BetDataController {
 
     @Get('getBetData') 
     public async getBetData(@Query('start') start:string, @Query('end') end:string){
+
         let pageIndex = 1;
         let pageSize = 1000;
         let apiResponse = await this.service.getBetData(start, end, pageIndex, pageSize);        

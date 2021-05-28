@@ -1,11 +1,11 @@
 import { Injectable, Logger  } from '@nestjs/common';
 import * as moment from 'moment';
 import { Config, Dial, Loader, Log } from 'src/util';
-import { IEnv } from './Env.interface';
+import { IEnv } from 'src/jili/model/Env.interface';
 import { v1 as uuidV1 } from 'uuid';
 import { Common } from '../util/Common';
 import * as fetch from 'node-fetch';
-import { IResponse, Result, ResponseList } from './res.interface';
+import { IResponse, Result, ResponseList } from 'src/jili/model/res.interface';;
 import { Connection } from 'typeorm';
 
 @Injectable()
@@ -66,14 +66,14 @@ export class JiLiFishingService {
             "${x.Jackpot}",
             "${x.Type}"
             );`;
-                
+            /* 
             this.conn.query(cmd).catch(e => {
                 Logger.debug(e, "JILIService")
                 this.WriteToFile(e);
                 this.WriteToFile(cmd);
             });
-            
-
+            */
+            this.conn.query(cmd);
         });
 
     }
@@ -82,7 +82,7 @@ export class JiLiFishingService {
 
         let apiResponse = await this.callAPI(startDateTime, endDateTime, pageIndex, pageSize);
        
-        if (apiResponse.ErrorCode === '0')// API調用成功狀態，請參考文件
+        if (apiResponse.ErrorCode === 0)// API調用成功狀態，請參考文件
         {
             this.SaveDataIntoDB(apiResponse.Data.Result) ;  // 把資料回寫到資料庫中           
             
@@ -95,7 +95,7 @@ export class JiLiFishingService {
                 for(let i=2; i<=totalPages; i++) // 由第2頁開始往後逐頁讀取
                 {
                     let nextAPIResponse = await this.callAPI(startDateTime, endDateTime, i/*傳i進去*/, pageSize);                    
-                    if (nextAPIResponse.ErrorCode === '0')
+                    if (nextAPIResponse.ErrorCode === 0)
                     {
                         result.push(nextAPIResponse); 
                         this.SaveDataIntoDB(nextAPIResponse.Data.Result) ;  // 把資料回寫到資料庫中
