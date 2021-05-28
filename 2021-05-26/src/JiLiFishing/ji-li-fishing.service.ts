@@ -5,8 +5,9 @@ import { IEnv } from 'src/jili/model/Env.interface';
 import { v1 as uuidV1 } from 'uuid';
 import { Common } from '../util/Common';
 import * as fetch from 'node-fetch';
-import { IResponse, Result, ResponseList } from 'src/jili/model/res.interface';;
+import { IResponse, Result, ResponseList } from './res.interface'
 import { Connection } from 'typeorm';
+import * as JSONbig from 'json-bigint';  // npm install json-bigint --save
 
 @Injectable()
 export class JiLiFishingService {
@@ -145,8 +146,8 @@ export class JiLiFishingService {
             }
             try {
                 let res = await fetch(url, fetchOptions);
-                let json = await res.json();
-                
+                let text = await res.text();    // 抓下回傳的內容 (字串型態)
+                let json = JSONbig.parse(text); // 轉換字串內容為物件               
                 resolve(json);
             }
             catch (err) {
