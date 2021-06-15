@@ -1,0 +1,10 @@
+文件：https://docs.iconic-gaming.com/#api-Record-profileInfoLink
+後台：https://admin-stage.iconic-gaming.com/login
+帳號：winner
+密碼：qaz123123
+
+正式環境API URL
+	https://admin.iconic-gaming.com/service/
+
+測試環境API URL
+	https://admin-stage.iconic-gaming.com/service/

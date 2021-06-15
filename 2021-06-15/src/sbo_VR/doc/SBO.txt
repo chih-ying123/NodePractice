@@ -1,0 +1,22 @@
+大陸站SBO轉新系統-測試環境
+【您的帳號密碼】
+Account : winnertest
+Password : winner568win
+
+後台：http://admin-demo-ng.568win.com/
+API文件: http://ex-api-demo-yy.568win.com/Document/Login
+
+
+大陸站SBO轉新系統-正式環境
+
+Seamless Wallet URL: https://if.xz175.com/Seamles/SBOapi/
+
+您的帳號 :
+Account : WinnerCasino 
+Password : 568winwin
+
+
+- 後台 : 
+http://admin.sswwkk.com/
+- API 文件 : 
+http://ex-api-yy.xxttgg.com/document/login

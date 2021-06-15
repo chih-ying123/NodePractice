@@ -1,0 +1,57 @@
+SBO 
+Game Ventor: 45
+Group ID: 71
+
+1.平台名稱(中/英文):
+SBO體育/SBO_Sport
+
+2.錢包名稱:
+SBO_Sport
+
+4.seamless_? 資料表結構(SQL)(#):
+
+CREATE TABLE `seamless_sbo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `transaction` int(11) DEFAULT NULL COMMENT '轉點單號',
+  `userName` varchar(20) DEFAULT NULL COMMENT '會員名稱',
+  `amount` decimal(20,5) DEFAULT 0.00000 COMMENT '事件金額',
+  `transferCode` varchar(20) DEFAULT NULL COMMENT '交易代碼',
+  `transactionId` int(11) DEFAULT NULL COMMENT '当产品类别为1,3或7时，交易代号将会与转移代码相同。',
+  `betTime` varchar(50) DEFAULT NULL COMMENT '会员下注的时间。',
+  `productType` int(11) DEFAULT NULL COMMENT '产品类别为该产品的分类',
+  `gameType` int(11) DEFAULT NULL COMMENT '游戏类别为该产品分类中的遊戲分類',
+  `cmd` varchar(50) DEFAULT NULL COMMENT 'api命令',
+  `type` int(11) DEFAULT NULL COMMENT '自設欄位',
+  `requestTime` datetime DEFAULT current_timestamp() COMMENT '建單时间',
+  `status` varchar(20) DEFAULT NULL COMMENT '代表投注状态：{running; settled ;void}',
+  `winloss` decimal(20,5) DEFAULT NULL COMMENT '输赢多少金额。其中包括会员的投注金额。',
+  `resultType` int(11) DEFAULT NULL COMMENT '赌注的结果 : {赢:0,输:1,平手:2}.',
+  `stake` decimal(20,5) DEFAULT NULL COMMENT '会员的投注金额。',
+  `resultTime` varchar(50) DEFAULT NULL COMMENT '结算投注的时间。',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=352 DEFAULT CHARSET=utf8mb4;
+
+
+5.廠商是否有可撈取注單的API:有
+
+6.API相關文件(API文件、代理Key等等資訊):
+【您的帳號密碼】
+username: winbet666
+password: 5688winwin
+
+1. API文件網址: http://register.568win.com/Public/Login
+(登入後，即可確認到您的的domain URL以及company Key)
+
+2. 後台連結: admin-onebet168.wecname.com
+
+http://api-doc.568win.com/api_cn.html#RegisterPlayer
+
+
+
+
+您的专属网域：
+http://api-onebet168.xxttgg.com
+您的专属金钥：
+jtom8bycgo3a7rd8bzlly2umolzthlnuhqpfbhz5n1aeizsbua90xa2r8c7wmf45
+
+请记住你当前的网址，这是您的专属文件入口☺

@@ -1,0 +1,22 @@
+CREATE TABLE `betdata_bg_fishing` (
+  `sn` varchar(4) DEFAULT NULL,
+  `userId` varchar(64) DEFAULT NULL,
+  `loginId` varchar(24) DEFAULT NULL,
+  `issueId` varchar(32) DEFAULT NULL,
+  `betId` varchar(32) DEFAULT NULL COMMENT '注单号',
+  `gameBalance` varchar(32) DEFAULT NULL COMMENT '下注后结余',
+  `fireCount` int(32) DEFAULT NULL,
+  `betAmount` decimal(20,10) DEFAULT NULL,
+  `validAmount` decimal(20,10) DEFAULT NULL,
+  `calcAmount` decimal(20,10) DEFAULT NULL,
+  `payout` decimal(20,10) DEFAULT NULL,
+  `orderTimeBj` datetime DEFAULT NULL COMMENT '下注时间(UTC+8)',
+  `orderTime` datetime DEFAULT NULL COMMENT '下注时间(UTC-4)',
+  `orderFrom` int(2) unsigned DEFAULT NULL,
+  `jackpot` varchar(16) DEFAULT NULL,
+  `extend` varchar(16) DEFAULT NULL,
+  `jackpotType` int(32) DEFAULT NULL,
+  `gameType` int(32) DEFAULT NULL,
+  `id` bigint(32) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4

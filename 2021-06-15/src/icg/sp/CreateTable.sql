@@ -1,0 +1,22 @@
+CREATE TABLE `betdata_icg` (
+  `orderid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(50) DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  `player` varchar(20) DEFAULT NULL,
+  `playerId` int(11) DEFAULT NULL,
+  `parent` varchar(11) DEFAULT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `game` varchar(20) DEFAULT NULL,
+  `gameId` varchar(20) DEFAULT NULL,
+  `setId` varchar(50) DEFAULT NULL,
+  `productId` varchar(20) DEFAULT NULL,
+  `currency` varchar(8) DEFAULT NULL,
+  `gameType` varchar(6) DEFAULT NULL,
+  `status` varchar(11) DEFAULT NULL,
+  `win` int(16) DEFAULT NULL,
+  `bet` int(16) DEFAULT NULL,
+  `validBet` int(16) DEFAULT NULL,
+  `buyid_Hash` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`orderid`)
+) ENGINE=InnoDB AUTO_INCREMENT=337604 DEFAULT CHARSET=utf8mb4

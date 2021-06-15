@@ -1,0 +1,22 @@
+CREATE TABLE `betdata_sbo_vr_sport` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `refNo` varchar(32) DEFAULT NULL,
+  `refNo_Hash` bigint(20) DEFAULT NULL,
+  `orderTime` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `gameId` int(50) DEFAULT NULL,
+  `odds` decimal(20,10) DEFAULT NULL,
+  `oddsStyle` varchar(20) DEFAULT NULL,
+  `stake` decimal(20,10) DEFAULT NULL,
+  `actualStake` decimal(20,10) DEFAULT NULL,
+  `turnover` decimal(20,10) DEFAULT NULL,
+  `winLost` decimal(20,10) DEFAULT NULL,
+  `status` varchar(30) DEFAULT NULL,
+  `productType` varchar(50) DEFAULT NULL,
+  `winLostDate` datetime DEFAULT NULL,
+  `settleTime` datetime DEFAULT NULL,
+  `subBet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `BetInfo` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4

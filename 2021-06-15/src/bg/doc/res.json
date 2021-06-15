@@ -1,0 +1,55 @@
+{
+    "id": "65132770-bac1-11ea-a1ad-83300e8ee9cc",
+    "result": {
+      "total": 1,
+      "stats": {
+        "validAmountTotal": 20,
+        "aAmountTotal": 40,
+        "userCount": 1,
+        "paymentTotal": 20,
+        "bAmountTotal_": 20,
+        "bAmountTotal": -20,
+        "validBetTotal": 20,
+        "paymentTotal_": 20,
+        "validAmountTotal2": 20
+      },
+      "pageIndex": 1,
+      "pageSize": 15,
+      "etag": null,
+      "page": 1,
+      "items": [
+        {
+          "tranId": null,
+          "aAmount": 40,
+          "loginId": "lintest001",
+          "orderId": 592034480,
+          "moduleName": "视讯",
+          "orderStatus": 2,
+          "playId": "268435458",
+          "uid": 17328303,
+          "orderTime": "2020-06-29 22:32:03",
+          "gameName": "百家乐",
+          "payment": 20,
+          "sn": "dg05",
+          "bAmount": -20,
+          "moduleId": 2,
+          "noComm": null,
+          "gameId": 1,
+          "playNameEn": "Player",
+          "issueId": "BGA052006296CF",
+          "playName": "闲赢",
+          "userId": 17328303,
+          "validAmount": 20,
+          "gameNameEn": "Baccarat",
+          "fromIp": "61.244.216.65",
+          "tableId": "A05",
+          "orderFrom": 1,
+          "betContent": null,
+          "validBet": 20,
+          "lastUpdateTime": "2020-06-29 22:32:16"
+        }
+      ]
+    },
+    "error": null,
+    "jsonrpc": "2.0"
+  }

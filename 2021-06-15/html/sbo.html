@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sbo - 接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" value='' placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+
+
+    let inputDate = document.getElementById('inputDate');
+    let router = '/wrin/sbo/bet-data';
+    let getBetDataURLArray = [];  // 存放要取帳的網址
+
+    // let defaultDate = moment().format('YYYY-MM-DD');
+    // console.log("API date:", defaultDate);
+    // inputDate.value = defaultDate;
+
+    inputDate.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            loadDateList();
+        }
+    })
+    async function loadDateList() {
+
+        //預設日期為今日
+        let date = '';  // 後台有對 '' 做處理
+
+        //如果輸入框有值，就用輸入框的值
+        if (inputDate.value != '') {
+
+            if (/\d\d\d\d-\d\d-\d\d/.test(inputDate.value)) {
+                date = inputDate.value
+            }
+            else {
+                alert('格式錯誤: 必須是 yyyy-mm-dd')
+            }
+        }
+
+        let json = await fetch(`${router}/JessRequestList?date=${date}`).then(res => res.json());
+
+        let html = '';
+        json.forEach(item => {
+
+            let id = item.start.replace(/ /g, '').replace(/:/g, '').replace(/-/g, '');
+            let getBetDataUrl = `${router}/CallBySchedule/${item.start}/${item.end}`;
+
+            html += `<tr><td colspan="2" align="center"><a href="${getBetDataUrl}" target='_blank' id="${id}" class="getBetData">${item.start} ~ ${item.end}</a></td></tr>`
+        });
+
+        document.getElementById('apiTab').innerHTML = html;
+        let aaa = document.querySelectorAll('a.getBetData');
+
+        getBetDataURLArray = Array.prototype.map.call(aaa, (a) => {
+            return a.id
+        });
+    }
+
+    loadDateList();
+
+    setInterval(async () => {
+
+        if (getBetDataURLArray.length === 0) { // shift直到陣列為空，就重新刷列表
+            await loadDateList();              // 每次改日期就會刷新陣列，補帳就可以插隊了
+        }
+
+        let id = getBetDataURLArray.shift();
+        let a = document.getElementById(id);
+        let url = a.href;
+        a.style.backgroundColor = 'yellow';
+        a.textContent += '      * done';
+        fetch(url);
+    }
+    , 1000 * 30); //30s做一次
+
+
+</script>
+
+</html>
