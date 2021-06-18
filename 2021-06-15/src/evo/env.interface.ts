@@ -6,3 +6,8 @@ export interface IEnv {
     gameHistoryApiToken: string;
 
 }
+
+export interface APIResponse{
+    uuid:string
+    uuid2:string
+}

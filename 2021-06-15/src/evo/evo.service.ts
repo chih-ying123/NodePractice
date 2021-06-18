@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Config, Dial, Loader, Log } from 'src/util';
 import { IEnv } from './env.interface';
 import * as fetch from 'node-fetch';
+import {APIResponse} from './env.interface'
 
 @Injectable()
 export class EvoService {
@@ -15,14 +16,14 @@ export class EvoService {
         
         let apiResponse = await this.callAPI(startDate, endDate);
 
-        console.log(apiResponse.uuid);
+        console.log(apiResponse.uuid2);
         
 
         return apiResponse;
         
     }
 
-    public callAPI(startDate, endDate){
+    public callAPI(startDate, endDate):Promise<APIResponse>{
         startDate = startDate.replace(' ', 'T')+'Z';
         endDate = endDate.replace(' ', 'T')+'Z';
         //console.log(startDate, endDate);

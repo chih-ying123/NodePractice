@@ -1,0 +1,77 @@
+資料表之間，透過欄位關聯。
+    |- 一對一
+    |- 一對多
+    |- 多對多
+
+
+相關資料表
+    
+    Game_Vendor  遊戲供應商資料表
+        |- RowId 供應商唯一編號 【EVO = 72】
+
+            INSERT INTO Game_Vendor
+            SET 
+                  RowId = 72
+                , VendorName = 'EVO'
+                , DisableFlag = 0
+                , Description = N'EVO'
+                , VendorEName = 'EVO'
+                , WalletMode = 'S'   -- S = 單一錢包、 T = 轉帳錢包 
+            ;
+
+    
+    Game_List    遊戲資料表  【待建立的資料: SELECT  * FROM Game_List  WHERE  GameVendor = 72】
+        |- GameType 
+            |- 1(T) = 體育電競
+            |- 2(E) = 電子/捕魚
+            |- 3(M) = 棋牌
+            |- 4(C) = 彩票
+            |- 5(V) = 視訊
+
+         |-GameVendor 對應 Game_Vendor.RowId   
+      
+
+    Report_Winlose_Detail 全遊戲記錄表
+        |- WinLose          輸贏值(淨損益)
+        |- Bet              投注額
+        |- YouXiaoTouZhu    `有效`投注額 : 某些情況下遊戲可能取消，這時的有效投注額 = 0。
+    
+    Report_Winlose_Detail 跟 BetData_EVO 需要一個欄位來做關聯
+        Report_Winlose_Detail.ZhuDanId = BetData_EVO.RowId
+    
+建表欄位
+
+    games.[0].id
+    games.[0].gameType
+    games.[0].startedAt
+    games.[0].settledAt
+    games.[0].status                        遊戲狀態。      判斷是否為  Resolved
+    games.[0].participants[0].playerId      會員帳號
+    games.[0].wager                         投注額
+    games.[0].payout                        贏分
+    winlose = payout - wager                淨損益
+
+SP基本需求
+    
+    Game_List.GameVendor + Game_List.TheirGameId 來判斷是否有此遊戲資料
+
+    找出API傳過來的玩家帳號，對應的 Member_Info.UId 是多少
+
+    找出API傳過來的遊戲名稱，對應的 Game_List.GameId 是多少
+
+    (不寫入重複資料)
+        BetData_EVO             判斷 BetData_EVO.Id 是否存在
+        Report_Winlose_Detail   判斷 Report_Winlose_Detail.GameVendor + Report_Winlose_Detail.ZhuDanId 是否存在
+
+
+常見拼音字
+    FanShui       = 返水
+    TouZhu        = 投注
+    YouXiaoTouZhu = 有效投注
+    ChuKuanXianE  = 出款限額
+    PaiCai        = 派彩
+
+
+「返水 (FanShui)」 : 投注達到一定額度，就退你錢。 相當於百貨公司滿千送百那種概念。
+
+漢字轉拼音: https://www.ifreesite.com/pinyin/
