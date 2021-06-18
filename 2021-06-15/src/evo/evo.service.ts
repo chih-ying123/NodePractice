@@ -15,6 +15,9 @@ export class EvoService {
         
         let apiResponse = await this.callAPI(startDate, endDate);
 
+        console.log(apiResponse.uuid);
+        
+
         return apiResponse;
         
     }
