@@ -54,6 +54,10 @@ export class EvoService {
             }
 
             apiResponse["珍貴鼻子換來的"] = datas;  // todo:把datas資料寫進db
+            console.log(apiResponse["珍貴鼻子換來的"][0]);
+            console.log(apiResponse["珍貴鼻子換來的"][0].id);
+            this.SaveDataIntoDB(apiResponse["珍貴鼻子換來的"]);
+
             return apiResponse;
         }
         catch(err){
@@ -64,6 +68,28 @@ export class EvoService {
             }            
         }
         
+    }
+
+    public async SaveDataIntoDB(datas){
+        console.log(datas);
+
+        /*
+        
+        INSERT INTO \`BetData_EVO\`
+        SET
+            id = 
+            , startedAt = 
+            , settledAt = 
+            , status = 
+            , gameType = 
+            , playerId = 
+            , stake = 
+            , payout = 
+            , winlose = 
+            , transactionId =  ;`
+        );
+        
+        */
     }
 
     public callAPI(startDate, endDate):Promise<IAPIResponse>{
