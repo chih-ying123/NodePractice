@@ -16,9 +16,7 @@ export class EvoService {
         
         let apiResponse = await this.callAPI(startDate, endDate);
 
-        console.log(apiResponse.data[0].games[0].id); //16863cfd0d875bf5c4706451
-        console.log(apiResponse.data[0].games[1].id); //1685ae79076109963a976404
-        console.log(apiResponse.data[1]); //undefined
+        console.log(apiResponse.data[0].games[0].id);
         console.log(apiResponse.data[0].games[0].participants[0].playerId);
 
         return apiResponse;
