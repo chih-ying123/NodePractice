@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Config, Dial, Loader, Log } from 'src/util';
 import { IEnv } from './env.interface';
 import * as fetch from 'node-fetch';
-import {APIResponse} from './env.interface'
+import {IAPIResponse, IEVOBetDataForDB} from './env.interface'
 
 @Injectable()
 export class EvoService {
@@ -14,16 +14,59 @@ export class EvoService {
 
     public async getBetData(startDate, endDate){
         
-        let apiResponse = await this.callAPI(startDate, endDate);
+        try{
+            let datas:IEVOBetDataForDB[] = [];
+            let apiResponse = await this.callAPI(startDate, endDate);           
 
-        console.log(apiResponse.data[0].games[0].id);
-        console.log(apiResponse.data[0].games[0].participants[0].playerId);
+            // 把資料有陣列的地方，都用迴圈跑過
+            for(let i=0; i< apiResponse.data.length; i++)
+            {
+                let data = apiResponse.data[i] ;
+                let {games} = data; // 從data中取出game屬性 
+                for(let j=0; j < games.length; j++) // data.games
+                {  
+                    let game = games[j];                   
+                    
+                    let{id, startedAt, settledAt, status, gameType, participants} = game;  // 從game中取出屬性                    
 
-        return apiResponse;
+                    for(let k=0; k< participants.length; k++){
+
+                        let participant = participants[k];
+                        let {playerId, bets} = participant;
+
+                        for(let l = 0; l<bets.length; l++){
+                            let bet = bets[l];
+                            let {stake, payout, transactionId} = bet;
+                            let evoBetData = new IEVOBetDataForDB();
+                            evoBetData.id = id;
+                            evoBetData.startedAt = startedAt;
+                            evoBetData.settledAt = settledAt;
+                            evoBetData.status = status;
+                            evoBetData.playerId = playerId;
+                            evoBetData.stake = stake;
+                            evoBetData.payout = payout;
+                            evoBetData.winlose = payout - stake;
+                            evoBetData.transactionId = transactionId;
+                            datas.push(evoBetData);
+                        }
+                    }
+                }
+            }
+
+            apiResponse["珍貴鼻子換來的"] = datas;  // todo:把datas資料寫進db
+            return apiResponse;
+        }
+        catch(err){
+            console.log(err);            
+            return {
+                errorMessage:'調用第三方api失敗'
+                ,error:err.message
+            }            
+        }
         
     }
 
-    public callAPI(startDate, endDate):Promise<APIResponse>{
+    public callAPI(startDate, endDate):Promise<IAPIResponse>{
         startDate = startDate.replace(' ', 'T')+'Z';
         endDate = endDate.replace(' ', 'T')+'Z';
         //console.log(startDate, endDate);
