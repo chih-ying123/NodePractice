@@ -42,6 +42,7 @@ export class EvoService {
                             evoBetData.startedAt = startedAt;
                             evoBetData.settledAt = settledAt;
                             evoBetData.status = status;
+                            evoBetData.gameType = gameType;
                             evoBetData.playerId = playerId;
                             evoBetData.stake = stake;
                             evoBetData.payout = payout;
@@ -54,8 +55,6 @@ export class EvoService {
             }
 
             apiResponse["珍貴鼻子換來的"] = datas;  // todo:把datas資料寫進db
-            console.log(apiResponse["珍貴鼻子換來的"][0]);
-            console.log(apiResponse["珍貴鼻子換來的"][0].id);
             this.SaveDataIntoDB(apiResponse["珍貴鼻子換來的"]);
 
             return apiResponse;
@@ -71,25 +70,36 @@ export class EvoService {
     }
 
     public async SaveDataIntoDB(datas){
-        console.log(datas);
 
-        /*
+        for(let i=0; i< datas.length; i++){
+            console.log(datas[i].transactionId);
+            let startedAt = datas[i].startedAt.replace('T', ' ').replace('Z', '');
+            let settledAt = datas[i].settledAt.replace('T', ' ').replace('Z', '');
+            console.log(startedAt);
+            
+
+           
+            let cmd = await /*連資料庫*/(`
+                INSERT INTO \`BetData_EVO\`
+                SET
+                    id = datas[i].id
+                    , startedAt = startedAt
+                    , settledAt = settledAt
+                    , status = datas[i].status
+                    , gameType = datas[i].gameType
+                    , playerId = datas[i].playerId
+                    , stake = datas[i].stake
+                    , payout = datas[i].payout
+                    , winlose = datas[i].winlose
+                    , transactionId = datas[i].transactionId
+                ;`
+            );
+            return cmd;
+            
+
+        }
+
         
-        INSERT INTO \`BetData_EVO\`
-        SET
-            id = 
-            , startedAt = 
-            , settledAt = 
-            , status = 
-            , gameType = 
-            , playerId = 
-            , stake = 
-            , payout = 
-            , winlose = 
-            , transactionId =  ;`
-        );
-        
-        */
     }
 
     public callAPI(startDate, endDate):Promise<IAPIResponse>{
