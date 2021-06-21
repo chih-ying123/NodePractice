@@ -28,6 +28,8 @@
             |- 4(C) = 彩票
             |- 5(V) = 視訊
 
+            遊戲會這樣分類， 是因應報表需求
+
          |-GameVendor 對應 Game_Vendor.RowId   
       
 
