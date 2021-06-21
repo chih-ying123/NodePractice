@@ -90,19 +90,18 @@ export class EvoService {
 
            
             let cmd = (`
-                INSERT INTO \`BetData_EVO\`
-                SET
-                    id = '${data.id}'
-                    , startedAt = '${startedAt}'
-                    , settledAt = '${settledAt}'
-                    , \`status\` = '${data.status}'
-                    , gameType = '${data.gameType}'
-                    , playerId = '${data.playerId}'
-                    , stake = ${data.stake}
-                    , payout = ${data.payout}
-                    , winlose = ${data.winlose}
-                    , transactionId = ${data.transactionId}
-                ;`
+                call NSP_BetData_Insert_EVO(                
+                    '${data.id}'
+                    , '${startedAt}'
+                    , '${settledAt}'
+                    , '${data.status}'
+                    , '${data.gameType}'
+                    , '${data.playerId}'
+                    ,  ${data.stake}
+                    ,  ${data.payout}
+                    ,  ${data.winlose}
+                    ,  ${data.transactionId}
+                );`
             );           
 
             this.conn.query(cmd);
