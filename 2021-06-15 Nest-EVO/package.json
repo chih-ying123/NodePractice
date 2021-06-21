@@ -29,6 +29,7 @@
     "moment": "^2.24.0",
     "mustache": "^4.0.1",
     "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",

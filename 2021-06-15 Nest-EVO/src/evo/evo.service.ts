@@ -3,6 +3,7 @@ import { Config, Dial, Loader, Log } from 'src/util';
 import { IEnv } from './env.interface';
 import * as fetch from 'node-fetch';
 import {IAPIResponse, IEVOBetDataForDB} from './env.interface';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class EvoService {
@@ -11,6 +12,8 @@ export class EvoService {
     constructor() {
         this.env = Loader.GetENV<IEnv>("./public/Evo/env.json")
     }
+    private conn: Connection;
+
 
     public async getBetData(startDate, endDate){
         
@@ -54,8 +57,8 @@ export class EvoService {
                 }
             }
 
-            apiResponse["珍貴鼻子換來的"] = datas;  // todo:把datas資料寫進db
-            this.SaveDataIntoDB(apiResponse["珍貴鼻子換來的"]);
+            apiResponse["evoBetData"] = datas;  // todo:把datas資料寫進db
+            this.SaveDataIntoDB(datas);
 
             return apiResponse;
         }
@@ -69,34 +72,40 @@ export class EvoService {
         
     }
 
-    public async SaveDataIntoDB(datas){
+    public async SaveDataIntoDB(datas:IEVOBetDataForDB[]){
 
+        //conn 連接資料庫
+        if (this.conn == null) {
+            this.conn = await Dial.GetSQLConn(Config.DB);
+            if (this.conn == null) {
+               
+                return
+            }
+        }
+        
         for(let i=0; i< datas.length; i++){
-            console.log(datas[i].transactionId);
-            let startedAt = datas[i].startedAt.replace('T', ' ').replace('Z', '');
-            let settledAt = datas[i].settledAt.replace('T', ' ').replace('Z', '');
-            console.log(startedAt);
-            
+            let data = datas[i];
+            let startedAt = data.startedAt.replace('T', ' ').replace('Z', '');
+            let settledAt = data.settledAt.replace('T', ' ').replace('Z', '');           
 
            
-            let cmd = await /*連資料庫*/(`
+            let cmd = (`
                 INSERT INTO \`BetData_EVO\`
                 SET
-                    id = datas[i].id
-                    , startedAt = startedAt
-                    , settledAt = settledAt
-                    , status = datas[i].status
-                    , gameType = datas[i].gameType
-                    , playerId = datas[i].playerId
-                    , stake = datas[i].stake
-                    , payout = datas[i].payout
-                    , winlose = datas[i].winlose
-                    , transactionId = datas[i].transactionId
+                    id = '${data.id}'
+                    , startedAt = '${startedAt}'
+                    , settledAt = '${settledAt}'
+                    , \`status\` = '${data.status}'
+                    , gameType = '${data.gameType}'
+                    , playerId = '${data.playerId}'
+                    , stake = ${data.stake}
+                    , payout = ${data.payout}
+                    , winlose = ${data.winlose}
+                    , transactionId = ${data.transactionId}
                 ;`
-            );
-            return cmd;
-            
+            );           
 
+            this.conn.query(cmd);
         }
 
         
