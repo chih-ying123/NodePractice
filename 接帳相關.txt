@@ -41,15 +41,18 @@
     
 建表欄位
 
-    games.[0].id
+    
+
+    games.[0].id    
     games.[0].gameType
     games.[0].startedAt
     games.[0].settledAt
-    games.[0].status                        遊戲狀態。      判斷是否為  Resolved
-    games.[0].participants[0].playerId      會員帳號
-    games.[0].wager                         投注額
-    games.[0].payout                        贏分
-    winlose = payout - wager                淨損益
+    games.[0].status                                    遊戲狀態。      判斷是否為  Resolved
+    games.[0].participants[0].playerId                  會員帳號
+    games.[0].participants[0].bets[0].wager             投注額
+    games.[0].participants[0].bets[0].payout            贏分
+    winlose = payout - wager                            淨損益
+    games.[0].participants[0].bets[0].transactionId     交易id
 
 SP基本需求
     
