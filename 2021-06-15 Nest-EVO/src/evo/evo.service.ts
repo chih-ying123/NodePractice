@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Config, Dial, Loader, Log } from 'src/util';
 import { IEnv } from './env.interface';
-import * as fetch from 'node-fetch';
+import fetch from 'node-fetch';
 import {IAPIResponse, IEVOBetDataForDB} from './env.interface';
 import { Connection } from 'typeorm';
 
