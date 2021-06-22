@@ -41,7 +41,7 @@ main:BEGIN
 
     END IF; 
     
-     -- 從api那邊拿到的玩家名稱，查出在我們資料厙裡面的 會員編號
+     -- 從api那邊拿到的玩家名稱，查出在我們資料厙裡面的 會員編號(Member_Info.UID)
     SELECT UID
     INTO _MemberId 
     FROM Member_Info
@@ -51,13 +51,20 @@ main:BEGIN
     -- 如果查不到對應的會員id，就退出程式
     IF _MemberId = 0 THEN
      
-     LEAVE main; 
+        LEAVE main; 
     
     END IF ;
     
+    -- 如果這一筆遊戲記錄景狀態值不是 Resolved 的話，就退出sp，不把資料寫入
+    -- 只寫入已經結算輸贏的記錄
+    IF _status <> 'Resolved'
+    THEN
+     
+        LEAVE main; 
     
+    END IF ;
     
-    -- 從api那邊拿到的名稱遊戲名稱，查出在我們資料厙裡面的 GameId
+    -- 從api那邊拿到的遊戲名稱，查出在我們資料厙裡面的 Game_List.GameId
     SELECT GameId INTO _GameId
     FROM Game_List 
     WHERE  GameVendor = _GameVendorId 
