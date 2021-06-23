@@ -87,7 +87,6 @@ export class EvoService {
             let data = datas[i];
             let startedAt = data.startedAt.replace('T', ' ').replace('Z', '');
             let settledAt = data.settledAt.replace('T', ' ').replace('Z', '');           
-
            
             let cmd = (`
                 call NSP_BetData_Insert_EVO(                
@@ -104,7 +103,13 @@ export class EvoService {
                 );`
             );           
 
-            this.conn.query(cmd);
+            try{
+                this.conn.query(cmd);
+            }
+            catch(err){
+                continue; //繼續往下一筆執行
+                console.log(err);
+            }
         }
 
         
