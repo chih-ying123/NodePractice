@@ -106,7 +106,8 @@ export class EvoService {
                 );`
             );           
 
-            try{
+            try{                
+                
                 this.conn.query(cmd);
             }
             catch(err){

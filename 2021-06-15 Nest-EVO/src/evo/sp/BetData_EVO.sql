@@ -1,14 +1,16 @@
+-- DROP TABLE BetData_EVO ;
+
 CREATE TABLE `BetData_EVO`(
     `Id` VARCHAR(32) 
-  , `startedAt` DATETIME DEFAULT NULL
-  , `settledAt` DATETIME DEFAULT NULL
-  , `status` VARCHAR(32) DEFAULT NULL  
-  , `gameType` VARCHAR(32) DEFAULT NULL
-  , `playerId` VARCHAR(32) DEFAULT NULL
-  , `stake` DECIMAL(14, 4) DEFAULT NULL
-  , `payout` DECIMAL(14, 4) DEFAULT NULL
-  , `winlose` DECIMAL(14, 4) DEFAULT NULL  
-  , `transactionId`  BIGINT UNSIGNED  DEFAULT 0 NULL NULL 
-  , `result` VARCHAR(1024) DEFAULT NULL
+  , `startedAt` DATETIME NOT NULL
+  , `settledAt` DATETIME NOT NULL
+  , `status` VARCHAR(32) NOT NULL
+  , `gameType` VARCHAR(32) NOT NULL
+  , `playerId` VARCHAR(32) NOT NULL
+  , `stake` DECIMAL(14, 4) NOT NULL
+  , `payout` DECIMAL(14, 4) NOT NULL
+  , `winlose` DECIMAL(14, 4) NOT NULL  
+  , `transactionId`  BIGINT UNSIGNED  NOT NULL 
+  , `result` VARCHAR(1024) DEFAULT '' NOT NULL
   , PRIMARY KEY(transactionId) 
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4

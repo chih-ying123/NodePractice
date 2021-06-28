@@ -49,12 +49,8 @@ main:BEGIN
     WHERE username = _playerId;  	-- 取回會員uid，寫明細用的
     
     
-    -- 如果查不到對應的會員id，就退出程式
-    IF _MemberId = 0 THEN
-     
-        LEAVE main; 
+  
     
-    END IF ;
     
     -- 如果這一筆遊戲記錄景狀態值不是 Resolved 的話，就退出sp，不把資料寫入
     -- 只寫入已經結算輸贏的記錄
@@ -69,7 +65,7 @@ main:BEGIN
     SELECT GameId INTO _GameId
     FROM Game_List 
     WHERE  GameVendor = _GameVendorId 
-    AND TheirGameId   = _GameId  ;
+    AND TheirGameId   = _gameType  ;
     
     
     
@@ -91,6 +87,13 @@ main:BEGIN
           , transactionId  = _transactionId 
           , result  = _result  ;
     END IF; 
+    
+    
+      
+    -- 如果查不到對應的會員id，就退出程式
+    IF _MemberId = 0 THEN     
+        LEAVE main;     
+    END IF ;
     
     -- 判斷此筆注單資料是否已存在於db(帳務明細)中， 若「否」才做寫入動作   (帳務明細: report_winlose_detail)
     IF NOT EXISTS(SELECT 1 FROM report_winlose_detail WHERE GameVendor = _GameVendorId AND ZhuDanId = _transactionId) THEN
