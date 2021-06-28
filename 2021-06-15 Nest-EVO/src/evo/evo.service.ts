@@ -30,7 +30,7 @@ export class EvoService {
                 {  
                     let game = games[j];                   
                     
-                    let{id, startedAt, settledAt, status, gameType, participants} = game;  // 從game中取出屬性                    
+                    let{id, startedAt, settledAt, status, gameType, participants, result} = game;  // 從game中取出屬性                    
 
                     for(let k=0; k< participants.length; k++){
 
@@ -51,6 +51,8 @@ export class EvoService {
                             evoBetData.payout = payout;
                             evoBetData.winlose = payout - stake;
                             evoBetData.transactionId = transactionId;
+                            evoBetData.result = JSON.stringify(result);
+                            
                             datas.push(evoBetData);
                         }
                     }
@@ -90,7 +92,7 @@ export class EvoService {
            
             let cmd = (`
                 call NSP_BetData_Insert_EVO(                
-                    '${data.id}'
+                      '${data.id}'
                     , '${startedAt}'
                     , '${settledAt}'
                     , '${data.status}'
@@ -100,6 +102,7 @@ export class EvoService {
                     ,  ${data.payout}
                     ,  ${data.winlose}
                     ,  ${data.transactionId}
+                    ,  '${data.result}'
                 );`
             );           
 

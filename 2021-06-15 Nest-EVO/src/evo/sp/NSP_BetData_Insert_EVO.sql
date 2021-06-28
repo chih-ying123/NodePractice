@@ -11,6 +11,7 @@ CREATE OR REPLACE PROCEDURE NSP_BetData_Insert_EVO
   , _payout DECIMAL(14, 4)
   , _winlose DECIMAL(14, 4) 
   , _transactionId  BIGINT UNSIGNED
+  , _result VARCHAR(1024) 
 )
 main:BEGIN
 
@@ -87,8 +88,8 @@ main:BEGIN
           , stake     = _stake 
           , payout    =  _payout
           , winlose   = _winlose
-          , transactionId  = _transactionId  ;
-        
+          , transactionId  = _transactionId 
+          , result  = _result  ;
     END IF; 
     
     -- 判斷此筆注單資料是否已存在於db(帳務明細)中， 若「否」才做寫入動作   (帳務明細: report_winlose_detail)

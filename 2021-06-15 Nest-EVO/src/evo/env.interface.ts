@@ -8,7 +8,7 @@ export interface IEnv {
 // I = interface
 export interface IAPIResponse{
     uuid: string;
-    timestamp: string
+    timestamp: string;
     data: IData[];
 }
 
@@ -24,17 +24,18 @@ export interface IGame{
     status: string;
     gameType: string;
     participants: IParticipant[];
+    result: string;
 }
 
 export interface IParticipant{
     playerId: string;
-    bets:IBet[]                 
+    bets:IBet[];                 
 }
 
 export interface IBet{
-    stake: number
-    payout: number
-    transactionId: number
+    stake: number;
+    payout: number;
+    transactionId: number;
 }
 
 
@@ -46,9 +47,9 @@ export class IEVOBetDataForDB{
     status: string;
     gameType: string;
     playerId: string;
-    stake: number
-    payout: number
-    winlose: number
-    transactionId: number
-
+    stake: number;
+    payout: number;
+    winlose: number;
+    transactionId: number;
+    result: string;
 }
