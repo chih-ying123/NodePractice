@@ -1,0 +1,20 @@
+platform_db_wrin\函數\UDF_Report_GetBetInfo
+
+
+UDF_Report_GetBetInfo 是一個自定義函數: https://tw511.com/a/01/1924.html
+
+    用法: 
+        SELECT UDF_Report_GetBetInfo(88625, 622209059390506209)
+            |- 參數1: Report_Winlose_Detail.GameId
+            |- 參數1: Report_Winlose_Detail.ZhuDanId
+
+    【返回遊戲記錄的牌局結果】
+
+
+後台報表是以 Report_Winlose_Detail 表做為資料來源
+
+Report_Winlose_Detail 主要是記錄 投注、輸贏...等通用欄位。
+
+【從 Report_Winlose_Detail 的角度來看， 要知道  betdata_evo.result是什麼 】
+屬於遊戲平台的獨立資料欄位(betdata_evo.result)，
+需要通過共同欄位 ( Report_Winlose_Detail.ZhuDanId 與 betdata_evo.transactionId ) 來查詢出兩表之間對應的資料
