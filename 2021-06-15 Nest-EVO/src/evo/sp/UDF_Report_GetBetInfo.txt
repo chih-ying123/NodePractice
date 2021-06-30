@@ -6,7 +6,7 @@ UDF_Report_GetBetInfo 是一個自定義函數: https://tw511.com/a/01/1924.html
     用法: 
         SELECT UDF_Report_GetBetInfo(88625, 622209059390506209)
             |- 參數1: Report_Winlose_Detail.GameId
-            |- 參數1: Report_Winlose_Detail.ZhuDanId
+            |- 參數2: Report_Winlose_Detail.ZhuDanId
 
     【返回遊戲記錄的牌局結果】
 
