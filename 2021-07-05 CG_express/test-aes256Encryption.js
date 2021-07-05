@@ -16,7 +16,7 @@ afterEncrypted = aes256Cryto.Encrypt(str, key, iv);
 console.log('encrypt->',afterEncrypted);
 
 //解密
-afterDecrypted = aes256Cryto.Decrypt( 'xlnKpbzQuSdRKyr+RvB6xzEx1r3WJyxYg9dwmQRgYmw=', key, iv);
+afterDecrypted = aes256Cryto.Decrypt( '2B+c+9POrpA93BqEC/70pU9aKZ5FcYLCw1SnYfLaZFqTuiImDxB3m7h7Ss7Yv2gv', key, iv);
 console.log('decrypt->',afterDecrypted);
 
 

@@ -18,15 +18,15 @@ async function callAPI(from_time,to_time){
 
     return new Promise(async (resolve, reject) => {
 
-        var str = `{
-            "startTime":"${from_time.replace(' ', 'T')}";,
+        let str = `{
+            "startTime":"${from_time.replace(' ', 'T')}",
             "endTime":"${to_time.replace(' ', 'T')}",
             "method":"data"
             }
             `;
-        var key = config.key;
-        var iv = config.iv;
-        var afterEncrypted = aes256Cryto.Encrypt(str, key, iv);
+        let key = config.key;
+        let iv = config.iv;
+        let afterEncrypted = aes256Cryto.Encrypt(str, key, iv);
 
         let postBody = {
             channelId: config.channelId
@@ -36,12 +36,18 @@ async function callAPI(from_time,to_time){
         let fetchOptions = {
             headers: {'content-Type':'application/x-www-form-urlencoded'}
             , method: 'post'
-            , body: postBody
+            , body:  `channelId=${config.channelId}&data=${afterEncrypted}`
         };
         try {
             let response = await fetch(`${config.apiURI}`, fetchOptions);
-            let jsonData = await response.json();
-            resolve (jsonData);
+            let jsonData = await response.text();
+            console.log(jsonData);
+
+            let afterDecrypted = aes256Cryto.Decrypt( jsonData, key, iv);
+            let datas =  JSON.parse(afterDecrypted);
+
+            console.log(datas);
+            resolve (datas);
         }
         catch (err) {
             reject(err);
