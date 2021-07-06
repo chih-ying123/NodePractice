@@ -14,25 +14,20 @@ async function getBetData(startTime, endTime){
 
 };
 
-async function callAPI(from_time,to_time){
+async function callAPI(startTime, endTime){
 
     return new Promise(async (resolve, reject) => {
 
-        let str = `{
-            "startTime":"${from_time.replace(' ', 'T')}",
-            "endTime":"${to_time.replace(' ', 'T')}",
+        let dataObject = {
+            "startTime": startTime.replace(' ', 'T') + '.000+08:00',
+            "endTime": endTime.replace(' ', 'T') + '.000+08:00',
             "method":"data"
-            }
-            `;
+            };
+        let dataString = JSON.stringify(dataObject);    
         let key = config.key;
         let iv = config.iv;
-        let afterEncrypted = aes256Cryto.Encrypt(str, key, iv);
+        let afterEncrypted = aes256Cryto.Encrypt(dataString, key, iv);
 
-        let postBody = {
-            channelId: config.channelId
-            , data: afterEncrypted
-        };
-       
         let fetchOptions = {
             headers: {'content-Type':'application/x-www-form-urlencoded'}
             , method: 'post'
