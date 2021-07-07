@@ -1,12 +1,12 @@
 CREATE TABLE `BetData_CG`(
-    `Id`        VARCHAR(32) 
-  , `GameType`  VARCHAR(32)      DEFAULT NULL
-  , `LogTime`   DATETIME         DEFAULT NULL
-  , `playerId`  VARCHAR(32)      DEFAULT NULL
-  , `wager`     DECIMAL(14, 4)   DEFAULT NULL
-  , `payout`    DECIMAL(14, 4)   DEFAULT NULL
-  , `winlose`   DECIMAL(14, 4)   DEFAULT NULL
-  , `normalWin` DECIMAL(14, 4)   DEFAULT NULL
-  , `bonusWin`  DECIMAL(14, 4)   DEFAULT NULL
-  , PRIMARY KEY(Id) 
+    `SerialNumber`        VARCHAR(32) 
+  , `GameType` VARCHAR(32) DEFAULT NULL
+  , `LogTime` DATETIME DEFAULT NULL
+  , `ThirdPartyAccount` VARCHAR(32) DEFAULT NULL
+  , `ValidBet` DECIMAL(14, 4) DEFAULT NULL
+  , `MoneyWin` DECIMAL(14, 4) DEFAULT NULL
+  , `WinLose` DECIMAL(14, 4) DEFAULT NULL
+  , `NormalWin` DECIMAL(14, 4) DEFAULT NULL
+  , `BonusWin` DECIMAL(14, 4) DEFAULT NULL
+  , PRIMARY KEY(SerialNumber) 
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
