@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Config, Dial, Loader, Log } from 'src/util';
-import { IEnv } from './env.interface';
+import { IEnv, IAPIResponse } from './env.interface';
 import fetch from 'node-fetch';
 import { Connection } from 'typeorm';
 import { enc, AES, mode as _mode, pad } from "crypto-js";
@@ -18,10 +18,37 @@ export class CgService {
     public async getBetData(startDate, endDate){
         
         let apiResponse = await this.callAPI(startDate, endDate); 
+        
+        if (apiResponse.errorCode === 0){
+            this.SaveDataIntoDB(apiResponse.data) ;
+        }
+        
+
+
         return apiResponse;          
     }
 
-    public callAPI(startTime, endTime){
+    public async SaveDataIntoDB(datas){
+
+        //conn 連接資料庫
+        /*
+        if (this.conn == null) {
+            this.conn = await Dial.GetSQLConn(Config.DB);
+            if (this.conn == null) {
+               
+                return
+            }
+        }
+        */
+        console.log(datas);
+        
+        
+        
+
+        
+    }
+
+    public callAPI(startTime, endTime):Promise<IAPIResponse>{
 
         return new Promise(async (resolve, reject) => {
 
@@ -59,7 +86,7 @@ export class CgService {
 
                 let afterDecrypted = this.Decrypt(textData, key, iv);
                 let datas = JSON.parse(afterDecrypted);
-                console.log(datas);
+                //console.log(datas);
                 
                 resolve(datas);
             }
