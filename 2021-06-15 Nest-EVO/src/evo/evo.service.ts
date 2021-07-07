@@ -102,7 +102,7 @@ export class EvoService {
                     ,  ${data.payout}
                     ,  ${data.winlose}
                     ,  ${data.transactionId}
-                    ,  '${data.result}'
+                    , '${data.result}'
                 );`
             );           
 
