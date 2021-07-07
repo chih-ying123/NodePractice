@@ -1,0 +1,33 @@
+API相关信息
+    线上API文件网址：https://www.eolinker.com/#/share/index?shareCode=hHz4Wb
+    线上API文件密码：ABCD
+    API domain: https://api.cdmolo.com:16800
+    AccessKeyId:   91566dcb-d013-4cce-ab51-ce1906881547  
+    AccessKeySecret: 8A576C427E26186F3FAF5EE8E1B0151DEEA9C378  
+后台相关信息
+    后台网址： https://agency.bolegaming.net
+    后台主管理帐户： winner.bet666@admin.com
+    密碼：  winner168!^*
+    图片资源
+    下载网址： https://mega.nz/#F!88kwkAxZ!LwS0XUUDrgDjC02A6bw1WQ
+
+
+
+對方白名單IP
+    请贵司加白这两组 IP：119.9.91.232 & 47.56.188.243
+
+
+https://if.xz175.com/Seamles/Bole
+
+
+麻煩幫我新增白名單
+博樂
+回調網址：
+    https://if.xz175.com/Seamles/Bole
+回調ip：
+    119.9.91.232
+    47.56.188.243
+
+
+請求網址：
+    https://api.cdmolo.com:16800

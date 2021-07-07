@@ -1,0 +1,3 @@
+代理ID = cn00101
+md5 Key = 3gd7rqxjx06rhtn67729
+WRC 測試API網址 = https://apiwinneradm2.dv2test.com

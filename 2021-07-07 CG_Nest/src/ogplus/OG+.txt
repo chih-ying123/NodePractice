@@ -1,0 +1,41 @@
+WRT
+
+X-Operator：moig379yj
+X-Key： vAcAld4gy27zU82j
+
+
+API文档是 http://mucho.oriental-game.com:8059/
+登录密码：og88@ecoplaza
+
+API服务域名是 https://marsapi-test.oriental-game.com:8443
+API获取数据是 https://tigerapi-testing.oriental-game.com:38888
+
+后台域名是https://ceres-testing.oriental-game.com:8888/
+后台账号：moig379yj
+密碼：vAcAld4gy27zU82j
+
+
+
+
+正式
+--------------------------
+
+提供給您OG Plus的正式帳號如下:
+X-Operator : mog379tw
+X-key: lrXzbjyETQZG4TIV ( WRT)
+
+X-Operator : mog379dl
+X-key: Qcufr0IKKvcatMjb (WRC)
+
+***********************************
+API服務域名是：https://mog379.haa477.com
+
+API文檔中關於「API獲取數據」的部分：
+API域名是 https://tigerapi.oriental-game.com:38888
+
+後台域名是 https://ceres.oriental-game.com:8888/
+後台帳號同X-Operator
+密碼預設同X-key
+
+開通遊戲為 OG Plus視訊
+幣別為 TWD, CNY

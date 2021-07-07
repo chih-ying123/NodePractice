@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinnerLottery 接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" value='' placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+    let inputDate = document.getElementById('inputDate');
+    inputDate.value = '';
+
+    inputDate.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            console.log(this.value)
+            getAPIRequest(this.value);
+        }
+    })
+
+    async function getAPIRequest(date) {
+        let html = '';
+        let router = '/wrc/winnerlottery/bet-data';
+        let type = 0;
+
+        if (date == '') {
+            let json = await fetch(`${router}/APIRequestList?date=${date}`).then(res => res.json());
+            console.log("date null");
+            let herf = `/wrc/winnerlottery/bet-data/GetTheirBetData/${type}/0`;
+            html += `
+            <tr>
+                <td colspan="2"><a href="${herf}" target='_blank'>現有時間前一小時</a></td>
+            </tr>
+            `
+            fetch(herf);
+               setTimeout(() => {
+            //    fetch(herf);
+               location.reload();
+               }, 600 * 1000 );
+
+        } else if(date !='') {
+         let data = await fetch(`${router}/APIRequestList?date=${date}`).then(res => res.text());
+            console.log("date not null " +data);
+            let type = 1;
+            let index = 0; // 用來設定延時的計數器
+            let doCount = 0; // 真正的執行次數，全部執行完，會重新刷頁面
+
+
+            let herf = `/wrc/winnerlottery/bet-data/GetTheirBetData/${type}/${date}`;
+
+            html += `
+                    <tr>
+                        <td colspan="2"><a href="${herf}" target='_blank'>${date}</a></td>
+                    </tr>
+                `
+            fetch(herf);
+                  setTimeout(() => {
+                  fetch(herf);
+                //   location.reload();
+                  }, 600 * 1000 );
+         
+        }
+        document.getElementById('apiTab').innerHTML = html;
+
+    }
+    getAPIRequest('');
+</script>
+
+</html>

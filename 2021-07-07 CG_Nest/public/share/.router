@@ -1,0 +1,11 @@
+[    
+    { "Name": "OG+", "URI": "wrc/OGPlus/bet-data" },
+    { "Name": "BG", "URI": "wrc/BG/bet-data" },
+    { "Name": "Bole", "URI": "wrc/Bole/bet-data" },
+    { "Name": "AGIN", "URI": "wrc/agin/bet-data" },
+    { "Name": "Sbo", "URI": "wrc/sbo/bet-data" },
+    { "Name": "WinnerLottery", "URI": "wrc/WinnerLottery/bet-data" },
+    { "Name": "winnerlotterydonate", "URI": "wrc/winnerlotterydonate/bet-data" },
+    { "Name": "winnerlivedonate", "URI": "wrc/winnerlivedonate/bet-data" },
+    { "Name": "CG", "URI": "wrc/cg/bet-data" }
+]

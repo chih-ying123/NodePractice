@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGIN-視訊-單一錢包-接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" value='' placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+
+
+    let inputDate = document.getElementById('inputDate');
+    let apiCalls = [];  // 存放請求
+
+    inputDate.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            console.log(this.value);
+            apiCalls = [];                  // 把佇列中的請求清掉，要補帳的請求插隊進來
+            getAPIRequest(this.value);
+        }
+    })
+
+    async function getAPIRequest(date) {
+
+        let html = '';
+        let json = await fetch(`/wrc/agin/bet-data/APIRequestList?date=${date}`).then(res => res.json());
+
+        let index = 0;
+        json.forEach(url => {
+
+            let herf = `/wrc/agin/bet-data/getXML?url=${url}`;
+
+            html += `
+                <tr>
+                    <td colspan="2"><a href="${herf}" target='_blank'>${atob(url)}</a></td>
+                </tr>
+            `
+            apiCalls.push(herf);  // 把請求放到陣列中
+
+        });
+
+        document.getElementById('apiTab').innerHTML = html;
+    }
+
+    getAPIRequest('');
+
+    setInterval(() => {
+
+        let apiCall = apiCalls.shift();   // 每 n 秒抓一個出來處理
+        fetch(apiCall);
+
+        document.querySelector(`a[href="${apiCall}"]`).style.backgroundColor = "yellow";  // 做過就標黃色
+
+        if (apiCalls.length === 0) {  // 都抓完了就重新讀取
+            getAPIRequest('');
+        }
+
+    }, 3 * 1000);
+
+</script>
+
+</html>
