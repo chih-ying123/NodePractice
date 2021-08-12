@@ -1,0 +1,2 @@
+INSERT INTO Game_List SET GameName='捕鱼大师', GameVendor=50, TheirGameId='105', GameType=2 ,Note='Fishing';
+INSERT INTO Game_List SET GameName='西游捕鱼', GameVendor=50, TheirGameId='411', GameType=2 ,Note='Fishing';

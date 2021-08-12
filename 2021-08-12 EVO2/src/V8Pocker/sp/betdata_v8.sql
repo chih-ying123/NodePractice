@@ -1,0 +1,22 @@
+CREATE TABLE `betdata_v8` (
+  `orderid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `GameID_hash` bigint(20) unsigned NOT NULL,
+  `GameID` varchar(50) DEFAULT NULL,
+  `Accounts` varchar(50) DEFAULT NULL,
+  `ServerID` int(10) DEFAULT NULL,
+  `KindID` int(10) DEFAULT NULL,
+  `TableID` bigint(20) DEFAULT NULL,
+  `ChairID` int(10) DEFAULT NULL,
+  `UserCount` int(10) DEFAULT NULL,
+  `CellScore` decimal(20,10) DEFAULT NULL,
+  `AllBet` decimal(20,10) DEFAULT NULL,
+  `Profit` decimal(20,10) DEFAULT NULL,
+  `Revenue` decimal(20,10) DEFAULT 0,
+  `GameStartTime` datetime DEFAULT NULL,
+  `GameEndTime` datetime DEFAULT NULL,
+  `ChannelID` int(10) DEFAULT NULL,
+  `LineCode` varchar(50) DEFAULT NULL,
+  `CardValue` text DEFAULT NULL,
+  PRIMARY KEY (`orderid`),
+  KEY `id_hash` (`GameID_hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4

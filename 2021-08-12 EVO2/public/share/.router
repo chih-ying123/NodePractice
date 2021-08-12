@@ -1,0 +1,13 @@
+[    
+    { "Name": "winnerlotterydonate", "URI": "wrin/winnerlotterydonate/bet-data" },
+    { "Name": "winnerlivedonate", "URI": "wrin/winnerlivedonate/bet-data" },
+    { "Name": "TFGaming", "URI": "wrin/TFGaming/bet-data" },
+    { "Name": "ICG", "URI": "wrin/icg/bet-data" },
+    { "Name": "BG", "URI": "wrin/BG/bet-data" },
+    { "Name": "BgFishing", "URI": "wrin/BgFishing/bet-data" },
+    { "Name": "SBO", "URI": "wrin/sbo/bet-data" },
+    { "Name": "SBO_VR", "URI": "wrin/SBO_VR/bet-data" },
+    { "Name": "GBLottery", "URI": "wrin/GBLottery/bet-data" },
+    { "Name": "Evo", "URI": "wrin/Evo/bet-data" }
+
+]

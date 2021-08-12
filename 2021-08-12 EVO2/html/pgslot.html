@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG接帳</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+        }
+        table, td {
+            text-align: center;
+            font-weight: bolder;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <td>請輸入日期(YYYY-MM-DD)</td>
+                <td><input type="text" placeholder="preess enter to go" id='inputDate'></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">API URL</td>
+            </tr>
+
+        </thead>
+
+        <tbody id='apiData'>
+
+        </tbody>
+
+    </table>
+
+
+</body>
+
+<script type='application/javascript'>
+
+    let inputDate = document.getElementById('inputDate');
+    let router = '/wrin/pgslot/bet-data';
+    let getBetDataURLArray = [];  // 存放要取帳的網址
+
+    // let defaultDate = moment().format('YYYY-MM-DD');
+    // console.log("API date:", defaultDate);
+    // inputDate.value = defaultDate;
+
+    inputDate.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            loadDateList();
+        }
+    })
+
+    async function loadDateList(){
+
+        if (inputDate.value != ''){
+
+            //預設日期為今日
+            let date = '';  // 後台有對 '' 做處理
+            if (/\d\d\d\d-\d\d-\d\d/.test(inputDate.value)) { //test() 用於檢測一個字符串是否匹配某個模式
+                date = inputDate.value
+            }
+            else{
+                alert('格式錯誤: 必須是 yyyy-mm-dd')
+            }
+        }
+
+        let json = await fetch(`${router}/APIRequestList?date=${date}`).then(res => res.json());
+    }
+
+
+</script>
+</html>

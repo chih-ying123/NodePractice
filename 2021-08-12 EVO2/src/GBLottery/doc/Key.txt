@@ -1,0 +1,39 @@
+Hi Winbet【測試環境】請進行如下設置：
+TPCode = 849
+GeneralKey = 6TsPXq
+SecretKey = prt7XU
+API URL = http://uatapi.gbb2b.com/GBGameAPI/API.aspx
+Backend URL = http://uatbackend.gbb2b.com/Winbet
+
+數字遊戲
+Game DNS設定 = 211.21.101.163  對應遊戲域名[YourDomain]由第三方指定
+【網頁版遊戲網址】
+Keno Web Game URL = http://[YourDomain]/keno/default.aspx?tpid=[TPCode]&token=[Token]&languagecode=[LangCode]
+【手機版遊戲網址】
+Keno Mobile Game URL = http://[YourDomain]/mobile/keno/index.aspx?tpid=[TPCode]&token=[Token]&languagecode=[LangCode]
+
+後台環境登入帳號：Winbetadmin
+，密碼與帳號相同
+
+注單資訊
+在API(AllProductGames).pdf裡的GetGamingSettle與GetGamingBetting  第16頁開始
+
+
+
+Hi  Winbet【正式環境】請進行如下設置：
+TPCode = 849
+GeneralKey = 6JpL7z
+SecretKey = SSVf4S
+API URL = http://api.gbb2b.com/GBGameAPI/API.aspx
+Backend URL = http://backend.gbb2b.com/Winbet
+
+數字遊戲
+Game DNS設定 = 遊戲域名請設定cname為 gb.wscdnscdn.net
+【網頁版遊戲網址】
+Keno Web Game URL = http://[YourDomain]/keno/default.aspx?tpid=[TPCode]&token=[Token]&languagecode=[LangCode]
+
+【手機版遊戲網址】
+Keno Mobile Game URL = http://[YourDomain]/mobile/keno/index.aspx?tpid=[TPCode]&token=[Token]&languagecode=[LangCode]
+
+後台環境登入帳號：Winbetadmin
+，密碼與帳號相同
