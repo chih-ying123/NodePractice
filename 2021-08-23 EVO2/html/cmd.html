@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMD-接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入ID(數字)
+                </th>
+                <th>
+                    <input type="text" value='' placeholder="preess enter to go" id='inputID'>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+    let inputID = document.getElementById('inputID');
+        inputID.value = '';
+    let router = '/wrin/cmd/bet-data';
+    inputID.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            console.log(this.value)
+            getAPIRequest(this.value);
+        }
+    })
+    async function GetID() {
+        let LastID = await fetch(`${router}/GetID`).then(res => res.text());
+        console.log('LastID', LastID)
+        return LastID;
+    }
+    async function getAPIRequest(inputID) {
+      
+        let html = '';
+        let herf = `${router}/GetTheirBetData/${inputID}`;
+        html += `
+            <tr>
+                <td colspan="2"><a href="${herf}" target='_blank'>目前ID：${inputID}</a></td>
+            </tr>
+            `
+        fetch(herf);
+        document.getElementById('apiTab').innerHTML = html;
+    }
+
+    setInterval(() => {
+        this.GetID().then(inputID => getAPIRequest(inputID))
+    }, 10 * 1000);
+
+</script>
+
+</html>

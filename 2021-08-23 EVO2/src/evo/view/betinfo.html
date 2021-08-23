@@ -1,0 +1,45 @@
+<table border="1" cellspacing="0" width="100%">
+  {{#items}}
+    <tr>
+      <th colspan="5">Rusult Info</th>
+    </tr>
+    <tr>
+      <td>Game Id</td>
+      <td colspan="4">{{id}}</td>
+    </tr>
+    <tr>
+      <td>Game Type</td>
+      <td colspan="4">{{gameType}}</td>
+    </tr>
+    <tr>
+      <td>Game Status</td>
+      <td colspan="4">{{status}}</td>
+    </tr>
+    <tr>
+      <td>Ended at</td>
+      <td colspan="4">{{settledAt}}</td>
+    </tr>
+    <tr>
+      <td>Play Id</td>
+      <td colspan="4">{{playerId}}</td>
+    </tr>
+    <tr>
+      <th colspan="5">Rusult View</th>
+    </tr>
+    <tr>
+      <td>stake</td>
+      <td>payout</td>
+      <td>winlose</td>
+      <td>Ext. Transaction Id</td>
+      <td>Place Time</td>
+    </tr>
+    <tr>
+      <td>{{stake}}</td>
+      <td>{{payout}}</td>
+      <td>{{winlose}}</td>
+      <td>{{transactionId}}</td>
+      <td>{{startedAt}}</td>
+    </tr>
+ {{/items}}
+    
+  </table>
