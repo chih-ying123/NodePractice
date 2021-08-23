@@ -4,19 +4,19 @@ USE `platform_db_wrin`$$
 
 DROP PROCEDURE IF EXISTS `NSP_BetData_Insert_EVO`$$
 
-CREATE DEFINER=`dbtest`@`%` PROCEDURE `NSP_BetData_Insert_EVO`(
+CREATE PROCEDURE `NSP_BetData_Insert_EVO`(
    _Id VARCHAR(32) 
   , _startedAt DATETIME 
   , _settledAt DATETIME 
   , _status VARCHAR(32) 
   , _gameType VARCHAR(32) 
   , _playerId VARCHAR(32)
-    , _bet VARCHAR(32)          -- 下注描述
+  , _description VARCHAR(32)          -- 下注描述
   , _stake DECIMAL(14, 4) 
   , _payout DECIMAL(14, 4)
   , _winlose DECIMAL(14, 4)
-    , _betid VARCHAR(64) 
-    , _code VARCHAR(32)   
+  , _betid VARCHAR(64) 
+  , _code VARCHAR(32)   
   , _transactionId  BIGINT UNSIGNED
   , _result VARCHAR(1024) 
 )
@@ -31,7 +31,7 @@ main:BEGIN
     DECLARE _MemberId      INT      DEFAULT 0 ;
     DECLARE _ZhuDanId           INT DEFAULT 0;
     DECLARE _FanShuiFlag        TINYINT DEFAULT 1;    
-    DECLARE _outcome VARCHAR(32);  	
+    DECLARE _outcome            VARCHAR(32);  	
     DECLARE _vBet               BIGINT  DEFAULT 0;
     
     -- 點數與餘額的放大倍率，過去的需求， 這個比例是給遊戲端使用的
@@ -87,14 +87,17 @@ main:BEGIN
           , `status`  = _status
           , gameType  = _gameType 
           , playerId  = _playerId
-                  , bet       = _bet            -- 下注描述
-          , stake     = _stake 
-          , payout    =  _payout
-          , winlose   = _winlose
-		  , betid	  = _betid
-		  , `code`	  = _code          
+          , description            = _description            -- 下注描述
+          , stake          = _stake 
+          , payout         =  _payout
+          , winlose        = _winlose
+		  , betid	       = _betid
+		  , `code`	       = _code          
           , transactionId  = _transactionId 
-          , result  = _result  ;
+          , result         = _result  
+          , betid_hash     =  CRC32(`betid`)
+          ;
+          
     END IF; 
     
     SELECT RowId INTO _ZhuDanId FROM BetData_EVO WHERE betid_hash = CRC32(_betid) AND betid = _betid;

@@ -49,12 +49,12 @@ export class EvoService {
                             evoBetData.status = status;
                             evoBetData.gameType = gameType;
                             evoBetData.playerId = playerId;
-                evoBetData.bet = description;
+                            evoBetData.bet = description;
                             evoBetData.stake = stake;
                             evoBetData.payout = payout;
                             evoBetData.winlose = payout - stake;
-			    evoBetData.betid = code + transactionId;
-			    evoBetData.code = code;
+			                evoBetData.betid = code + transactionId;
+			                evoBetData.code = code;
                             evoBetData.transactionId = transactionId;
                             evoBetData.result = JSON.stringify(result);
                             
@@ -70,7 +70,7 @@ export class EvoService {
             return apiResponse;
         }
         catch(err){
-            console.log(err);            
+            console.log(err.message);            
             return {
                 errorMessage:'調用第三方api失敗'
                 ,error:err.message
@@ -95,7 +95,7 @@ export class EvoService {
             let startedAt = data.startedAt.replace('T', ' ').replace('Z', '');
             let settledAt = data.settledAt.replace('T', ' ').replace('Z', '');           
            
-            let cmd = (`
+            let cmd = `
                 call NSP_BetData_Insert_EVO(                
                       '${data.id}'
                     , '${startedAt}'
@@ -103,26 +103,29 @@ export class EvoService {
                     , '${data.status}'
                     , '${data.gameType}'
                     , '${data.playerId}'
-            , '${data.bet}'
+                    , '${data.bet.replace('\'', '\\\'')}'
                     ,  ${data.stake} 
                     ,  ${data.payout}
                     ,  ${data.winlose}
-		    , '${data.betid}'
-		    , '${data.code}'
+		            , '${data.betid}'
+		            , '${data.code}'
                     ,  ${data.transactionId}
                     , '${data.result}'
                 );`
-            );          
+            ;          
 
-		//fs.appendFile('./EvoSQL.sql', cmd+"\n", 'utf8', err => { }); 
+		   // fs.appendFile('./EvoSQL.sql', cmd+"\n", 'utf8', err => { }); 
 
             try{                
                 
                 this.conn.query(cmd);
-            }
+                
+            }   
             catch(err){
+                
+                console.log(cmd);
                 continue; //繼續往下一筆執行
-                console.log(err);
+                
             }
         }
 
