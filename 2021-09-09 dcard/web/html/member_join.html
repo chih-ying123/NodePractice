@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="title">
+        <div class="logo">嚶嚶幫</div>
+    </div>
+    <div class="content">
+
+        <h3>註冊</h3>
+
+        <form action="/member/join" method="POST" id="memberJoinForm">
+            <p>常用信箱</p>
+            <input type="email" id="email" name="email" placeholder="輸入信箱">
+            <br>
+
+            <p>密碼</p>
+            <input type="password" id="password" name="password" placeholder="輸入密碼">
+            <br>
+
+            <input type="submit" id="submit" name="submit" value="註冊">
+        </form>
+    </div>
+
+
+    <script>
+
+        let memberJoinForm = document.getElementById('memberJoinForm');
+        memberJoinForm.addEventListener('submit', async function(e) {
+
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            console.log(email, password);
+            let postBody = `email=${email}&password=${password}`;
+
+            let postOptions = {
+                method: 'POST',
+                body: postBody,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+
+            let action = memberJoinForm.action;
+
+            let response = await fetch(action, postOptions);
+            let jsonData = await response.json();
+
+        });
+
+    </script>
+</body>
+</html>
