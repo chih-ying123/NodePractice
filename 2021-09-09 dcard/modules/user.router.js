@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const bll = require('./user.bll');
 
 router.get('/', function(req, res) {
-    res.redirect('/html/member_join.html')
+    res.redirect('/member_join.html')
 });
 
-router.post('/member/join', function(req, res) {
+router.post('/member/join', async function(req, res) {
 
     let { email, password } = req.body;
-    console.log(email, password);
-    res.end('123')
+    let resultMessage = await bll.memberJoin( email, password );
+
+    res.json(resultMessage)
 });
 
 module.exports = router;

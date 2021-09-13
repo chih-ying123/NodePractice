@@ -37,8 +37,9 @@
 
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
-            console.log(email, password);
             let postBody = `email=${email}&password=${password}`;
+
+            e.preventDefault();
 
             let postOptions = {
                 method: 'POST',
@@ -52,7 +53,7 @@
 
             let response = await fetch(action, postOptions);
             let jsonData = await response.json();
-
+            alert(jsonData.resultMessage);
         });
 
     </script>
