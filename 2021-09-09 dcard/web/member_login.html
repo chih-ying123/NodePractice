@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>註冊</title>
+    <title>登入</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -14,9 +14,9 @@
     </div>
     <div class="content">
 
-        <h3>註冊</h3>
+        <h3>登入</h3>
 
-        <form action="/member/join" method="POST" id="memberJoinForm">
+        <form action="/member/login" method="POST" id="memberLoginForm">
             <p>常用信箱</p>
             <input type="email" id="email" name="email" placeholder="輸入信箱" required>
             <br>
@@ -25,15 +25,15 @@
             <input type="password" id="password" name="password" placeholder="輸入密碼" required>
             <br>
 
-            <input type="submit" id="submit" name="submit" value="註冊">
+            <input type="submit" id="submit" name="submit" value="登入">
         </form>
     </div>
 
 
     <script>
 
-        let memberJoinForm = document.getElementById('memberJoinForm');
-        memberJoinForm.addEventListener('submit', async function(e) {
+        let memberLoginForm = document.getElementById('memberLoginForm');
+        memberLoginForm.addEventListener('submit', async function(e) {
 
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
@@ -49,19 +49,12 @@
                 })
             };
 
-            let action = memberJoinForm.action;
+            let action = memberLoginForm.action;
 
             let response = await fetch(action, postOptions);
             let jsonData = await response.json();
 
-            if ( jsonData.resultCode === 0 ) {
-                alert(jsonData.resultMessage);
-                window.location.href = 'member_login.html';
-            }
-            else {
-                alert(jsonData.resultMessage);
-            }
-            
+            alert(jsonData.resultMessage);
         });
 
     </script>

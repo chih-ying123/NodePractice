@@ -266,6 +266,7 @@ module.exports = {
     , delay
     , resultMessage
     , getPagination
+    , MD5
 }
 
 

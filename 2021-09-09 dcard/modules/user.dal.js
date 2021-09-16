@@ -24,7 +24,21 @@ async function memberJoin( email, password ){
     return result;
 }
 
+async function memberInfo( email ){
+
+    let result = await executeSQL(`
+        SELECT EMail, Password 
+        FROM member 
+        WHERE EMail = N'${email}'
+    `)
+
+    return result;
+}
+
+
+
 module.exports = {
     memberExist,
-    memberJoin
+    memberJoin,
+    memberInfo
 }
