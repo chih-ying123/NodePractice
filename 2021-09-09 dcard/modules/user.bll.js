@@ -34,9 +34,7 @@ async function memberLogin( email, password ){
     password = MD5(password);
     memberInfo = memberInfo[0];
 
-    console.log(email, password);
-    console.log(memberInfo);
-    if ( email == memberInfo.Email && password == memberInfo.Password ) {
+    if ( password === memberInfo.Password ) {
         return resultMessage( 0, '登入成功'); 
     }
     else {
