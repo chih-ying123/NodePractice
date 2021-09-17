@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bll = require('./user.bll');
-const { resultMessage } = require('../common')
+const { resultMessage } = require('../common');
+const session = require('express-session');
 
 router.get('/', function(req, res) {
     res.redirect('/member_join.html')
@@ -13,29 +14,31 @@ router.post('/member/join', async function(req, res) {
     if (typeof email === 'undefined' || email.length === 0 ){
         res.json(resultMessage(1, '請輸入email'))
     }
-    if (typeof password === 'undefined' || password.length === 0 ){
+    else if (typeof password === 'undefined' || password.length === 0 ){
         res.json(resultMessage(1, '請輸入密碼'))
     }
-    
-    let memberJoinMessage = await bll.memberJoin( email, password );
-    res.json(memberJoinMessage);
-    
+    else {
+        let memberJoinMessage = await bll.memberJoin( email, password );
+        res.json(memberJoinMessage);
+    }
 });
 
 router.post('/member/login', async function(req, res) {
 
-    
+    // session 
+    // 參考: https://www.jianshu.com/p/e5a94824e078
+
     let { email, password } = req.body;
     if (typeof email === 'undefined' || email.length === 0 ){
         res.json(resultMessage(1, '請輸入email'))
     }
-    if (typeof password === 'undefined' || password.length === 0 ){
+    else if (typeof password === 'undefined' || password.length === 0 ){
         res.json(resultMessage(1, '請輸入密碼'))
     }
-    
-    let memberLoginMessage = await bll.memberLogin( email, password );
-    res.json(memberLoginMessage);
-    
+    else{
+        let memberLoginMessage = await bll.memberLogin( email, password );
+        res.json(memberLoginMessage);
+    }
 });
 
 module.exports = router;

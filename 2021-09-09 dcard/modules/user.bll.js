@@ -30,11 +30,8 @@ async function memberLogin( email, password ){
         return resultMessage( 1, 'email輸入錯誤或未註冊' );
     }
 
-    let memberInfo = await dal.memberInfo( email );
-    password = MD5(password);
-    memberInfo = memberInfo[0];
-
-    if ( password === memberInfo.Password ) {
+    let memberCheck = await dal.checkEmailPW( email, password );
+    if ( memberCheck.length === 1 ) {
         return resultMessage( 0, '登入成功'); 
     }
     else {

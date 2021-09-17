@@ -24,12 +24,13 @@ async function memberJoin( email, password ){
     return result;
 }
 
-async function memberInfo( email ){
+async function checkEmailPW( email, password ){
 
     let result = await executeSQL(`
         SELECT EMail, Password 
         FROM member 
         WHERE EMail = N'${email}'
+        AND Password = MD5('${password}')
     `)
 
     return result;
@@ -40,5 +41,5 @@ async function memberInfo( email ){
 module.exports = {
     memberExist,
     memberJoin,
-    memberInfo
+    checkEmailPW
 }
