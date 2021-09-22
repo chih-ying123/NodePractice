@@ -12,6 +12,7 @@ app.listen(3000);
 
 app.use(session({
     secret: 'login check',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
 }));

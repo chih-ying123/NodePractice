@@ -25,8 +25,6 @@ router.post('/member/join', async function(req, res) {
 
 router.post('/member/login', async function(req, res) {
 
-
-
     let { email, password } = req.body;
     if (typeof email === 'undefined' || email.length === 0 ){
         res.json(resultMessage(1, '請輸入email'))
@@ -37,15 +35,33 @@ router.post('/member/login', async function(req, res) {
     else{
         // session 
         // 參考: https://www.jianshu.com/p/e5a94824e078
-        let user = {
-            name: email
-        }
-        req.session.user=user;
-        
         
         let memberLoginMessage = await bll.memberLogin( email, password );
-        res.json(memberLoginMessage);
+
+        if ( memberLoginMessage.resultCode === 0) {
+            let user = {
+                name: email
+            }
+            req.session.user=user;
+            res.redirect('/member_info.html')
+        }
+        else {
+            res.json(memberLoginMessage);
+        }
     }
 });
+
+router.get('./member_info.html', function(req, res) {
+    
+    if (res.session.user) {
+        let user = req.session.user;
+        let name = user.name;
+        res.end(`哈囉 ${name}`)
+    }
+    else {
+        res.end('請先登入')
+    }
+});
+
 
 module.exports = router;
