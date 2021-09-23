@@ -1,0 +1,45 @@
+body {
+    background-color: rgb(0, 50, 78);
+}
+
+.title {
+    height: 50px;
+    background-color: rgb(0, 106, 166);
+    display: flex;
+}
+.title .logo {
+    width: 60%;
+    margin: auto;
+    color: #fff;
+    font-weight: 600;
+}
+
+.content {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+form p {
+    margin-top: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 8px;
+    border: 1px #aaa solid;
+    border-radius: 8px;
+    outline: none;
+}
+
+#email, #password{
+    margin-top: 10px;
+}
+
+#submit{
+    margin-top: 20px;
+    color: #fff;
+    background-color: rgb(51, 151, 207);
+}

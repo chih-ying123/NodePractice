@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員中心</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="title">
+        <div class="logo">嚶嚶幫</div>
+    </div>
+    <div class="content">
+
+        <p>哈囉 <span id='username'></span></p>
+
+    </div>
+
+
+    <script>
+        let username = document.getElementById('username');
+  
+        async function isLogin() {
+            
+            let response = await fetch('/member/info',{
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            });
+            let jsonData = await response.json();
+            let result = jsonData.result
+
+            if ( jsonData.resultCode === 0 ) {
+                username.innerText = result.username;
+            }
+            else {
+                alert (jsonData.resultMessage);
+                window.location.href = 'member_login.html';
+            }      
+
+        };
+        
+        isLogin()
+    </script>
+</body>
+</html>
