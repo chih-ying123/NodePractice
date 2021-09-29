@@ -14,20 +14,18 @@
     </div>
     <div class="content">
 
-        <form action="">
+        <form action="" method="POST">
 
-            <!--<p>標題</p>-->
             <input type="text" id="title" name="title" placeholder="輸入標題" required>
             <br>
 
             <select id="article_class" >
-                <option>選擇看板</option>
-
+                <option value="0">選擇看板</option>
             </select>
 
             <br>
-            <textarea >內容</textarea>
-            <input type="submit" id="submit" name="submit" value="發表">
+            <textarea placeholder="我想說..."></textarea>
+            <input type="submit" id="submit" name="submit" value="發佈">
         </form>
         
 
@@ -35,11 +33,15 @@
 
 
     <script>
+        let article_class = document.getElementById('article_class')
 
         async function articleAdd(){
             let response = await fetch('/article/add');
             let jsonData = await response.json();
-            alert (jsonData);
+            //alert (jsonData);
+            for(let i=0; i<jsonData.length; i++){
+                article_class.add(new Option(jsonData[i]));
+            }   
         };
         articleAdd();
 
