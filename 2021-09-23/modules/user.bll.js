@@ -38,7 +38,25 @@ async function memberLogin( email, password ){
         return resultMessage( 1, '登入失敗');
     }
 }
+
+async function articleClass(){
+
+    let articleClass = await dal.articleClass();
+    let articleClassList = [];
+
+    for(let i=0; i<articleClass.length; i++){
+        articleClassList.push(articleClass[i].Class)
+    }
+    
+    return articleClassList;
+
+}
+
+
+
+
 module.exports = {
     memberJoin,
-    memberLogin
+    memberLogin,
+    articleClass
 }

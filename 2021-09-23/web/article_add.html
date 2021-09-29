@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>po po po po文</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="title">
+        <div class="logo">嚶嚶幫</div>
+    </div>
+    <div class="content">
+
+        <form action="">
+
+            <!--<p>標題</p>-->
+            <input type="text" id="title" name="title" placeholder="輸入標題" required>
+            <br>
+
+            <select id="article_class" >
+                <option>選擇看板</option>
+
+            </select>
+
+            <br>
+            <textarea >內容</textarea>
+            <input type="submit" id="submit" name="submit" value="發表">
+        </form>
+        
+
+    </div>
+
+
+    <script>
+
+        async function articleAdd(){
+            let response = await fetch('/article/add');
+            let jsonData = await response.json();
+            alert (jsonData);
+        };
+        articleAdd();
+
+    </script>
+</body>
+</html>

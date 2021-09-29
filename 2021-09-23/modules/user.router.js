@@ -57,5 +57,11 @@ router.get('/member/info', async function(req, res) {
 
 });
 
+router.get('/article/add', async function(req, res) {
+
+    let articleClass = await bll.articleClass();
+    res.json(articleClass)
+});
+
 
 module.exports = router;

@@ -15,7 +15,7 @@
     <div class="content">
 
         <p>哈囉 <span id='username'></span></p>
-
+        <a href="./article_add.html">我要發文</a>
     </div>
 
 
@@ -24,12 +24,7 @@
   
         async function isLogin() {
             
-            let response = await fetch('/member/info',{
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            });
+            let response = await fetch('/member/info');
             let jsonData = await response.json();
             let result = jsonData.result
 

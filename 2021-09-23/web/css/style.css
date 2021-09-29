@@ -28,18 +28,26 @@ form p {
 
 input{
     width: 100%;
+    margin-top: 10px;
     padding: 8px;
     border: 1px #aaa solid;
     border-radius: 8px;
     outline: none;
 }
 
-#email, #password{
-    margin-top: 10px;
-}
-
 #submit{
     margin-top: 20px;
+    color: #fff;
+    background-color: rgb(51, 151, 207);
+}
+
+a{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px #aaa solid;
+    border-radius: 5px;
+    outline: none;
     color: #fff;
     background-color: rgb(51, 151, 207);
 }

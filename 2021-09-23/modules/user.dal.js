@@ -36,10 +36,16 @@ async function checkEmailPW( email, password ){
     return result;
 }
 
-
+async function articleClass() {
+    let result = await executeSQL(`
+        SELECT Class FROM article_class
+    `)
+    return result;
+}
 
 module.exports = {
     memberExist,
     memberJoin,
-    checkEmailPW
+    checkEmailPW,
+    articleClass
 }
