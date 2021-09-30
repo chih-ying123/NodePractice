@@ -43,9 +43,25 @@ async function articleClass() {
     return result;
 }
 
+async function articleAdd( title, article_class, author, content ){
+
+    let result = await executeSQL(`
+        INSERT INTO article
+        SET
+            title = N'${title}'
+            , class = N'${article_class}'
+            , author = N'${author}'
+            , content = N'${content}'
+            , CreateTime = CURRENT_TIMESTAMP ;
+    `)
+
+    return result;
+}
+
 module.exports = {
     memberExist,
     memberJoin,
     checkEmailPW,
-    articleClass
+    articleClass,
+    articleAdd
 }

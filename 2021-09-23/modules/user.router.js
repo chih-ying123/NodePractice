@@ -57,11 +57,33 @@ router.get('/member/info', async function(req, res) {
 
 });
 
-router.get('/article/add', async function(req, res) {
+router.get('/article/class', async function(req, res) {
 
     let articleClass = await bll.articleClass();
     res.json(articleClass)
 });
+
+router.post('/article/add', async function(req, res){
+
+    let { title, article_class, content} = req.body;
+    let author = req.session.username;
+    if (typeof title === 'undefined' || title.length === 0 ){
+        res.json(resultMessage(1, '請輸入標題'));
+    }
+    else if (article_class === '0'){
+        res.json(resultMessage(1, '請選擇發佈在哪一個看板'));
+    }
+    
+    else if (typeof content === 'undefined' || content.length === 0 ){
+        res.json(resultMessage(1, '請輸入內容'));
+    }
+    else{
+        let articleAdd = await bll.articleAdd( title, article_class,author, content );
+        res.json(articleAdd);
+    }
+    
+});
+
 
 
 module.exports = router;

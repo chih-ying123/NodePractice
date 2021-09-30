@@ -14,7 +14,7 @@
     </div>
     <div class="content">
 
-        <form action="" method="POST">
+        <form action="/article/add" method="POST" id="articleAddForm">
 
             <input type="text" id="title" name="title" placeholder="輸入標題" required>
             <br>
@@ -24,7 +24,7 @@
             </select>
 
             <br>
-            <textarea placeholder="我想說..."></textarea>
+            <textarea placeholder="我想說..." required id="content"></textarea>
             <input type="submit" id="submit" name="submit" value="發佈">
         </form>
         
@@ -33,17 +33,57 @@
 
 
     <script>
+        async function isLogin() {
+            
+            let response = await fetch('/member/info');
+            let jsonData = await response.json();
+            let result = jsonData.result
+
+            if ( jsonData.resultCode !== 0 ) {
+                alert (jsonData.resultMessage);
+                window.location.href = 'member_login.html';
+            }
+        };
+        
+        isLogin()
+
         let article_class = document.getElementById('article_class')
 
-        async function articleAdd(){
-            let response = await fetch('/article/add');
+        async function articleClass(){
+            let response = await fetch('/article/class');
             let jsonData = await response.json();
-            //alert (jsonData);
-            for(let i=0; i<jsonData.length; i++){
-                article_class.add(new Option(jsonData[i]));
+
+            for(let i=0; i<jsonData.length; i++){ 
+                article_class.add(new Option(jsonData[i],jsonData[i])); //new Option(key,value)
             }   
         };
-        articleAdd();
+        
+        articleClass();
+
+        let articleAddForm = document.getElementById('articleAddForm');
+        articleAddForm.addEventListener('submit',async function(e) {
+
+            e.preventDefault();
+
+            let title = document.getElementById('title').value;
+            let content = document.getElementById('content').value;
+            let postBody = `title=${title}&article_class=${article_class.value}&content=${content}`;
+
+            let action = articleAddForm.action;
+            let postOptions = {
+                method: 'POST',
+                body: postBody,
+                headers: new Headers({
+                    'content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+
+            let response = await fetch(action, postOptions);
+            let jsonData = await response.json();
+
+            alert(jsonData.resultMessage)
+
+        });
 
     </script>
 </body>

@@ -44,11 +44,18 @@ input{
 a{
     display: inline-block;
     margin-top: 10px;
+}
+
+.articleAdd{
     padding: 8px;
     border: 1px #aaa solid;
     border-radius: 5px;
     color: #fff;
     background-color: rgb(51, 151, 207);
+}
+
+.memberJoin{
+    font-size: 12px;
 }
 
 select{
@@ -66,6 +73,7 @@ textarea{
     padding: 8px;
     font-size: medium;
     outline: none;
+    resize: none; /*禁止拖動改變大小*/
     border: 1px #aaa solid;
     border-radius: 8px;
 }

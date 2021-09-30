@@ -52,11 +52,23 @@ async function articleClass(){
 
 }
 
+async function articleAdd( title, article_class,author, content ){
+
+    let articleAdd = await dal.articleAdd( title, article_class,author, content );
+    if ( articleAdd.affectedRows === 1) { 
+       return resultMessage( 0, '已發佈'); 
+    }
+    else {
+        return resultMessage( 1, '文章發佈失敗');
+    }
+
+}
 
 
 
 module.exports = {
     memberJoin,
     memberLogin,
-    articleClass
+    articleClass,
+    articleAdd
 }
