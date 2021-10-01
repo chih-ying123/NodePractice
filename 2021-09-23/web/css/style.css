@@ -77,3 +77,41 @@ textarea{
     border: 1px #aaa solid;
     border-radius: 8px;
 }
+
+.article_box{
+    width: 100%;
+    margin: 10px 0;
+    border: 1px #aaa solid;
+    border-radius: 8px;
+}
+.article_box:hover{
+    background-color: rgb(224, 224, 224);
+}
+
+.article_box a{
+    width: 100%;
+    display: inline-block;
+    margin-top: 0px;
+    padding: 10px;
+    color: rgb(78, 82, 80);
+}
+
+.article_box a:active{
+    color:rgb(78, 82, 80)
+}
+
+.article_box span{
+    padding: 2px;
+    border: 1px #aaa solid;
+    border-radius: 3px;
+   
+}
+
+.article_box h3{
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.article_box p{
+    text-align: right;
+}

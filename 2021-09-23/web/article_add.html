@@ -81,7 +81,14 @@
             let response = await fetch(action, postOptions);
             let jsonData = await response.json();
 
-            alert(jsonData.resultMessage)
+            if ( jsonData.resultCode === 0 ) {
+                alert( jsonData.resultMessage );
+                window.location.href = 'article_list.html';
+
+            }
+            else {
+                alert( jsonData.resultMessage );
+            }
 
         });
 

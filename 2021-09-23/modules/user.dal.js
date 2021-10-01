@@ -58,10 +58,22 @@ async function articleAdd( title, article_class, author, content ){
     return result;
 }
 
+async function articleList(  ){
+
+    let result = await executeSQL(`
+        SELECT Id, Title, Class, Author, CreateTime 
+        FROM article
+        ORDER BY Id DESC
+    `)
+
+    return result;
+}
+
 module.exports = {
     memberExist,
     memberJoin,
     checkEmailPW,
     articleClass,
-    articleAdd
+    articleAdd,
+    articleList
 }

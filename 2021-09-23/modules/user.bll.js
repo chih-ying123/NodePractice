@@ -64,11 +64,16 @@ async function articleAdd( title, article_class,author, content ){
 
 }
 
+async function articleList(){
+    let articleList = await dal.articleList();
+    return articleList
+};
 
 
 module.exports = {
     memberJoin,
     memberLogin,
     articleClass,
-    articleAdd
+    articleAdd,
+    articleList
 }

@@ -5,7 +5,7 @@ const { resultMessage } = require('../common');
 const session = require('express-session');
 
 router.get('/', function(req, res) {
-    res.redirect('/member_join.html')
+    res.redirect('/member_info.html')
 });
 
 router.post('/member/join', async function(req, res) {
@@ -48,7 +48,8 @@ router.post('/member/login', async function(req, res) {
 router.get('/member/info', async function(req, res) {
 
     if ( req.session.username ) {
-        let username = req.session.username;
+        let emailSplit = req.session.username.split('@');
+        let username = emailSplit[0];
         res.json(resultMessage(0, '已登入', { username: username }));
     }
     else {                         
@@ -84,6 +85,11 @@ router.post('/article/add', async function(req, res){
     
 });
 
+router.get('/article/list', async function(req, res){
+
+    let articleList = await bll.articleList();
+    res.json(articleList);
+});
 
 
 module.exports = router;
