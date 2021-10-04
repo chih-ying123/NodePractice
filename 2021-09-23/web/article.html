@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="headTitle">Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="title">
+        <div class="logo">嚶嚶幫</div>
+    </div>
+    <div class="content">
+
+        <div>
+
+            <span id='articleClass'></span> 
+            <h3 id='articleTitle'></h3>
+            <textarea id='articleContent' disabled></textarea>
+            <p class='article_author' id='articleAuthor'></p>
+
+        </div>
+        
+    </div>
+
+    <script>
+
+
+        async function articleContent() {
+
+            const url = new URL(window.location.href)
+            let queryString = url.search;
+
+            let response = await fetch(`/article/content${queryString}`);
+            let jsonData = await response.json();
+            jsonData = jsonData[0];
+
+            let headTitle = document.getElementById('headTitle');
+            let articleClass = document.getElementById('articleClass');
+            let articleTitle = document.getElementById('articleTitle');
+            let articleAuthor = document.getElementById('articleAuthor');
+            let articleContent = document.getElementById('articleContent');
+          
+            headTitle.innerHTML = jsonData.Title;
+            articleClass.innerHTML = jsonData.Class;
+            articleTitle.innerHTML = jsonData.Title;
+            articleAuthor.innerHTML = `by ${jsonData.Author} ${jsonData.CreateTime}`;
+            articleContent.innerHTML = jsonData.Content;
+        };
+
+        articleContent();
+
+    </script>
+</body>
+</html>

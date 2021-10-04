@@ -33,18 +33,20 @@
                 let { Id, Title, Class, Author, CreateTime } = jsonData[i];
                 article_list.innerHTML += `
                 <div class='article_box'>
-                    <a href="">
+                    <a href="/article.html?id=${Id}" target="_blank">
                         <span>${Class}</span> 
-                        <h3 style="font-weight:bold">${Title}</h3>
-                        <p>by ${Author}, ${CreateTime}</p>
+                        <h3>${Title}</h3>
+                        <p class='article_author'>by ${Author}, ${CreateTime}</p>
                     </a>
-                <div>`;
+                </div>`;
             }
 
 
         };
 
         articleList();
+
+
 
 
     </script>

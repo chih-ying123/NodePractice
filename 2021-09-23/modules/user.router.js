@@ -68,6 +68,11 @@ router.post('/article/add', async function(req, res){
 
     let { title, article_class, content} = req.body;
     let author = req.session.username;
+
+    if (typeof author === 'undefined') {
+        res.json(resultMessage(1, '請登入後貼文'));
+    }
+
     if (typeof title === 'undefined' || title.length === 0 ){
         res.json(resultMessage(1, '請輸入標題'));
     }
@@ -89,6 +94,13 @@ router.get('/article/list', async function(req, res){
 
     let articleList = await bll.articleList();
     res.json(articleList);
+});
+
+router.get('/article/content', async function(req, res){
+
+    let { id } = req.query;
+    let articleContent = await bll.articleContent(id);
+    res.json(articleContent); 
 });
 
 

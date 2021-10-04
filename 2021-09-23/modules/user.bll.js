@@ -69,11 +69,16 @@ async function articleList(){
     return articleList
 };
 
+async function articleContent(id){
+    let articleContent = await dal.articleContent(id);
+    return articleContent
+}
 
 module.exports = {
     memberJoin,
     memberLogin,
     articleClass,
     articleAdd,
-    articleList
+    articleList,
+    articleContent
 }

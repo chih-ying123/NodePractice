@@ -100,18 +100,21 @@ textarea{
     color:rgb(78, 82, 80)
 }
 
-.article_box span{
+span{
     padding: 2px;
     border: 1px #aaa solid;
     border-radius: 3px;
-   
 }
 
-.article_box h3{
+h3{
     margin-top: 12px;
     font-weight: bold;
 }
 
-.article_box p{
+.article_author{
     text-align: right;
+}
+
+#articleContent{
+    border: none;
 }
