@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bll = require('./user.bll');
 const { resultMessage } = require('../common');
-const session = require('express-session');
 
 router.get('/', function(req, res) {
     res.redirect('/member_info.html')
@@ -10,15 +9,18 @@ router.get('/', function(req, res) {
 
 router.post('/member/join', async function(req, res) {
 
-    let { email, password } = req.body;
+    let { email, username, password } = req.body;
     if (typeof email === 'undefined' || email.length === 0 ){
         res.json(resultMessage(1, '請輸入email'))
+    }
+    else if (typeof username === 'undefined' || username.length === 0 ){
+        res.json(resultMessage(1, '請輸入暱稱'))
     }
     else if (typeof password === 'undefined' || password.length === 0 ){
         res.json(resultMessage(1, '請輸入密碼'))
     }
     else {
-        let memberJoinMessage = await bll.memberJoin( email, password );
+        let memberJoinMessage = await bll.memberJoin( email, username, password );
         res.json(memberJoinMessage);
     }
 });
@@ -35,7 +37,8 @@ router.post('/member/login', async function(req, res) {
     else{
         let memberLoginMessage = await bll.memberLogin( email, password );
         if ( memberLoginMessage.resultCode === 0 ){
-            req.session.username = email;
+            let username = memberLoginMessage.result;
+            req.session.username = username;
             res.json(memberLoginMessage);
         }
         else {
@@ -48,8 +51,7 @@ router.post('/member/login', async function(req, res) {
 router.get('/member/info', async function(req, res) {
 
     if ( req.session.username ) {
-        let emailSplit = req.session.username.split('@');
-        let username = emailSplit[0];
+        let username = req.session.username;
         res.json(resultMessage(0, '已登入', { username: username }));
     }
     else {                         
@@ -86,8 +88,9 @@ router.post('/article/add', async function(req, res){
     else{
         let articleAdd = await bll.articleAdd( title, article_class,author, content );
         res.json(articleAdd);
+
     }
-    
+
 });
 
 router.get('/article/list', async function(req, res){

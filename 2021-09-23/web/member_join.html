@@ -18,11 +18,15 @@
 
         <form action="/member/join" method="POST" id="memberJoinForm">
             <p>常用信箱</p>
-            <input type="email" id="email" name="email" placeholder="輸入信箱" required>
+            <input type="email" id="email" name="email" placeholder="輸入信箱" >
+            <br>
+
+            <p>暱稱</p>
+            <input type="text" id="username" name="username" placeholder="輸入特別的暱稱" >
             <br>
 
             <p>密碼</p>
-            <input type="password" id="password" name="password" placeholder="輸入密碼" required>
+            <input type="password" id="password" name="password" placeholder="設定密碼" >
             <br>
 
             <input type="submit" id="submit" name="submit" value="註冊">
@@ -36,14 +40,19 @@
         memberJoinForm.addEventListener('submit', async function(e) {
 
             let email = document.getElementById('email').value;
+            let username = document.getElementById('username').value;
             let password = document.getElementById('password').value;
-            let postBody = `email=${email}&password=${password}`;
+
+            const params = new URLSearchParams();
+            params.append('email', email);
+            params.append('username', username);
+            params.append('password', password);
 
             e.preventDefault();
 
             let postOptions = {
                 method: 'POST',
-                body: postBody,
+                body: params,
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })

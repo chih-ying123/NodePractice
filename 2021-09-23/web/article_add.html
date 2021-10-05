@@ -20,7 +20,7 @@
             <br>
 
             <select id="article_class" >
-                <option value="0">選擇看板</option>
+               <option value="0">選擇看板</option>
             </select>
 
             <br>
@@ -44,7 +44,6 @@
                 window.location.href = 'member_login.html';
             }
         };
-        
         isLogin()
 
         let article_class = document.getElementById('article_class')
@@ -54,10 +53,10 @@
             let jsonData = await response.json();
 
             for(let i=0; i<jsonData.length; i++){ 
-                article_class.add(new Option(jsonData[i],jsonData[i])); //new Option(key,value)
+               article_class.add(new Option(jsonData[i],jsonData[i])); //new Option(key,value)
+               
             }   
         };
-        
         articleClass();
 
         let articleAddForm = document.getElementById('articleAddForm');
@@ -65,14 +64,18 @@
 
             e.preventDefault();
 
-            let title = document.getElementById('title').value;
-            let content = document.getElementById('content').value;
-            let postBody = `title=${title}&article_class=${article_class.value}&content=${content}`;
+            let title = document.getElementById('title'); 
+            let content = document.getElementById('content');
+
+            const params = new URLSearchParams();
+            params.append('title', title.value);
+            params.append('article_class', article_class.value);
+            params.append('content', content.value);
 
             let action = articleAddForm.action;
             let postOptions = {
                 method: 'POST',
-                body: postBody,
+                body: params,
                 headers: new Headers({
                     'content-Type': 'application/x-www-form-urlencoded'
                 })

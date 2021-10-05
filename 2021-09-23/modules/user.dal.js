@@ -1,22 +1,32 @@
 const { dbConnection, executeSQL } = require('../common.mysql.pool');
 
-async function memberExist(email){
+async function emailExist(email){
     
-    let selectMember = await executeSQL(`
+    let result = await executeSQL(`
         SELECT EMail 
         FROM member 
         WHERE EMail = N'${email}'
     `);
-
-    return selectMember;
+    return result;
 }
 
-async function memberJoin( email, password ){
+async function usernameExist(username){
+    
+    let result = await executeSQL(`
+        SELECT Username 
+        FROM member 
+        WHERE Username = N'${username}'
+    `);
+    return result;
+}
+
+async function memberJoin( email, username, password ){
 
     let result = await executeSQL(`
         INSERT INTO member
         SET
             EMail = N'${email}'
+            , Username = N'${username}'
             , Password = MD5('${password}')
             , CreateTime = CURRENT_TIMESTAMP ;
     `)
@@ -27,7 +37,7 @@ async function memberJoin( email, password ){
 async function checkEmailPW( email, password ){
 
     let result = await executeSQL(`
-        SELECT EMail, Password 
+        SELECT Username 
         FROM member 
         WHERE EMail = N'${email}'
         AND Password = MD5('${password}')
@@ -39,6 +49,13 @@ async function checkEmailPW( email, password ){
 async function articleClass() {
     let result = await executeSQL(`
         SELECT Class FROM article_class
+    `)
+    return result;
+}
+
+async function checkArticleClass( article_class ) { //明天寫這邊
+    let result = await executeSQL(`
+        SELECT Class FROM article_class 
     `)
     return result;
 }
@@ -83,10 +100,12 @@ return result;
 
 
 module.exports = {
-    memberExist,
+    emailExist,
+    usernameExist,
     memberJoin,
     checkEmailPW,
     articleClass,
+    checkArticleClass,
     articleAdd,
     articleList,
     articleContent
