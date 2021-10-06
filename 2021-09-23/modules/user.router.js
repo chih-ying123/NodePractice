@@ -86,6 +86,7 @@ router.post('/article/add', async function(req, res){
         res.json(resultMessage(1, '請輸入內容'));
     }
     else{
+
         let articleAdd = await bll.articleAdd( title, article_class,author, content );
         res.json(articleAdd);
 
@@ -106,5 +107,11 @@ router.get('/article/content', async function(req, res){
     res.json(articleContent); 
 });
 
+router.get('/article/message', async function(req, res){
+
+    let articleId = req.query.id;
+    let articleMessage = await bll.articleMessage(articleId);
+    res.json(articleMessage); 
+});
 
 module.exports = router;

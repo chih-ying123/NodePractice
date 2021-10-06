@@ -59,6 +59,9 @@ async function articleClass(){
 async function articleAdd( title, article_class,author, content ){
 
     let checkArticleClass = await dal.checkArticleClass( article_class );
+    if ( checkArticleClass.length === 0 ){
+        return resultMessage(1, '請選擇正確看板')
+    }
 
     let articleAdd = await dal.articleAdd( title, article_class,author, content );
     if ( articleAdd.affectedRows === 1) { 
@@ -80,11 +83,18 @@ async function articleContent(id){
     return articleContent
 }
 
+async function articleMessage(articleId){
+    let articleContent = await dal.articleMessage(articleId);
+    return articleContent
+}
+
+
 module.exports = {
     memberJoin,
     memberLogin,
     articleClass,
     articleAdd,
     articleList,
-    articleContent
+    articleContent,
+    articleMessage
 }

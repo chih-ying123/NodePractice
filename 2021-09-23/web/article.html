@@ -22,16 +22,18 @@
             <p class='article_author' id='articleAuthor'></p>
 
         </div>
+        <hr>
+        <div id="article_message">
+            回覆
+        </div>
         
     </div>
 
     <script>
-
+        const url = new URL(window.location.href)
+        let queryString = url.search;
 
         async function articleContent() {
-
-            const url = new URL(window.location.href)
-            let queryString = url.search;
 
             let response = await fetch(`/article/content${queryString}`);
             let jsonData = await response.json();
@@ -51,6 +53,15 @@
         };
 
         articleContent();
+
+        async function articleMessage() {
+
+            let response = await fetch(`/article/message${queryString}`);
+            let jsonData = await response.json();
+
+            
+        }
+        articleMessage();
 
     </script>
 </body>

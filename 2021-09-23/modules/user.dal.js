@@ -55,7 +55,9 @@ async function articleClass() {
 
 async function checkArticleClass( article_class ) { //明天寫這邊
     let result = await executeSQL(`
-        SELECT Class FROM article_class 
+        SELECT Class 
+        FROM article_class 
+        WHERE class = N'${ article_class }'
     `)
     return result;
 }
@@ -65,14 +67,15 @@ async function articleAdd( title, article_class, author, content ){
     let result = await executeSQL(`
         INSERT INTO article
         SET
-            title = N'${title}'
+            title = N'${title.replace(/\'/g,"\\\'")}'
             , class = N'${article_class}'
             , author = N'${author}'
-            , content = N'${content}'
+            , content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP ;
     `)
 
     return result;
+
 }
 
 async function articleList(){
@@ -94,7 +97,19 @@ async function articleContent(id){
         WHERE Id=${id}
     `)
 
-return result;
+    return result;
+
+};
+
+async function articleMessage(articleId){
+
+    let result = await executeSQL(`
+        SELECT * 
+        FROM article_message
+        WHERE articleId=${articleId}
+    `)
+
+    return result;
 
 };
 
@@ -108,5 +123,6 @@ module.exports = {
     checkArticleClass,
     articleAdd,
     articleList,
-    articleContent
+    articleContent,
+    articleMessage
 }
