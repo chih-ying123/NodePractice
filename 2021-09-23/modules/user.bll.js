@@ -88,6 +88,16 @@ async function articleMessage(articleId){
     return articleContent
 }
 
+async function messageAdd(articleId, username, content){
+    let messageAdd = await dal.messageAdd(articleId, username, content);
+    console.log(messageAdd);
+    if ( messageAdd.affectedRows === 1) { 
+        return resultMessage( 0, '已發佈'); 
+     }
+     else {
+        return resultMessage( 1, '留言失敗');
+     }
+}
 
 module.exports = {
     memberJoin,
@@ -96,5 +106,6 @@ module.exports = {
     articleAdd,
     articleList,
     articleContent,
-    articleMessage
+    articleMessage,
+    messageAdd
 }

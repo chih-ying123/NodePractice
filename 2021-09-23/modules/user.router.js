@@ -114,4 +114,21 @@ router.get('/article/message', async function(req, res){
     res.json(articleMessage); 
 });
 
+router.post('/article/messageAdd', async function(req, res){
+
+    let { articleId, content } = req.body;
+    let username = req.session.username;
+    if (typeof username === 'undefined') {
+        res.json(resultMessage(1, '請先登入'));
+    }
+    else if (typeof content === 'undefined' || content.length === 0 ){
+        res.json(resultMessage(1, '請輸入內容'));
+    }
+    else{
+        let messageAdd = await bll.messageAdd(articleId, username, content);
+        res.json(messageAdd);
+    }
+ 
+});
+
 module.exports = router;

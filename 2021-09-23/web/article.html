@@ -22,9 +22,20 @@
             <p class='article_author' id='articleAuthor'></p>
 
         </div>
-        <hr>
-        <div id="article_message">
-            回覆
+        留言
+        <form action="/article/messageAdd" method="post" id="messageAddForm">
+            <div style="width:85%">
+                <textarea id="messageAddContent" placeholder="......" ></textarea>
+            </div>
+            <div style="width:15%">
+                <input type="submit" id='submit' name='submit' value="發送"> 
+            </div>
+            
+        </form>
+        <div class="messageLine"></div>
+        <div id="articleMessage">
+            
+
         </div>
         
     </div>
@@ -32,6 +43,7 @@
     <script>
         const url = new URL(window.location.href)
         let queryString = url.search;
+        
 
         async function articleContent() {
 
@@ -58,10 +70,49 @@
 
             let response = await fetch(`/article/message${queryString}`);
             let jsonData = await response.json();
+            console.log(jsonData);
+            for(let i=0; i<jsonData.length; i++) {
 
+                let articleMessage = document.getElementById('articleMessage');
+                let { Username, Content, CreateTime } = jsonData[i];
+
+                articleMessage.innerHTML += `
+                    <p>${Username}：</p>
+                    <textarea disabled>${Content}</textarea>
+                    <span>B${i+1}, </span><span>${CreateTime}</span>
+                    <div class="messageLine"></div>
+                `;
+                
+            };
             
         }
         articleMessage();
+
+
+        let messageAddForm = document.getElementById('messageAddForm');
+        messageAddForm.addEventListener('submit',async function(e) {
+
+            e.preventDefault();
+
+            let messageAddContent = document.getElementById('messageAddContent'); 
+
+            const params = new URLSearchParams();
+            params.append('articleId', queryString); //這裡寫錯了啦 queryString--> ?id=9
+            params.append('content', messageAddContent.value);
+
+            let action = messageAddForm.action;
+            let postOptions = {
+                method: 'POST',
+                body: params,
+                headers: new Headers({
+                    'content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+
+            let response = await fetch(action, postOptions);
+            let jsonData = await response.json();
+            alert(jsonData.resultMessage)
+        });
 
     </script>
 </body>

@@ -26,7 +26,7 @@ async function memberJoin( email, username, password ){
         INSERT INTO member
         SET
             EMail = N'${email}'
-            , Username = N'${username}'
+            , Username = N'${username.replace(/\'/g,"\\\'")}' 
             , Password = MD5('${password}')
             , CreateTime = CURRENT_TIMESTAMP ;
     `)
@@ -53,7 +53,7 @@ async function articleClass() {
     return result;
 }
 
-async function checkArticleClass( article_class ) { //明天寫這邊
+async function checkArticleClass( article_class ) { 
     let result = await executeSQL(`
         SELECT Class 
         FROM article_class 
@@ -69,13 +69,11 @@ async function articleAdd( title, article_class, author, content ){
         SET
             title = N'${title.replace(/\'/g,"\\\'")}'
             , class = N'${article_class}'
-            , author = N'${author}'
+            , author = N'${author.replace(/\'/g,"\\\'")}'
             , content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP ;
     `)
-
     return result;
-
 }
 
 async function articleList(){
@@ -114,6 +112,22 @@ async function articleMessage(articleId){
 };
 
 
+async function messageAdd(articleId, username, content){
+    console.log(articleId, username, content);
+
+    let result = await executeSQL(`
+        INSERT INTO article_message 
+        SET 
+            ArticleId =  ${articleId}
+            , Username = N'${username.replace(/\'/g,"\\\'")}'
+            , Content = N'${content.replace(/\'/g,"\\\'")}'
+            , CreateTime = CURRENT_TIMESTAMP;
+    `)
+    return result;
+};
+
+
+
 module.exports = {
     emailExist,
     usernameExist,
@@ -124,5 +138,6 @@ module.exports = {
     articleAdd,
     articleList,
     articleContent,
-    articleMessage
+    articleMessage,
+    messageAdd
 }
