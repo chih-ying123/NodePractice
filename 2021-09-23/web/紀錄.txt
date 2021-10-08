@@ -1,0 +1,69 @@
+http協議是無狀態的
+服務器無法分辨誰瀏覽了這個網頁
+無狀態是指協議對於事務處理沒有記憶能力，伺服器不知道客戶端是什麼狀態。
+   即我們給伺服器發送 HTTP 請求之後，伺服器根據請求，會給我們發送數據過來，
+   但是，發送完，不會記錄任何信息。
+   HTTP 是一個無狀態協議，這意味著每個請求都是獨立的。
+
+*********************************************************************************
+
+為了能做到登入或購物車有Cookies Session
+儲存Key: value 同域名可用
+
+cookie是存在瀏覽器中保存用戶的一小段文本
+保存用戶網站上的必要信息
+瀏覽器的請求頭中 隨請求頭每次提交
+網頁F12 Application -> Cookies 可以看到Cookies
+
+Session是存在伺服器
+會在Cookies中儲存一個Session ID
+安全度較好
+
+誰提交了cookie給server端?
+    瀏覽器自動幫你提交的
+Header 是傳輸格式裡面的一個字段，本身只是個訊息，不會有執行動作的功能
+
+
+***********************************************************************************
+
+JS特殊符號轉換問題
+方法一:
+
+https://www.itread01.com/content/1546518817.html
+
+當url作為引數傳遞到後臺時要注意特殊符號（“&”的轉化）
+data = data.replace(/\&/g,"%26");
+※ /g 的意思是 對所有'&' 的符號
+
+方法二:
+URLSearchParams() 或 FormData()
+例:
+※-- const params = new URLSearchParams();
+  *- params.append('key1', 'value1');
+  *- params.append('key2', 'value22');
+  *- params.append('key3', 'value333');
+
+    let action = articleAddForm.action;
+    let postOptions = {
+        method: 'POST',
+※--    body: params,   
+        headers: new Headers({
+            'content-Type': 'application/x-www-form-urlencoded'
+        })
+    };
+
+
+***********************************************************************************
+
+SQL 連接多個資料庫
+JOIN 
+
+https://www.runoob.com/sql/sql-join.html
+
+
+***********************************************************************************
+
+CSS 常用功能效果
+Modal
+
+https://www.w3schools.com/w3css/w3css_modal.asp

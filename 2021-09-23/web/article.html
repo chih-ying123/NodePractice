@@ -70,7 +70,7 @@
 
             let response = await fetch(`/article/message${queryString}`);
             let jsonData = await response.json();
-            console.log(jsonData);
+
             for(let i=0; i<jsonData.length; i++) {
 
                 let articleMessage = document.getElementById('articleMessage');
@@ -95,9 +95,11 @@
             e.preventDefault();
 
             let messageAddContent = document.getElementById('messageAddContent'); 
+            let reg = /\d+$/;
+            let articleId = queryString.match(reg)[0];
 
             const params = new URLSearchParams();
-            params.append('articleId', queryString); //這裡寫錯了啦 queryString--> ?id=9
+            params.append('articleId', articleId); 
             params.append('content', messageAddContent.value);
 
             let action = messageAddForm.action;
