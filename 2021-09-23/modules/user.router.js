@@ -37,8 +37,11 @@ router.post('/member/login', async function(req, res) {
     else{
         let memberLoginMessage = await bll.memberLogin( email, password );
         if ( memberLoginMessage.resultCode === 0 ){
-            let username = memberLoginMessage.result;
+            let username = memberLoginMessage.result.Username;
+            let userId = memberLoginMessage.result.Id;
             req.session.username = username;
+            req.session.userId = userId;
+
             res.json(memberLoginMessage);
         }
         else {
@@ -69,9 +72,9 @@ router.get('/article/class', async function(req, res) {
 router.post('/article/add', async function(req, res){
 
     let { title, article_class, content} = req.body;
-    let author = req.session.username;
+    let authorId = req.session.userId;
 
-    if (typeof author === 'undefined') {
+    if (typeof authorId === 'undefined') {
         res.json(resultMessage(1, '請登入後貼文'));
     }
 
@@ -87,7 +90,7 @@ router.post('/article/add', async function(req, res){
     }
     else{
 
-        let articleAdd = await bll.articleAdd( title, article_class,author, content );
+        let articleAdd = await bll.articleAdd( title, article_class, authorId, content );
         res.json(articleAdd);
 
     }

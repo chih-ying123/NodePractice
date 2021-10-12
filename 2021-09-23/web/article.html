@@ -43,7 +43,7 @@
     <script>
         const url = new URL(window.location.href)
         let queryString = url.search;
-        
+
 
         async function articleContent() {
 
@@ -84,7 +84,7 @@
                 `;
                 
             };
-            
+
         }
         articleMessage();
 
@@ -115,6 +115,9 @@
             let jsonData = await response.json();
             alert(jsonData.resultMessage)
         });
+
+
+            
 
     </script>
 </body>

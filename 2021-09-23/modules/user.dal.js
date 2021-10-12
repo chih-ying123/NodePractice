@@ -37,7 +37,7 @@ async function memberJoin( email, username, password ){
 async function checkEmailPW( email, password ){
 
     let result = await executeSQL(`
-        SELECT Username 
+        SELECT Id, Username 
         FROM member 
         WHERE EMail = N'${email}'
         AND Password = MD5('${password}')
@@ -62,14 +62,14 @@ async function checkArticleClass( article_class ) {
     return result;
 }
 
-async function articleAdd( title, article_class, author, content ){
+async function articleAdd( title, article_class, authorId, content ){
 
     let result = await executeSQL(`
         INSERT INTO article
         SET
             title = N'${title.replace(/\'/g,"\\\'")}'
             , class = N'${article_class}'
-            , author = N'${author.replace(/\'/g,"\\\'")}'
+            , AuthorId =${authorId}
             , content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP ;
     `)
@@ -79,9 +79,12 @@ async function articleAdd( title, article_class, author, content ){
 async function articleList(){
 
     let result = await executeSQL(`
-        SELECT Id, Title, Class, Author, CreateTime 
+        SELECT  article.Id, article.Title, article.Class, article.CreateTime,
+                member.Username Author
         FROM article
-        ORDER BY Id DESC
+        LEFT OUTER JOIN member
+        ON article.AuthorId = member.Id
+        ORDER BY article.Id DESC
     `)
 
     return result;
@@ -90,9 +93,12 @@ async function articleList(){
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT * 
+        SELECT  article.Title, article.Class, article.Content, article.CreateTime,
+                member.Username Author
         FROM article
-        WHERE Id=${id}
+        LEFT JOIN member
+        ON article.AuthorId = member.Id
+        WHERE article.Id=${id}
     `)
 
     return result;
@@ -102,9 +108,12 @@ async function articleContent(id){
 async function articleMessage(articleId){
 
     let result = await executeSQL(`
-        SELECT * 
+        SELECT  article_message.Content, article_message.CreateTime,
+                member.Username
         FROM article_message
-        WHERE articleId=${articleId}
+        LEFT JOIN member
+        ON article_message.AuthorId = member.Id
+        WHERE article_message.articleId=${articleId}
     `)
 
     return result;
@@ -113,7 +122,6 @@ async function articleMessage(articleId){
 
 
 async function messageAdd(articleId, username, content){
-    console.log(articleId, username, content);
 
     let result = await executeSQL(`
         INSERT INTO article_message 

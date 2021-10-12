@@ -34,9 +34,9 @@ async function memberLogin( email, password ){
     }
 
     let memberCheck = await dal.checkEmailPW( email, password );
-    let username = memberCheck[0].Username;
+
     if ( memberCheck.length === 1 ) {
-        return resultMessage( 0, '登入成功',username ); 
+        return resultMessage( 0, '登入成功', memberCheck[0] ); 
     }
     else {
         return resultMessage( 1, '登入失敗');
@@ -56,14 +56,14 @@ async function articleClass(){
 
 }
 
-async function articleAdd( title, article_class,author, content ){
+async function articleAdd( title, article_class, authorId, content ){
 
     let checkArticleClass = await dal.checkArticleClass( article_class );
     if ( checkArticleClass.length === 0 ){
         return resultMessage(1, '請選擇正確看板')
     }
 
-    let articleAdd = await dal.articleAdd( title, article_class,author, content );
+    let articleAdd = await dal.articleAdd( title, article_class, authorId, content );
     if ( articleAdd.affectedRows === 1) { 
        return resultMessage( 0, '已發佈'); 
     }
