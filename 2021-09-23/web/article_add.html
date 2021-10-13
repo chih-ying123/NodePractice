@@ -10,7 +10,12 @@
 </head>
 <body>
     <div class="title">
-        <div class="logo">嚶嚶幫</div>
+        <div class="head_content">
+            <div class="logo">嚶嚶幫</div>
+            <button id='open_login'>登入</button> <!--問題有點多喔-->
+            <button id='sign_out'>登出</button>
+        </div>
+
     </div>
     <div class="content">
 
@@ -41,7 +46,6 @@
 
             if ( jsonData.resultCode !== 0 ) {
                 alert (jsonData.resultMessage);
-                window.location.href = 'member_login.html';
             }
         };
         isLogin()

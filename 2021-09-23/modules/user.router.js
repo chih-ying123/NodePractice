@@ -4,7 +4,7 @@ const bll = require('./user.bll');
 const { resultMessage } = require('../common');
 
 router.get('/', function(req, res) {
-    res.redirect('/member_info.html')
+    res.redirect('/article_list.html')
 });
 
 router.post('/member/join', async function(req, res) {
@@ -60,7 +60,6 @@ router.get('/member/info', async function(req, res) {
     else {                         
         res.json(resultMessage(1, '請先登入'));
     }
-
 });
 
 router.get('/article/class', async function(req, res) {

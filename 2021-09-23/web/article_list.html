@@ -10,11 +10,43 @@
 </head>
 <body>
     <div class="title">
-        <div class="logo">嚶嚶幫</div>
-    </div>
-    <div class="content">
+        <div class="head_content">
+            <div class="logo">嚶嚶幫</div>
+            <button id='open_login'>登入</button>
+            <button id='sign_out'>登出</button> <!--登出做不好喔 刪不乾淨-->
+        </div>
 
-        <a href="./article_add.html" class="articleAdd">發文 + </a>
+    </div>
+
+    <div id="hide_login">
+        <div id="login_content">
+            <button id='close_login'>X</button>
+            <h3>登入</h3>
+
+            <form action="/member/login" method="POST" id="memberLoginForm">
+                <p>常用信箱</p>
+                <input type="email" id="email" name="email" placeholder="輸入信箱" required value="000@aaa.aa">
+                <br>
+
+                <p>密碼</p>
+                <input type="password" id="password" name="password" placeholder="輸入密碼" required value="000000">
+                <br>
+
+                <input type="submit" id="submit" name="submit" value="登入">
+            </form>
+            <a href="./member_join.html" class="memberJoin">我要註冊</a>
+
+        </div>
+    
+    </div>
+
+
+    <div class="content">
+        <div id='helloUser'>
+            <p id='username'>哈囉訪客</p>
+            <a href="./article_add.html" id="articleAdd">發文 + </a>
+        </div>
+
 
         <div id="article_list"></div>
 
@@ -24,6 +56,22 @@
 
     <script>
         let article_list = document.getElementById('article_list');
+        let open_login = document.getElementById('open_login');
+        let hide_login = document.getElementById('hide_login');
+        let close_login = document.getElementById('close_login');
+        let sign_out = document.getElementById('sign_out');
+        let username = document.getElementById('username');
+
+        open_login.addEventListener('click', function(){
+            hide_login.style.display='block';
+        })
+        close_login.addEventListener('click', function(){
+            hide_login.style.display='none';
+        })
+        sign_out.addEventListener('click', function(){
+            sessionStorage.clear();
+            window.location.reload();
+        })
   
         async function articleList() {
 
@@ -41,14 +89,59 @@
                     </a>
                 </div>`;
             }
-
-
         };
-
         articleList();
 
 
+        let memberLoginForm = document.getElementById('memberLoginForm');
+        memberLoginForm.addEventListener('submit', async function(e) {
 
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let postBody = `email=${email}&password=${password}`;
+
+            e.preventDefault();
+
+            let postOptions = {
+                method: 'POST',
+                body: postBody,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+
+            let action = memberLoginForm.action;
+
+            let response = await fetch(action, postOptions);
+            let jsonData = await response.json();
+
+            if ( jsonData.resultCode === 0 ) {
+                alert( jsonData.resultMessage );
+                hide_login.style.display='none';
+                open_login.style.display='none';
+                sign_out.style.display='block';
+                isLogin();
+            }
+            else {
+                alert( jsonData.resultMessage );
+            }
+            
+        });
+
+        
+  
+        async function isLogin() {
+            
+            let response = await fetch('/member/info');
+            let jsonData = await response.json();
+            let result = jsonData.result
+
+            if ( jsonData.resultCode === 0 ) {
+                username.innerText = `哈囉 ${result.username}`;
+            }
+
+        };
+        
 
     </script>
 </body>
