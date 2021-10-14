@@ -49,6 +49,14 @@ router.post('/member/login', async function(req, res) {
         }
         
     }
+    
+});
+
+router.get('/member/signout', async function(req, res) {
+
+    req.session.username = undefined;
+    res.json(resultMessage(0, '已登出'));
+
 });
 
 router.get('/member/info', async function(req, res) {
@@ -60,6 +68,7 @@ router.get('/member/info', async function(req, res) {
     else {                         
         res.json(resultMessage(1, '請先登入'));
     }
+    
 });
 
 router.get('/article/class', async function(req, res) {
@@ -97,7 +106,7 @@ router.post('/article/add', async function(req, res){
 });
 
 router.get('/article/list', async function(req, res){
-
+    
     let articleList = await bll.articleList();
     res.json(articleList);
 });
@@ -132,5 +141,7 @@ router.post('/article/messageAdd', async function(req, res){
     }
  
 });
+
+
 
 module.exports = router;

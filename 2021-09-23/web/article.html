@@ -10,12 +10,39 @@
 </head>
 <body>
     <div class="title">
-        <div class="logo">嚶嚶幫</div>
+        <div class="head_content">
+            <div class="logo">嚶嚶幫</div>
+            <button id='open_login'>登入</button>
+            <button id='sign_out'>登出</button>
+        </div>
+
     </div>
+
+    <div id="hide_login">
+        <div id="login_content">
+            <button id='close_login'>X</button>
+            <h3>登入</h3>
+
+            <form action="/member/login" method="POST" id="memberLoginForm">
+                <p>常用信箱</p>
+                <input type="email" id="email" name="email" placeholder="輸入信箱" required value="000@aaa.aa">
+                <br>
+
+                <p>密碼</p>
+                <input type="password" id="password" name="password" placeholder="輸入密碼" required value="000000">
+                <br>
+
+                <input type="submit" id="submit" name="submit" value="登入">
+            </form>
+            <a href="./member_join.html" class="memberJoin">我要註冊</a>
+
+        </div>
+    
+    </div>
+
     <div class="content">
 
         <div>
-
             <span id='articleClass'></span> 
             <h3 id='articleTitle'></h3>
             <textarea id='articleContent' disabled></textarea>
@@ -40,6 +67,8 @@
         
     </div>
 
+
+<script type="text/javascript" src="loginfunction.js"></script>
     <script>
         const url = new URL(window.location.href)
         let queryString = url.search;

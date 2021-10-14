@@ -7,13 +7,15 @@
     <title>文章牛肉湯</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="header.js"></script>
 </head>
 <body>
+
     <div class="title">
         <div class="head_content">
             <div class="logo">嚶嚶幫</div>
             <button id='open_login'>登入</button>
-            <button id='sign_out'>登出</button> <!--登出做不好喔 刪不乾淨-->
+            <button id='sign_out'>登出</button>
         </div>
 
     </div>
@@ -35,11 +37,8 @@
                 <input type="submit" id="submit" name="submit" value="登入">
             </form>
             <a href="./member_join.html" class="memberJoin">我要註冊</a>
-
         </div>
-    
     </div>
-
 
     <div class="content">
         <div id='helloUser'>
@@ -53,26 +52,9 @@
         
     </div>
 
-
+    <script type="text/javascript" src="loginfunction.js"></script>
     <script>
-        let article_list = document.getElementById('article_list');
-        let open_login = document.getElementById('open_login');
-        let hide_login = document.getElementById('hide_login');
-        let close_login = document.getElementById('close_login');
-        let sign_out = document.getElementById('sign_out');
-        let username = document.getElementById('username');
-
-        open_login.addEventListener('click', function(){
-            hide_login.style.display='block';
-        })
-        close_login.addEventListener('click', function(){
-            hide_login.style.display='none';
-        })
-        sign_out.addEventListener('click', function(){
-            sessionStorage.clear();
-            window.location.reload();
-        })
-  
+        
         async function articleList() {
 
             let response = await fetch('/article/list');
@@ -93,43 +75,6 @@
         articleList();
 
 
-        let memberLoginForm = document.getElementById('memberLoginForm');
-        memberLoginForm.addEventListener('submit', async function(e) {
-
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-            let postBody = `email=${email}&password=${password}`;
-
-            e.preventDefault();
-
-            let postOptions = {
-                method: 'POST',
-                body: postBody,
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            };
-
-            let action = memberLoginForm.action;
-
-            let response = await fetch(action, postOptions);
-            let jsonData = await response.json();
-
-            if ( jsonData.resultCode === 0 ) {
-                alert( jsonData.resultMessage );
-                hide_login.style.display='none';
-                open_login.style.display='none';
-                sign_out.style.display='block';
-                isLogin();
-            }
-            else {
-                alert( jsonData.resultMessage );
-            }
-            
-        });
-
-        
-  
         async function isLogin() {
             
             let response = await fetch('/member/info');
@@ -138,10 +83,12 @@
 
             if ( jsonData.resultCode === 0 ) {
                 username.innerText = `哈囉 ${result.username}`;
+                open_login.style.display='none';
+                sign_out.style.display='block';
             }
 
         };
-        
+        isLogin()
 
     </script>
 </body>
