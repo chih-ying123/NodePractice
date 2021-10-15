@@ -55,7 +55,7 @@
                 <textarea id="messageAddContent" placeholder="......" ></textarea>
             </div>
             <div style="width:15%">
-                <input type="submit" id='submit' name='submit' value="發送"> 
+                <input type="submit" id='messageAddsubmit' name='submit' value="發送"> 
             </div>
             
         </form>
@@ -119,7 +119,7 @@
 
 
         let messageAddForm = document.getElementById('messageAddForm');
-        messageAddForm.addEventListener('submit',async function(e) {
+        messageAddForm.addEventListener('submit', async function(e) {
 
             e.preventDefault();
 
