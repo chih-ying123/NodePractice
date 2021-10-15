@@ -88,9 +88,9 @@ async function articleMessage(articleId){
     return articleContent
 }
 
-async function messageAdd(articleId, username, content){
+async function messageAdd(articleId, authorId, content){
     
-    let messageAdd = await dal.messageAdd(articleId, username, content);
+    let messageAdd = await dal.messageAdd(articleId, authorId, content);
     if ( messageAdd.affectedRows === 1) { 
         return resultMessage( 0, '已發佈'); 
      }

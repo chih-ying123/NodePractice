@@ -82,7 +82,7 @@ async function articleList(){
         SELECT  article.Id, article.Title, article.Class, article.CreateTime,
                 member.Username Author
         FROM article
-        LEFT OUTER JOIN member
+        INNER JOIN member
         ON article.AuthorId = member.Id
         ORDER BY article.Id DESC
     `)
@@ -96,7 +96,7 @@ async function articleContent(id){
         SELECT  article.Title, article.Class, article.Content, article.CreateTime,
                 member.Username Author
         FROM article
-        LEFT JOIN member
+        INNER JOIN member
         ON article.AuthorId = member.Id
         WHERE article.Id=${id}
     `)
@@ -111,7 +111,7 @@ async function articleMessage(articleId){
         SELECT  article_message.Content, article_message.CreateTime,
                 member.Username
         FROM article_message
-        LEFT JOIN member
+        INNER JOIN member
         ON article_message.AuthorId = member.Id
         WHERE article_message.articleId=${articleId}
     `)
@@ -121,13 +121,13 @@ async function articleMessage(articleId){
 };
 
 
-async function messageAdd(articleId, username, content){
+async function messageAdd(articleId, authorId, content){
 
     let result = await executeSQL(`
         INSERT INTO article_message 
         SET 
             ArticleId =  ${articleId}
-            , Username = N'${username.replace(/\'/g,"\\\'")}'
+            , authorId = ${authorId}
             , Content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP;
     `)

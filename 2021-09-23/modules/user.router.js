@@ -53,7 +53,7 @@ router.post('/member/login', async function(req, res) {
 });
 
 router.get('/member/signout', async function(req, res) {
-
+    req.session.userId = undefined;
     req.session.username = undefined;
     res.json(resultMessage(0, '已登出'));
 
@@ -128,15 +128,16 @@ router.get('/article/message', async function(req, res){
 router.post('/article/messageAdd', async function(req, res){
 
     let { articleId, content } = req.body;
-    let username = req.session.username;
-    if (typeof username === 'undefined') {
+    let authorId = req.session.userId;
+
+    if (typeof authorId === 'undefined') {
         res.json(resultMessage(1, '請先登入'));
     }
     else if (typeof content === 'undefined' || content.length === 0 ){
         res.json(resultMessage(1, '請輸入內容'));
     }
     else{
-        let messageAdd = await bll.messageAdd(articleId, username, content);
+        let messageAdd = await bll.messageAdd(articleId, authorId, content);
         res.json(messageAdd);
     }
  

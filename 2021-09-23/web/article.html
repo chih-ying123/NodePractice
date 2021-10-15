@@ -142,7 +142,16 @@
 
             let response = await fetch(action, postOptions);
             let jsonData = await response.json();
-            alert(jsonData.resultMessage)
+
+            if ( jsonData.resultCode === 0 ) {
+                alert( jsonData.resultMessage );
+                window.location.reload();
+
+            }
+            else {
+                alert(jsonData.resultMessage);
+            }
+            
         });
 
 

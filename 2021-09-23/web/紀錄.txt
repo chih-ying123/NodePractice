@@ -55,15 +55,31 @@ URLSearchParams() 或 FormData()
 
 ***********************************************************************************
 
+CSS 常用功能效果
+Modal
+
+https://www.w3schools.com/w3css/w3css_modal.asp
+
+
+***********************************************************************************
 SQL 連接多個資料庫
 JOIN 
 
 https://www.runoob.com/sql/sql-join.html
 
+inner join 跟 left join
+
+一筆文章有一個對應的member > 一對一關係 > inner join 
+一個member對應1個0個或多個文章 > 一對零, 對一, 對多 > left join 
+
+Inner Join 
+>>> 一定要滿足ON條件才會顯示出來
+
+Left Join 
+>>> 保留左邊資料表的全部資料, 即使不符合過濾條件
+
 
 ***********************************************************************************
 
-CSS 常用功能效果
-Modal
-
-https://www.w3schools.com/w3css/w3css_modal.asp
+???
+https://book.vue.tw/CH2/2-1-components.html
