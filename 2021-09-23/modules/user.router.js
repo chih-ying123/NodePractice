@@ -79,17 +79,16 @@ router.get('/article/class', async function(req, res) {
 
 router.post('/article/add', async function(req, res){
 
-    let { title, article_class, content} = req.body;
+    let { title, classId, content} = req.body;
     let authorId = req.session.userId;
 
     if (typeof authorId === 'undefined') {
         res.json(resultMessage(1, '請登入後貼文'));
     }
-
-    if (typeof title === 'undefined' || title.length === 0 ){
+    else if (typeof title === 'undefined' || title.length === 0 ){
         res.json(resultMessage(1, '請輸入標題'));
     }
-    else if (article_class === '0'){
+    else if (classId === '0'){
         res.json(resultMessage(1, '請選擇發佈在哪一個看板'));
     }
     
@@ -98,7 +97,7 @@ router.post('/article/add', async function(req, res){
     }
     else{
 
-        let articleAdd = await bll.articleAdd( title, article_class, authorId, content );
+        let articleAdd = await bll.articleAdd( title, classId, authorId, content );
         res.json(articleAdd);
 
     }

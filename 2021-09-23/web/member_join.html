@@ -10,38 +10,66 @@
 </head>
 <body>
     <div class="title">
-        <div class="logo">嚶嚶幫</div>
+        <div class="head_content">
+            <div class="logo">嚶嚶幫</div>
+            <button id='open_login'>登入</button>
+            <button id='sign_out'>登出</button>
+        </div>
+
     </div>
+
+    <div id="hide_login">
+        <div id="login_content">
+            <div style="text-align: right;">
+                <button id='close_login'>X</button>
+            </div>
+            <h3>登入</h3>
+
+            <form action="/member/login" method="POST" id="memberLoginForm">
+                <p>常用信箱</p>
+                <input type="email" id="email" name="email" placeholder="輸入信箱" required value="000@aaa.aa">
+                <br>
+
+                <p>密碼</p>
+                <input type="password" id="password" name="password" placeholder="輸入密碼" required value="000000">
+                <br>
+
+                <input type="submit" id="submit" name="submit" value="登入">
+            </form>
+            <a href="./member_join.html" class="memberJoin">我要註冊</a>
+        </div>
+    </div>
+
     <div class="content">
 
         <h3>註冊</h3>
 
         <form action="/member/join" method="POST" id="memberJoinForm">
             <p>常用信箱</p>
-            <input type="email" id="email" name="email" placeholder="輸入信箱" >
+            <input type="email" id="memberJoinEmail" name="email" placeholder="輸入信箱" >
             <br>
 
             <p>暱稱</p>
-            <input type="text" id="username" name="username" placeholder="輸入特別的暱稱" >
+            <input type="text" id="memberJoinUsername" name="username" placeholder="輸入特別的暱稱" >
             <br>
 
             <p>密碼</p>
-            <input type="password" id="password" name="password" placeholder="設定密碼" >
+            <input type="password" id="memberJoinPassword" name="password" placeholder="設定密碼" >
             <br>
 
-            <input type="submit" id="submit" name="submit" value="註冊">
+            <input type="submit" id="memberJoinSubmit" name="submit" value="註冊">
         </form>
     </div>
 
-
+    <script type="text/javascript" src="loginfunction.js"></script>
     <script>
 
         let memberJoinForm = document.getElementById('memberJoinForm');
         memberJoinForm.addEventListener('submit', async function(e) {
 
-            let email = document.getElementById('email').value;
-            let username = document.getElementById('username').value;
-            let password = document.getElementById('password').value;
+            let email = document.getElementById('memberJoinEmail').value;
+            let username = document.getElementById('memberJoinUsername').value;
+            let password = document.getElementById('memberJoinPassword').value;
 
             const params = new URLSearchParams();
             params.append('email', email);

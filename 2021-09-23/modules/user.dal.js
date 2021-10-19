@@ -48,27 +48,29 @@ async function checkEmailPW( email, password ){
 
 async function articleClass() {
     let result = await executeSQL(`
-        SELECT Class FROM article_class
+        SELECT * FROM article_class
     `)
     return result;
+    
 }
 
-async function checkArticleClass( article_class ) { 
+async function checkArticleClass( classId ) { 
     let result = await executeSQL(`
-        SELECT Class 
+        SELECT Id 
         FROM article_class 
-        WHERE class = N'${ article_class }'
+        WHERE Id = N'${ classId }'
     `)
     return result;
 }
 
-async function articleAdd( title, article_class, authorId, content ){
+async function articleAdd( title, classId, authorId, content ){
 
     let result = await executeSQL(`
         INSERT INTO article
         SET
-            title = N'${title.replace(/\'/g,"\\\'")}'
-            , class = N'${article_class}'
+            ParentsId = 0
+            , title = N'${title.replace(/\'/g,"\\\'")}'
+            , classId = ${classId}
             , AuthorId =${authorId}
             , content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP ;
@@ -79,11 +81,16 @@ async function articleAdd( title, article_class, authorId, content ){
 async function articleList(){
 
     let result = await executeSQL(`
-        SELECT  article.Id, article.Title, article.Class, article.CreateTime,
-                member.Username Author
+        SELECT  article.Id, article.Title, article.CreateTime,
+                member.Username, article_class.Class
         FROM article
+
         INNER JOIN member
-        ON article.AuthorId = member.Id
+        ON article.AuthorId = member.Id 
+
+        INNER JOIN article_class
+        ON article.ClassId = article_class.Id
+        WHERE article.ParentsId = 0
         ORDER BY article.Id DESC
     `)
 
@@ -93,11 +100,14 @@ async function articleList(){
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT  article.Title, article.Class, article.Content, article.CreateTime,
-                member.Username Author
+        SELECT  article.Title, article.Content, article.CreateTime,
+                member.Username, article_class.Class
         FROM article
         INNER JOIN member
         ON article.AuthorId = member.Id
+        
+        INNER JOIN article_class
+        ON article.ClassId = article_class.Id
         WHERE article.Id=${id}
     `)
 

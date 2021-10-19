@@ -20,7 +20,10 @@
 
     <div id="hide_login">
         <div id="login_content">
-            <button id='close_login'>X</button>
+            <div style="text-align: right;">
+                <button id='close_login'>X</button>
+            </div>
+            
             <h3>登入</h3>
 
             <form action="/member/login" method="POST" id="memberLoginForm">
@@ -51,7 +54,7 @@
 
             <br>
             <textarea placeholder="我想說..."  id="content"></textarea>
-            <input type="submit" id="submit" name="submit" value="發佈">
+            <input type="submit" id="articleAddSubmit" name="submit" value="發佈">
         </form>
         
 
@@ -78,7 +81,7 @@
             let jsonData = await response.json();
 
             for(let i=0; i<jsonData.length; i++){ 
-               article_class.add(new Option(jsonData[i],jsonData[i])); //new Option(key,value)
+               article_class.add(new Option(jsonData[i].Class,jsonData[i].Id)); //new Option(key,value)
                
             }   
         };
@@ -94,7 +97,7 @@
 
             const params = new URLSearchParams();
             params.append('title', title.value);
-            params.append('article_class', article_class.value);
+            params.append('classId', article_class.value);
             params.append('content', content.value);
 
             let action = articleAddForm.action;

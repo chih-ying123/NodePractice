@@ -28,8 +28,10 @@ body {
 }
 
 #login_content{
-    width: 50%;
-    margin: auto;
+    position: fixed;
+    top: 30%;
+    left: 32.5%;
+    width: 35%;
     padding: 20px;
     z-index: 200;
     background-color: #fff;
@@ -149,7 +151,7 @@ h3{
     font-weight: bold;
 }
 
-.article_author{
+.article_username{
     text-align: right;
 }
 

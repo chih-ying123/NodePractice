@@ -46,24 +46,18 @@ async function memberLogin( email, password ){
 async function articleClass(){
 
     let articleClass = await dal.articleClass();
-    let articleClassList = [];
-
-    for(let i=0; i<articleClass.length; i++){
-        articleClassList.push(articleClass[i].Class)
-    }
-    
-    return articleClassList;
+    return articleClass;
 
 }
 
-async function articleAdd( title, article_class, authorId, content ){
+async function articleAdd( title, classId, authorId, content ){
 
-    let checkArticleClass = await dal.checkArticleClass( article_class );
+    let checkArticleClass = await dal.checkArticleClass( classId );
     if ( checkArticleClass.length === 0 ){
         return resultMessage(1, '請選擇正確看板')
     }
 
-    let articleAdd = await dal.articleAdd( title, article_class, authorId, content );
+    let articleAdd = await dal.articleAdd( title, classId, authorId, content );
     if ( articleAdd.affectedRows === 1) { 
        return resultMessage( 0, '已發佈'); 
     }

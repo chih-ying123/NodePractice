@@ -20,7 +20,9 @@
 
     <div id="hide_login">
         <div id="login_content">
-            <button id='close_login'>X</button>
+            <div style="text-align: right;">
+                <button id='close_login'>X</button>
+            </div>
             <h3>登入</h3>
 
             <form action="/member/login" method="POST" id="memberLoginForm">
@@ -46,7 +48,7 @@
             <span id='articleClass'></span> 
             <h3 id='articleTitle'></h3>
             <textarea id='articleContent' disabled></textarea>
-            <p class='article_author' id='articleAuthor'></p>
+            <p class='article_username' id='articleUsername'></p>
 
         </div>
         留言
@@ -83,13 +85,13 @@
             let headTitle = document.getElementById('headTitle');
             let articleClass = document.getElementById('articleClass');
             let articleTitle = document.getElementById('articleTitle');
-            let articleAuthor = document.getElementById('articleAuthor');
+            let articleUsername = document.getElementById('articleUsername');
             let articleContent = document.getElementById('articleContent');
           
             headTitle.innerHTML = jsonData.Title;
             articleClass.innerHTML = jsonData.Class;
             articleTitle.innerHTML = jsonData.Title;
-            articleAuthor.innerHTML = `by ${jsonData.Author} ${jsonData.CreateTime}`;
+            articleUsername.innerHTML = `by ${jsonData.Username} ${jsonData.CreateTime}`;
             articleContent.innerHTML = jsonData.Content;
         };
 
@@ -120,7 +122,8 @@
 
         let messageAddForm = document.getElementById('messageAddForm');
         messageAddForm.addEventListener('submit', async function(e) {
-
+/*記得補一下 : 新增留言的時候要確認有這個文章的ID */ 
+/*如果新增留言寫到article資料表內 欄位classId的值要怎麼辦 寫0嗎 直接給他空的字串好了*/
             e.preventDefault();
 
             let messageAddContent = document.getElementById('messageAddContent'); 

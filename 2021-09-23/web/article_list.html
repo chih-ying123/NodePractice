@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章牛肉湯</title>
+    <title>嚶嚶幫</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -21,7 +21,9 @@
 
     <div id="hide_login">
         <div id="login_content">
-            <button id='close_login'>X</button>
+            <div style="text-align: right;">
+                <button id='close_login'>X</button>
+            </div>
             <h3>登入</h3>
 
             <form action="/member/login" method="POST" id="memberLoginForm">
@@ -60,13 +62,13 @@
             let jsonData = await response.json();
             
             for (let i=0; i<jsonData.length; i++){
-                let { Id, Title, Class, Author, CreateTime } = jsonData[i];
+                let { Id, Title, Class, Username, CreateTime } = jsonData[i];
                 article_list.innerHTML += `
                 <div class='article_box'>
                     <a href="/article.html?id=${Id}" target="_blank">
                         <span>${Class}</span> 
                         <h3>${Title}</h3>
-                        <p class='article_author'>by ${Author}, ${CreateTime}</p>
+                        <p class='article_username'>by ${Username}, ${CreateTime}</p>
                     </a>
                 </div>`;
             }
