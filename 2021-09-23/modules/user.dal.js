@@ -97,6 +97,13 @@ async function articleList(){
     return result;
 };
 
+async function articleExist(id) {
+    let result = await executeSQL(`
+        SELECT Id FROM article WHERE id=N'${id}'
+    `)
+    return result;
+}
+
 async function articleContent(id){
 
     let result = await executeSQL(`
@@ -115,29 +122,38 @@ async function articleContent(id){
 
 };
 
-async function articleMessage(articleId){
+async function articleMessage(parentsId){
 
     let result = await executeSQL(`
-        SELECT  article_message.Content, article_message.CreateTime,
+        SELECT  article.ParentsId, article.Content, article.CreateTime,
                 member.Username
-        FROM article_message
+        FROM article
         INNER JOIN member
-        ON article_message.AuthorId = member.Id
-        WHERE article_message.articleId=${articleId}
+        ON article.AuthorId = member.Id 
+        WHERE article.ParentsId = ${parentsId}
+        ORDER BY article.Id ASC
     `)
 
     return result;
 
 };
 
+async function parentsInfo(articleId){
+    let result = await executeSQL(`
+        SELECT Title, ClassId FROM article WHERE Id = ${articleId}
+    `);
+    return result;
+}
 
-async function messageAdd(articleId, authorId, content){
+async function messageAdd(articleId, Title, ClassId, authorId, content){
 
     let result = await executeSQL(`
-        INSERT INTO article_message 
+        INSERT INTO article 
         SET 
-            ArticleId =  ${articleId}
-            , authorId = ${authorId}
+            ParentsId =  ${articleId}
+            , Title = N'${Title}'
+            , ClassId = ${ClassId}
+            , AuthorId = ${authorId}
             , Content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP;
     `)
@@ -157,5 +173,7 @@ module.exports = {
     articleList,
     articleContent,
     articleMessage,
-    messageAdd
+    messageAdd,
+    articleExist,
+    parentsInfo
 }

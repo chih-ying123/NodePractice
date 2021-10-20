@@ -119,8 +119,8 @@ router.get('/article/content', async function(req, res){
 
 router.get('/article/message', async function(req, res){
 
-    let articleId = req.query.id;
-    let articleMessage = await bll.articleMessage(articleId);
+    let parentsId = req.query.id;
+    let articleMessage = await bll.articleMessage(parentsId);
     res.json(articleMessage); 
 });
 

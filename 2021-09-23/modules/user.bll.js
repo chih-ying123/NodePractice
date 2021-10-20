@@ -73,24 +73,31 @@ async function articleList(){
 };
 
 async function articleContent(id){
+    let articleExist = await dal.articleExist(id);
+    if ( articleExist.length === 0 ){
+        return resultMessage( 1, '文章不存在或出現錯誤' );
+    }
     let articleContent = await dal.articleContent(id);
     return articleContent
 }
 
-async function articleMessage(articleId){
-    let articleContent = await dal.articleMessage(articleId);
+async function articleMessage(parentsId){
+    let articleContent = await dal.articleMessage(parentsId);
     return articleContent
 }
 
 async function messageAdd(articleId, authorId, content){
-    
-    let messageAdd = await dal.messageAdd(articleId, authorId, content);
+
+    let parentsInfo = await dal.parentsInfo(articleId);
+    let { Title, ClassId } = parentsInfo[0];
+    let messageAdd = await dal.messageAdd(articleId, Title, ClassId, authorId, content);
     if ( messageAdd.affectedRows === 1) { 
         return resultMessage( 0, '已發佈'); 
      }
      else {
         return resultMessage( 1, '留言失敗');
      }
+
 }
 
 module.exports = {

@@ -80,19 +80,26 @@
 
             let response = await fetch(`/article/content${queryString}`);
             let jsonData = await response.json();
-            jsonData = jsonData[0];
+            if (jsonData.resultCode === 1) {
+                alert (jsonData.resultMessage);
+                window.location.href = 'article_list.html'
+            }
+            else {
+                let { Title, Class, Username, CreateTime, Content } = jsonData[0];
 
-            let headTitle = document.getElementById('headTitle');
-            let articleClass = document.getElementById('articleClass');
-            let articleTitle = document.getElementById('articleTitle');
-            let articleUsername = document.getElementById('articleUsername');
-            let articleContent = document.getElementById('articleContent');
-          
-            headTitle.innerHTML = jsonData.Title;
-            articleClass.innerHTML = jsonData.Class;
-            articleTitle.innerHTML = jsonData.Title;
-            articleUsername.innerHTML = `by ${jsonData.Username} ${jsonData.CreateTime}`;
-            articleContent.innerHTML = jsonData.Content;
+                let headTitle = document.getElementById('headTitle');
+                let articleClass = document.getElementById('articleClass');
+                let articleTitle = document.getElementById('articleTitle');
+                let articleUsername = document.getElementById('articleUsername');
+                let articleContent = document.getElementById('articleContent');
+            
+                headTitle.innerHTML = Title;
+                articleClass.innerHTML = Class;
+                articleTitle.innerHTML = Title;
+                articleUsername.innerHTML = `by ${Username} ${CreateTime}`;
+                articleContent.innerHTML = Content;
+            }
+            
         };
 
         articleContent();
@@ -122,8 +129,7 @@
 
         let messageAddForm = document.getElementById('messageAddForm');
         messageAddForm.addEventListener('submit', async function(e) {
-/*記得補一下 : 新增留言的時候要確認有這個文章的ID */ 
-/*如果新增留言寫到article資料表內 欄位classId的值要怎麼辦 寫0嗎 直接給他空的字串好了*/
+
             e.preventDefault();
 
             let messageAddContent = document.getElementById('messageAddContent'); 
