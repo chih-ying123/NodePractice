@@ -74,11 +74,13 @@ async function articleList(){
 
 async function articleContent(id){
     let articleExist = await dal.articleExist(id);
-    if ( articleExist.length === 0 ){
+    let articleContent = await dal.articleContent(id);
+
+    if ( articleExist.length === 0 || articleContent.length === 0){
         return resultMessage( 1, '文章不存在或出現錯誤' );
     }
-    let articleContent = await dal.articleContent(id);
-    return articleContent
+    
+    return articleContent;
 }
 
 async function articleMessage(parentsId){
@@ -100,6 +102,8 @@ async function messageAdd(articleId, authorId, content){
 
 }
 
+
+
 module.exports = {
     memberJoin,
     memberLogin,
@@ -108,5 +112,5 @@ module.exports = {
     articleList,
     articleContent,
     articleMessage,
-    messageAdd
+    messageAdd,
 }

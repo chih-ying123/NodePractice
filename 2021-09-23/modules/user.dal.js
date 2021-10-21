@@ -115,7 +115,7 @@ async function articleContent(id){
         
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
-        WHERE article.Id=${id}
+        WHERE article.ParentsId=0 and article.Id=${id}
     `)
 
     return result;
@@ -125,7 +125,7 @@ async function articleContent(id){
 async function articleMessage(parentsId){
 
     let result = await executeSQL(`
-        SELECT  article.ParentsId, article.Content, article.CreateTime,
+        SELECT  article.Id, article.Content, article.CreateTime,
                 member.Username
         FROM article
         INNER JOIN member
@@ -159,6 +159,7 @@ async function messageAdd(articleId, Title, ClassId, authorId, content){
     `)
     return result;
 };
+
 
 
 

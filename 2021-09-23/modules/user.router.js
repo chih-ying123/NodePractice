@@ -142,6 +142,11 @@ router.post('/article/messageAdd', async function(req, res){
  
 });
 
+router.post('/message/kids', async function(req, res) {
+    let { id } = req.body;
+    let messageKids = await bll.articleMessage(id);
+    res.json(messageKids);
+});
 
 
 module.exports = router;

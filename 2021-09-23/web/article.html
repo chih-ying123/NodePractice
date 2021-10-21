@@ -108,19 +108,23 @@
 
             let response = await fetch(`/article/message${queryString}`);
             let jsonData = await response.json();
+            let message = '';
 
             for(let i=0; i<jsonData.length; i++) {
 
                 let articleMessage = document.getElementById('articleMessage');
-                let { Username, Content, CreateTime } = jsonData[i];
+                let { Id, Username, Content, CreateTime } = jsonData[i];
+                let messageKidsHtml = await  messageKids(Id);
 
-                articleMessage.innerHTML += `
+                message = `
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
                     <span>B${i+1}, </span><span>${CreateTime}</span>
                     <div class="messageLine"></div>
-                `;
+                    
+                `+ messageKidsHtml;
                 
+                articleMessage.innerHTML += message
             };
 
         }
@@ -163,7 +167,34 @@
             
         });
 
+        async function messageKids(Id){
+            let postBody = {
+                method: 'POST',
+                body: `id=${Id}`,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+            let response = await fetch(`/message/kids`, postBody);
+            let jsonData = await response.json();
+            let messageKidsHtml = '';
+            //console.log(jsonData);
 
+            for(let i=0; i<jsonData.length; i++) {
+
+                let { Id, Username, Content, CreateTime } = jsonData[i];
+               
+                messageKidsHtml += `
+                    <p>${Username}：</p>
+                    <textarea disabled>${Content}</textarea>
+                    <span>${i+1}, </span><span>${CreateTime}</span>
+                    <div class="messageLine"></div>
+                `;
+                
+            };
+
+            return(messageKidsHtml);
+        };
             
 
     </script>
