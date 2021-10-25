@@ -101,11 +101,9 @@
             }
             
         };
-
         articleContent();
 
         async function articleMessage() {
-
             let response = await fetch(`/article/message${queryString}`);
             let jsonData = await response.json();
             let message = '';
@@ -114,17 +112,18 @@
 
                 let articleMessage = document.getElementById('articleMessage');
                 let { Id, Username, Content, CreateTime } = jsonData[i];
-                let messageKidsHtml = await  messageKids(Id);
+                
 
                 message = `
+                <div style="width:100%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>B${i+1}, </span><span>${CreateTime}</span>
+                    <span>B${i+1}, </span><span>${CreateTime}</span><a style='cursor: pointer;'>回覆</a>
                     <div class="messageLine"></div>
-                    
-                `+ messageKidsHtml;
-                
-                articleMessage.innerHTML += message
+                </div>   
+                `;
+                let messageKidsHtml = await  messageKids(Id, 100);
+                articleMessage.innerHTML += message + messageKidsHtml
             };
 
         }
@@ -167,7 +166,9 @@
             
         });
 
-        async function messageKids(Id){
+
+        
+        async function messageKids(Id, width){
             let postBody = {
                 method: 'POST',
                 body: `id=${Id}`,
@@ -177,23 +178,29 @@
             };
             let response = await fetch(`/message/kids`, postBody);
             let jsonData = await response.json();
-            let messageKidsHtml = '';
-            //console.log(jsonData);
-
+            let message= '';
+            let againMessage = '';
+            let messageHtml = '';
+            width = width-5;
+            
             for(let i=0; i<jsonData.length; i++) {
 
                 let { Id, Username, Content, CreateTime } = jsonData[i];
-               
-                messageKidsHtml += `
+                
+                message = `
+                <div style="width:${width}%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>${i+1}, </span><span>${CreateTime}</span>
+                    <span>${i+1}, </span><span>${CreateTime}</span><a>回覆</a>
                     <div class="messageLine"></div>
+                </div>
                 `;
                 
+                againMessage = await  messageKids(Id, width);
+                messageHtml += message+againMessage;
             };
 
-            return(messageKidsHtml);
+            return(messageHtml);
         };
             
 
