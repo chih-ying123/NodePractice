@@ -107,7 +107,7 @@ async function articleExist(id) {
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT  article.Title, article.Content, article.CreateTime,
+        SELECT  article.Id, article.Title, article.Content, article.CreateTime,
                 member.Username, article_class.Class
         FROM article
         INNER JOIN member

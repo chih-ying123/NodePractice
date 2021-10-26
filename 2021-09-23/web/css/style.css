@@ -37,10 +37,6 @@ body {
     background-color: #fff;
 }
 
-#close_login{
-    
-}
-
 #sign_out{
     display: none;
 }
@@ -191,18 +187,19 @@ h3{
     font-size:small;
 }
 
-#messageAddForm {
+.messageAddForm {
     display: flex;
     justify-content: space-between;
 }
 
-#messageAddForm textarea{
+.messageAddForm textarea{
     display: flex;
     height: auto;
-    
 }
 
-#messageAddForm input{
+.messageAddForm input{
     margin: 0;
     height: 100%;
 }
+
+

@@ -52,15 +52,17 @@
 
         </div>
         留言
-        <form action="/article/messageAdd" method="post" id="messageAddForm">
+        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
+            <input type="hidden"  name="parentsId" value="">
             <div style="width:85%">
-                <textarea id="messageAddContent" placeholder="......" ></textarea>
+                <textarea name="messageAddContent" placeholder="......" ></textarea>
             </div>
             <div style="width:15%">
-                <input type="submit" id='messageAddsubmit' name='submit' value="發送"> 
+                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, 0)"> 
             </div>
             
         </form>
+
         <div class="messageLine"></div>
         <div id="articleMessage">
             
@@ -74,6 +76,7 @@
     <script>
         const url = new URL(window.location.href)
         let queryString = url.search;
+        let messageAddFormNum = 0;
 
 
         async function articleContent() {
@@ -85,19 +88,21 @@
                 window.location.href = 'article_list.html'
             }
             else {
-                let { Title, Class, Username, CreateTime, Content } = jsonData[0];
+                let { Id, Title, Class, Username, CreateTime, Content } = jsonData[0];
 
                 let headTitle = document.getElementById('headTitle');
                 let articleClass = document.getElementById('articleClass');
                 let articleTitle = document.getElementById('articleTitle');
                 let articleUsername = document.getElementById('articleUsername');
                 let articleContent = document.getElementById('articleContent');
-            
+                let parentsId = document.getElementsByName('parentsId');
+
                 headTitle.innerHTML = Title;
                 articleClass.innerHTML = Class;
                 articleTitle.innerHTML = Title;
                 articleUsername.innerHTML = `by ${Username} ${CreateTime}`;
                 articleContent.innerHTML = Content;
+                parentsId[0].value = Id;
             }
             
         };
@@ -112,35 +117,89 @@
 
                 let articleMessage = document.getElementById('articleMessage');
                 let { Id, Username, Content, CreateTime } = jsonData[i];
-                
+                messageAddFormNum +=1;
 
                 message = `
                 <div style="width:100%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>B${i+1}, </span><span>${CreateTime}</span><a style='cursor: pointer;'>回覆</a>
+                    <span>B${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply();">回覆</button>
+                    <div id='reply_message'>
+                        <form action="/article/messageAdd" method="post" name="messageAddForm">
+                            <input type="hidden"  name="parentsId" value="${Id}">
+                            <div style="width:85%">
+                                <textarea name="messageAddContent" placeholder="......" ></textarea>
+                            </div>
+                            <div style="width:15%">
+                                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, ${messageAddFormNum})"> 
+                            </div>
+                        </form>
+                    </div>
                     <div class="messageLine"></div>
                 </div>   
                 `;
                 let messageKidsHtml = await  messageKids(Id, 100);
-                articleMessage.innerHTML += message + messageKidsHtml
+                articleMessage.innerHTML += message + messageKidsHtml;
             };
 
         }
         articleMessage();
 
+        async function messageKids(Id, width){
+            let postBody = {
+                method: 'POST',
+                body: `id=${Id}`,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            };
+            let response = await fetch(`/message/kids`, postBody);
+            let jsonData = await response.json();
+            let message= '';
+            let againMessage = '';
+            let messageHtml = '';
+            width = width-5;
+            
+            for(let i=0; i<jsonData.length; i++) {
+                messageAddFormNum +=1;
+                let { Id, Username, Content, CreateTime } = jsonData[i];
+                
+                message = `
+                <div style="width:${width}%">
+                    <p>${Username}：</p>
+                    <textarea disabled>${Content}</textarea>
+                    <span>${i+1}, </span><span>${CreateTime}</span><a>回覆</a>
+                    <div id='reply_message'>
+                        <form action="/article/messageAdd" method="post" name="messageAddForm">
+                            <input type="hidden"  name="parentsId" value="${Id}">
+                            <div style="width:85%">
+                                <textarea name="messageAddContent" placeholder="......" ></textarea>
+                            </div>
+                            <div style="width:15%">
+                                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, ${messageAddFormNum})"> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="messageLine"></div>
+                </div>
+                `;
+                
+                againMessage = await  messageKids(Id, width);
+                messageHtml += message+againMessage;
+            };
 
-        let messageAddForm = document.getElementById('messageAddForm');
-        messageAddForm.addEventListener('submit', async function(e) {
+            return(messageHtml);
+        };
 
+        async function messageAdd(e, i) {
             e.preventDefault();
 
-            let messageAddContent = document.getElementById('messageAddContent'); 
-            let reg = /\d+$/;
-            let articleId = queryString.match(reg)[0];
+            let messageAddForm = document.getElementsByName('messageAddForm')[i];
+            let messageAddContent = document.getElementsByName('messageAddContent')[i]; 
+            let parentsId = document.getElementsByName('parentsId')[i];
 
             const params = new URLSearchParams();
-            params.append('articleId', articleId); 
+            params.append('articleId', parentsId.value); 
             params.append('content', messageAddContent.value);
 
             let action = messageAddForm.action;
@@ -164,46 +223,16 @@
                 alert(jsonData.resultMessage);
             }
             
-        });
-
-
-        
-        async function messageKids(Id, width){
-            let postBody = {
-                method: 'POST',
-                body: `id=${Id}`,
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            };
-            let response = await fetch(`/message/kids`, postBody);
-            let jsonData = await response.json();
-            let message= '';
-            let againMessage = '';
-            let messageHtml = '';
-            width = width-5;
-            
-            for(let i=0; i<jsonData.length; i++) {
-
-                let { Id, Username, Content, CreateTime } = jsonData[i];
-                
-                message = `
-                <div style="width:${width}%">
-                    <p>${Username}：</p>
-                    <textarea disabled>${Content}</textarea>
-                    <span>${i+1}, </span><span>${CreateTime}</span><a>回覆</a>
-                    <div class="messageLine"></div>
-                </div>
-                `;
-                
-                againMessage = await  messageKids(Id, width);
-                messageHtml += message+againMessage;
-            };
-
-            return(messageHtml);
         };
+
+
+  
+        function open_reply(){
             
+        };
+        
 
     </script>
+
 </body>
 </html>
