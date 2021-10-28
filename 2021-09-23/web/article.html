@@ -105,68 +105,27 @@
                 articleContent.innerHTML = Content;
                 parentsId[0].value = Id;
             }
-            
+            let messsage =await  Message(queryString, 100);
+            let articleMessage = document.getElementById('articleMessage');
+            articleMessage.innerHTML = messsage;
         };
         articleContent();
 
-        async function articleMessage() {
+        async function Message(queryString, width) {
             let response = await fetch(`/article/message${queryString}`);
             let jsonData = await response.json();
             let message = '';
-
-            for(let i=0; i<jsonData.length; i++) {
-
-                let articleMessage = document.getElementById('articleMessage');
-                let { Id, Username, Content, CreateTime } = jsonData[i];
-                messageAddFormNum +=1;
-
-                message = `
-                <div  style="width:100%">
-                    <p>${Username}：</p>
-                    <textarea disabled>${Content}</textarea>
-                    <span>B${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
-                    <div class='reply_message'>
-                        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
-                            <input type="hidden"  name="parentsId" value="${Id}">
-                            <div style="width:85%">
-                                <textarea name="messageAddContent" placeholder="......" ></textarea>
-                            </div>
-                            <div style="width:15%">
-                                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, ${messageAddFormNum})"> 
-                            </div>
-                        </form>
-                    </div>
-                    <div class="messageLine"></div>
-                </div>   
-                `;
-                let messageKidsHtml = await  messageKids(Id, 100);
-                articleMessage.innerHTML += message + messageKidsHtml;
-            };
-
-        }
-        articleMessage();
-
-        async function messageKids(Id, width){
-            let postBody = {
-                method: 'POST',
-                body: `id=${Id}`,
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            };
-            let response = await fetch(`/message/kids`, postBody);
-            let jsonData = await response.json();
-            let message= '';
             let againMessage = '';
             let messageHtml = '';
-            width = width-5;
-            
+
             for(let i=0; i<jsonData.length; i++) {
-                messageAddFormNum +=1;
-                let { Id, Username, Content, CreateTime } = jsonData[i];
+
                 
+                let { Id, Username, Content, CreateTime } = jsonData[i];
+                messageAddFormNum +=1;
+
                 message = `
-                <div style="width:${width}%">
+                <div  style="width:${width}%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
                     <span>${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
@@ -182,15 +141,13 @@
                         </form>
                     </div>
                     <div class="messageLine"></div>
-                </div>
+                </div>   
                 `;
-                
-                againMessage = await  messageKids(Id, width);
-                messageHtml += message+againMessage;
+                let againMessage = await  Message(`?id=${Id}`, width-5);
+                messageHtml += message + againMessage;
             };
-
             return(messageHtml);
-        };
+        }
 
         async function messageAdd(e, i) {
             e.preventDefault();
