@@ -41,34 +41,34 @@
         </div>
     
     </div>
+    <div class="Content">
+        <div class="mainContent">
 
-    <div class="content">
+            <div>
+                <span id='articleClass'></span> 
+                <h3 id='articleTitle'></h3>
+                <textarea id='articleContent' disabled></textarea>
+                <p class='article_username' id='articleUsername'></p>
 
-        <div>
-            <span id='articleClass'></span> 
-            <h3 id='articleTitle'></h3>
-            <textarea id='articleContent' disabled></textarea>
-            <p class='article_username' id='articleUsername'></p>
+            </div>
+            留言
+            <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
+                <input type="hidden"  name="parentsId" value="">
+                <div style="width:85%">
+                    <textarea name="messageAddContent" placeholder="......" ></textarea>
+                </div>
+                <div style="width:15%">
+                    <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, 0)"> 
+                </div>
+                
+            </form>
+
+            <div class="messageLine"></div>
+            <div id="articleMessage">
+                
 
         </div>
-        留言
-        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
-            <input type="hidden"  name="parentsId" value="">
-            <div style="width:85%">
-                <textarea name="messageAddContent" placeholder="......" ></textarea>
-            </div>
-            <div style="width:15%">
-                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, 0)"> 
-            </div>
-            
-        </form>
 
-        <div class="messageLine"></div>
-        <div id="articleMessage">
-            
-
-        </div>
-        
     </div>
 
 
