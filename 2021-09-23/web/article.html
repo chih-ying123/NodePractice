@@ -72,6 +72,7 @@
     </div>
 
 
+
 <script type="text/javascript" src="loginfunction.js"></script>
     <script>
         const url = new URL(window.location.href)
@@ -120,12 +121,12 @@
                 messageAddFormNum +=1;
 
                 message = `
-                <div style="width:100%">
+                <div  style="width:100%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>B${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply();">回覆</button>
-                    <div id='reply_message'>
-                        <form action="/article/messageAdd" method="post" name="messageAddForm">
+                    <span>B${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
+                    <div class='reply_message'>
+                        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
                             <input type="hidden"  name="parentsId" value="${Id}">
                             <div style="width:85%">
                                 <textarea name="messageAddContent" placeholder="......" ></textarea>
@@ -168,9 +169,9 @@
                 <div style="width:${width}%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>${i+1}, </span><span>${CreateTime}</span><a>回覆</a>
-                    <div id='reply_message'>
-                        <form action="/article/messageAdd" method="post" name="messageAddForm">
+                    <span>${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
+                    <div class='reply_message'>
+                        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
                             <input type="hidden"  name="parentsId" value="${Id}">
                             <div style="width:85%">
                                 <textarea name="messageAddContent" placeholder="......" ></textarea>
@@ -227,9 +228,11 @@
 
 
   
-        function open_reply(){
-            
+        function open_reply(messageAddFormNum){
+            let messageAddForm = document.getElementsByName('messageAddForm')[messageAddFormNum];
+            messageAddForm.style.display="flex";
         };
+
         
 
     </script>
