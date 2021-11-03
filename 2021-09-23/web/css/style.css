@@ -58,6 +58,13 @@ body {
 .classContent {
     width: 20%;
 }
+#article_class h3 {
+    cursor: pointer;
+}
+#article_class h3:hover {
+    font-size: 22px;
+    color: rgb(0, 50, 78);
+}
 
 .mainContent {
     margin:0 auto;

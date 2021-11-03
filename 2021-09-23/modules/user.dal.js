@@ -100,7 +100,7 @@ async function articleList(SQLwhere){
 
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
-        WHERE article.ParentsId = 0 ${SQLwhere}
+        WHERE ${SQLwhere}
         ORDER BY article.Id DESC
     `)
 

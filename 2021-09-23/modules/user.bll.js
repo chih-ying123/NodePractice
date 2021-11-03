@@ -69,12 +69,11 @@ async function articleAdd( title, classId, authorId, content ){
 
 async function articleList(ClassId){
 
-    let SQLwhere = ''
-    if (ClassId) {
-        SQLwhere = `and ClassId = ${ClassId}`
+    let SQLwhere = 'ParentsId = 0';
+    if (ClassId !== '0') {
+        SQLwhere += ` and ClassId = ${ClassId}`;
     }
     let articleList = await dal.articleList(SQLwhere);
-    console.log(articleList);
     return articleList
 };
 

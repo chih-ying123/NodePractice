@@ -107,7 +107,6 @@ router.post('/article/add', async function(req, res){
 router.get('/article/list', async function(req, res){
     
     let { ClassId } = req.query
-    console.log(ClassId);
     let articleList = await bll.articleList(ClassId);
     res.json(articleList);
 });
