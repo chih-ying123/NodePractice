@@ -40,24 +40,25 @@
             <a href="./member_join.html" class="memberJoin">我要註冊</a>
         </div>
     </div>
+    <div class="Content">
+        <div class="mainContent">
 
-    <div class="content">
+            <form action="/article/add" method="POST" id="articleAddForm">
 
-        <form action="/article/add" method="POST" id="articleAddForm">
+                <input type="text" id="title" name="title" placeholder="輸入標題" >
+                <br>
 
-            <input type="text" id="title" name="title" placeholder="輸入標題" >
-            <br>
+                <select id="article_class" >
+                <option value="0">選擇看板</option>
+                </select>
 
-            <select id="article_class" >
-               <option value="0">選擇看板</option>
-            </select>
+                <br>
+                <textarea placeholder="我想說..."  id="content"></textarea>
+                <input type="submit" id="articleAddSubmit" name="submit" value="發佈">
+            </form>
+            
 
-            <br>
-            <textarea placeholder="我想說..."  id="content"></textarea>
-            <input type="submit" id="articleAddSubmit" name="submit" value="發佈">
-        </form>
-        
-
+        </div>
     </div>
 
     <script type="text/javascript" src="loginfunction.js"></script>

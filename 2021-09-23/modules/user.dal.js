@@ -48,7 +48,17 @@ async function checkEmailPW( email, password ){
 
 async function articleClass() {
     let result = await executeSQL(`
-        SELECT * FROM article_class
+        SELECT    article_class.Id
+                , article_class.Class
+                , IFNULL(Total, 0)AS Total
+        FROM article_class
+        LEFT JOIN 
+        (
+            SELECT  classId, COUNT(*)AS Total
+            FROM article
+            WHERE ParentsId = 0
+            GROUP BY classId 
+        )AS article ON article_class.Id = article.classId
     `)
     return result;
     
@@ -78,7 +88,7 @@ async function articleAdd( title, classId, authorId, content ){
     return result;
 }
 
-async function articleList(){
+async function articleList(SQLwhere){
 
     let result = await executeSQL(`
         SELECT  article.Id, article.Title, article.CreateTime,
@@ -90,7 +100,7 @@ async function articleList(){
 
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
-        WHERE article.ParentsId = 0
+        WHERE article.ParentsId = 0 ${SQLwhere}
         ORDER BY article.Id DESC
     `)
 

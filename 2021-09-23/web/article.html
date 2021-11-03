@@ -42,6 +42,7 @@
     
     </div>
     <div class="Content">
+       
         <div class="mainContent">
 
             <div>
@@ -64,13 +65,11 @@
             </form>
 
             <div class="messageLine"></div>
-            <div id="articleMessage">
-                
-
+            <div id="articleMessage"></div>
+            
         </div>
 
     </div>
-
 
 
 <script type="text/javascript" src="loginfunction.js"></script>
@@ -149,8 +148,9 @@
             return(messageHtml);
         }
 
-        async function messageAdd(e, i) {
+        async function messageAdd(e, messageAddFormNum) {
             e.preventDefault();
+            let i = messageAddFormNum;
 
             let messageAddForm = document.getElementsByName('messageAddForm')[i];
             let messageAddContent = document.getElementsByName('messageAddContent')[i]; 

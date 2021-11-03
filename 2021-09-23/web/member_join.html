@@ -39,26 +39,27 @@
             <a href="./member_join.html" class="memberJoin">我要註冊</a>
         </div>
     </div>
+    <div class="Content">
+        <div class="mainContent">
 
-    <div class="content">
+            <h3>註冊</h3>
 
-        <h3>註冊</h3>
+            <form action="/member/join" method="POST" id="memberJoinForm">
+                <p>常用信箱</p>
+                <input type="email" id="memberJoinEmail" name="email" placeholder="輸入信箱" >
+                <br>
 
-        <form action="/member/join" method="POST" id="memberJoinForm">
-            <p>常用信箱</p>
-            <input type="email" id="memberJoinEmail" name="email" placeholder="輸入信箱" >
-            <br>
+                <p>暱稱</p>
+                <input type="text" id="memberJoinUsername" name="username" placeholder="輸入特別的暱稱" >
+                <br>
 
-            <p>暱稱</p>
-            <input type="text" id="memberJoinUsername" name="username" placeholder="輸入特別的暱稱" >
-            <br>
+                <p>密碼</p>
+                <input type="password" id="memberJoinPassword" name="password" placeholder="設定密碼" >
+                <br>
 
-            <p>密碼</p>
-            <input type="password" id="memberJoinPassword" name="password" placeholder="設定密碼" >
-            <br>
-
-            <input type="submit" id="memberJoinSubmit" name="submit" value="註冊">
-        </form>
+                <input type="submit" id="memberJoinSubmit" name="submit" value="註冊">
+            </form>
+        </div>
     </div>
 
     <script type="text/javascript" src="loginfunction.js"></script>
@@ -93,7 +94,7 @@
 
             if ( jsonData.resultCode === 0 ) {
                 alert(jsonData.resultMessage);
-                window.location.href = 'member_login.html';
+                window.location.href = 'article_list.html';
             }
             else {
                 alert(jsonData.resultMessage);

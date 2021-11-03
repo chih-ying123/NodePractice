@@ -42,20 +42,23 @@
     </div>
 
     <div class="Content">
-        <div class="mainContent">
 
-    
-    
-            <div id="article_list"></div>
-    
-            
+        <div class="classContent">
+            <div id="article_class">
+                
+            </div>
+        </div>
+
+
+        <div class="mainContent">
+            <div  id="article_list">
+
+            </div>
         </div>
     
         <div class="userContent">
-            <div id='helloUser'>
-                <p id='username'>哈囉訪客</p>
-                <a href="./article_add.html" id="articleAdd">發文 + </a>
-            </div>
+            <p id='username'>哈囉訪客</p>
+            <a href="./article_add.html" id="articleAdd">發文 + </a>
         </div>
     
     </div>
@@ -63,10 +66,25 @@
 
     <script type="text/javascript" src="loginfunction.js"></script>
     <script>
-        
-        async function articleList() {
+        async function articleClass() {
+            let response = await fetch('/article/class');
+            let jsonData = await response.json();
+            let articleClass = document.getElementById('article_class');
+            let articleClassHtml = '';
+            for (let i=0; i<jsonData.length; i++){
+                let data = jsonData[i];
+                articleClassHtml += `
+                    <h3 onclick="articleList(${data.Id})">${data.Class}(${data.Total})</h3>
+                `;
+            };
+            articleClass.innerHTML = `<h3 onclick="articleList(0)">所有文章</h3>` + articleClassHtml;
+            articleList(0);
+        };
+        articleClass();
 
-            let response = await fetch('/article/list');
+        async function articleList(ClassId) {
+            article_list.innerHTML = '';
+            let response = await fetch(`/article/list?ClassId=${ClassId}`);
             let jsonData = await response.json();
             
             for (let i=0; i<jsonData.length; i++){
@@ -81,7 +99,7 @@
                 </div>`;
             }
         };
-        articleList();
+        
 
 
         async function isLogin() {
