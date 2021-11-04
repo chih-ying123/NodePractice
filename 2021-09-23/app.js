@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
 
 app.use('/', require('./modules/user.router'));
+app.use('/article', require('./modules/article.router'));
 
 
 app.listen(3000);
