@@ -76,6 +76,10 @@ router.post('/messageAdd', async function(req, res){
  
 });
 
+router.get('/userRanking', async function(req, res){
 
+    let userRanking = await bll.userRanking();
+    res.json(userRanking); 
+});
 
 module.exports = router;

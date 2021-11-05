@@ -37,7 +37,8 @@ async function articleAdd( title, classId, authorId, content ){
             , classId = ${classId}
             , AuthorId =${authorId}
             , content = N'${content.replace(/\'/g,"\\\'")}'
-            , CreateTime = CURRENT_TIMESTAMP ;
+            , CreateTime = CURRENT_TIMESTAMP 
+            , ClickTimes = 0;
     `)
     return result;
 }
@@ -45,8 +46,8 @@ async function articleAdd( title, classId, authorId, content ){
 async function articleList(ClassId){
 
     let result = await executeSQL(`
-        SELECT  article.Id, article.Title, article.CreateTime,
-                member.Username, article_class.Class
+        SELECT  article.Id, article.Title, article.CreateTime, article.ClickCount
+                , member.Username, article_class.Class
         FROM article
 
         INNER JOIN member
@@ -119,12 +120,28 @@ async function messageAdd(articleId, Title, ClassId, authorId, content){
             , ClassId = ${ClassId}
             , AuthorId = ${authorId}
             , Content = N'${content.replace(/\'/g,"\\\'")}'
-            , CreateTime = CURRENT_TIMESTAMP;
+            , CreateTime = CURRENT_TIMESTAMP
+            , ClickTimes = 0 ;
     `)
     return result;
 };
 
-
+async function userRanking(){
+    let result = await executeSQL(`
+        SELECT    member.Id
+                , member.Username
+                , IFNULL(total,0) AS Total
+        FROM member LEFT JOIN(    
+            SELECT    authorId
+                    , COUNT(*)AS Total
+            FROM article
+            WHERE ParentsId = 0
+            GROUP BY authorId
+        )AS article ON article.AuthorId = member.Id
+        ORDER BY Total DESC
+    `);
+    return result;
+}
 
 
 module.exports = {
@@ -136,5 +153,6 @@ module.exports = {
     articleMessage,
     messageAdd,
     articleExist,
-    parentsInfo
+    parentsInfo,
+    userRanking
 }

@@ -7,6 +7,7 @@
     <title>嚶嚶幫</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.css"> <!--font icon 的 css-->
 </head>
 <body>
 
@@ -43,10 +44,13 @@
 
     <div class="Content">
 
-        <div class="classContent">
-            <div id="article_class">
-                
+        <div class="leftContent">
+            <div class="userContent">
+                <p id='username'>哈囉訪客</p>
+                <a href="./article_add.html" id="articleAdd">發文 + </a>
             </div>
+
+            <div id="article_class">       </div>
         </div>
 
 
@@ -56,9 +60,22 @@
             </div>
         </div>
     
-        <div class="userContent">
-            <p id='username'>哈囉訪客</p>
-            <a href="./article_add.html" id="articleAdd">發文 + </a>
+        <div class="rightContent">
+            <div>
+                <p>熱門文章排行</p>
+                <table id='articleRanking'>
+                    <tr><td>1. SSS</td><td style="text-align: right;">500次</td></tr>
+                    <tr><td>2. AAA</td><td style="text-align: right;">500次</td></tr>
+                    <tr><td>3. BBB</td><td style="text-align: right;">500次</td></tr>
+                </table>
+            </div>
+            <div>
+                <p>帳號發文數排行榜</p>
+                <table id='userRanking'>
+
+                </table>
+
+            </div>
         </div>
     
     </div>
@@ -88,19 +105,38 @@
             let jsonData = await response.json();
             
             for (let i=0; i<jsonData.length; i++){
-                let { Id, Title, Class, Username, CreateTime } = jsonData[i];
+                let { Id, Title, Class, Username, CreateTime, ClickCount } = jsonData[i];
                 article_list.innerHTML += `
                 <div class='article_box'>
                     <a href="/article.html?id=${Id}" target="_blank">
                         <span>${Class}</span> 
                         <h3>${Title}</h3>
-                        <p class='article_username'>by ${Username}, ${CreateTime}</p>
+                        
+                        <p class='article_username'>
+                            <i class="far fa-eye"> ${ClickCount} </i>
+                            <i class="fas fa-pen"></i> ${Username} </i>
+                            , ${CreateTime}
+                        </p>
                     </a>
                 </div>`;
             }
         };
         
-
+        async function userRanking() {
+            
+            let response = await fetch(`/article/userRanking`);
+            let jsonData = await response.json();
+            let userRanking = document.getElementById('userRanking');
+            let userRankingData = '';
+            let top = 5;
+            
+            for (let i=0; i<top; i++){
+                let { Username, Total } = jsonData[i];
+                userRankingData += `<tr><td>${i+1}. ${Username}</td><td style="text-align: right;">${Total}篇</td></tr>`;
+            }
+            userRanking.innerHTML = userRankingData;
+        };
+        userRanking()
 
         async function isLogin() {
             

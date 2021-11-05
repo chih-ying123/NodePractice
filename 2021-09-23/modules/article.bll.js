@@ -58,9 +58,12 @@ async function messageAdd(articleId, authorId, content){
      else {
         return resultMessage( 1, '留言失敗');
      }
-
 }
 
+async function userRanking(){
+    let userRanking = await dal.userRanking();
+    return userRanking
+}
 
 module.exports = {
     articleClass,
@@ -69,4 +72,5 @@ module.exports = {
     articleContent,
     articleMessage,
     messageAdd,
+    userRanking
 }

@@ -24,7 +24,6 @@ body {
     z-index: 100;
     background-color: rgba(0,0,0,0.6);
     display: none; 
-
 }
 
 #login_content{
@@ -49,21 +48,27 @@ body {
     justify-content: space-between;
 }
 
-.Content > div {
+.leftContent > div, .mainContent, .rightContent > div {
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
-.classContent {
-    width: 20%;
+.leftContent {
+    width: 23%;
+
+}
+.userContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 #article_class h3 {
     cursor: pointer;
 }
 #article_class h3:hover {
     font-size: 22px;
-    color: rgb(0, 50, 78);
 }
 
 .mainContent {
@@ -71,12 +76,10 @@ body {
     width: 50%;
 }
 
-.userContent{
-    width: 25%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.rightContent{
+    width: 23%;
 }
+
 
 #memberLoginForm p, #memberJoinForm p {
     margin-top: 20px;
