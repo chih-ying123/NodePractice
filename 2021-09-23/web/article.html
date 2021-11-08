@@ -7,6 +7,7 @@
     <title id="headTitle">Document</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.css">
 </head>
 <body>
     <div class="title">
@@ -49,6 +50,7 @@
                 <span id='articleClass'></span> 
                 <h3 id='articleTitle'></h3>
                 <textarea id='articleContent' disabled></textarea>
+                <i class="far fa-eye" id='articleClickCount'></i>
                 <p class='article_username' id='articleUsername'></p>
 
             </div>
@@ -88,7 +90,7 @@
                 window.location.href = 'article_list.html'
             }
             else {
-                let { Id, Title, Class, Username, CreateTime, Content } = jsonData[0];
+                let { Id, Title, Class, Username, CreateTime, Content, ClickCount } = jsonData[0];
 
                 let headTitle = document.getElementById('headTitle');
                 let articleClass = document.getElementById('articleClass');
@@ -96,6 +98,8 @@
                 let articleUsername = document.getElementById('articleUsername');
                 let articleContent = document.getElementById('articleContent');
                 let parentsId = document.getElementsByName('parentsId');
+                let articleClickCount = document.getElementById('articleClickCount');
+                ClickCount = ClickCount + 1
 
                 headTitle.innerHTML = Title;
                 articleClass.innerHTML = Class;
@@ -103,12 +107,20 @@
                 articleUsername.innerHTML = `by ${Username} ${CreateTime}`;
                 articleContent.innerHTML = Content;
                 parentsId[0].value = Id;
+                articleClickCount.innerHTML = ClickCount ;
+                updateClickCount(Id, ClickCount);
             }
-            let messsage =await  Message(queryString, 100);
+            let messsage = await Message(queryString, 100);
             let articleMessage = document.getElementById('articleMessage');
             articleMessage.innerHTML = messsage;
         };
         articleContent();
+
+        async function updateClickCount(Id, ClickCount) {
+            let response = await fetch(`/article/clickCount?Id=${Id}&ClickCount=${ClickCount}`);
+            let jsonData = await response.json();
+        };
+
 
         async function Message(queryString, width) {
             let response = await fetch(`/article/message${queryString}`);

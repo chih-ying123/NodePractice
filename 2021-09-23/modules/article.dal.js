@@ -72,8 +72,8 @@ async function articleExist(id) {
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT  article.Id, article.Title, article.Content, article.CreateTime,
-                member.Username, article_class.Class
+        SELECT    article.Id, article.Title, article.Content, article.CreateTime,article.ClickCount
+                , member.Username, article_class.Class
         FROM article
         INNER JOIN member
         ON article.AuthorId = member.Id
@@ -143,6 +143,23 @@ async function userRanking(){
     return result;
 }
 
+async function updateClickCount(Id, ClickCount){
+    let result = await executeSQL(`
+        UPDATE article SET ClickCount = ${ClickCount} WHERE Id=${Id}
+    `);
+    return result;
+}
+
+async function articleRanking(){
+    let result = await executeSQL(`
+        SELECT Id, Title, ClickCount
+        FROM article 
+        WHERE ParentsId = 0
+        ORDER BY ClickCount DESC
+        LIMIT 10
+    `);
+    return result;
+}
 
 module.exports = {
     articleClass,
@@ -154,5 +171,7 @@ module.exports = {
     messageAdd,
     articleExist,
     parentsInfo,
-    userRanking
+    userRanking,
+    updateClickCount,
+    articleRanking
 }

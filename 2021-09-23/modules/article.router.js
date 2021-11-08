@@ -82,4 +82,17 @@ router.get('/userRanking', async function(req, res){
     res.json(userRanking); 
 });
 
+router.get('/clickCount', async function(req, res){
+
+    let { Id, ClickCount } = req.query;
+    let updateClickCount = await bll.updateClickCount(Id, ClickCount);
+    res.json(updateClickCount); 
+})
+
+router.get('/articleRanking', async function(req, res){
+
+    let articleRanking = await bll.articleRanking();
+    res.json(articleRanking); 
+});
+
 module.exports = router;

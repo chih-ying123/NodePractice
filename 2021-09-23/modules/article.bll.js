@@ -62,7 +62,17 @@ async function messageAdd(articleId, authorId, content){
 
 async function userRanking(){
     let userRanking = await dal.userRanking();
-    return userRanking
+    return userRanking;
+}
+
+async function updateClickCount(Id, ClickCount){
+    let updateClickCount = await dal.updateClickCount(Id, ClickCount);
+    return updateClickCount;
+}
+
+async function articleRanking(){
+    let articleRanking = await dal.articleRanking();
+    return articleRanking;
 }
 
 module.exports = {
@@ -72,5 +82,7 @@ module.exports = {
     articleContent,
     articleMessage,
     messageAdd,
-    userRanking
+    userRanking,
+    updateClickCount,
+    articleRanking
 }

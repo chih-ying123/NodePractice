@@ -63,16 +63,21 @@
         <div class="rightContent">
             <div>
                 <p>熱門文章排行</p>
-                <table id='articleRanking'>
-                    <tr><td>1. SSS</td><td style="text-align: right;">500次</td></tr>
-                    <tr><td>2. AAA</td><td style="text-align: right;">500次</td></tr>
-                    <tr><td>3. BBB</td><td style="text-align: right;">500次</td></tr>
+                <table>
+                    <thead>
+                        <tr><th></th><th style="text-align: right">瀏覽數</th></tr>
+                    </thead>
+                    <tbody id='articleRanking'></tbody>
+
                 </table>
             </div>
             <div>
                 <p>帳號發文數排行榜</p>
-                <table id='userRanking'>
-
+                <table>
+                    <thead>
+                        <tr><th></th><th style="text-align: right">文章數</th></tr>
+                    </thead>
+                    <tbody id='userRanking'></tbody>
                 </table>
 
             </div>
@@ -132,11 +137,26 @@
             
             for (let i=0; i<top; i++){
                 let { Username, Total } = jsonData[i];
-                userRankingData += `<tr><td>${i+1}. ${Username}</td><td style="text-align: right;">${Total}篇</td></tr>`;
+                userRankingData += `<tr><td>${i+1}. ${Username}</td><td style="text-align: right;">${Total}</td></tr>`;
             }
             userRanking.innerHTML = userRankingData;
         };
-        userRanking()
+        userRanking();
+
+        async function articleRanking() {
+            
+            let response = await fetch(`/article/articleRanking`);
+            let jsonData = await response.json();
+            let articleRanking = document.getElementById('articleRanking');
+            let articleRankingData = '';
+            
+            for (let i=0; i<jsonData.length; i++){
+                let { Id, Title, ClickCount } = jsonData[i];
+                articleRankingData += `<tr><td><a href="/article.html?id=${Id}" target="_blank">${i+1}. ${Title}</a></td><td style="text-align: right;">${ClickCount}</td></tr>`;
+            }
+            articleRanking.innerHTML = articleRankingData;
+        };
+        articleRanking();
 
         async function isLogin() {
             

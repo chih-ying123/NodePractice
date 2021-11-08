@@ -67,7 +67,7 @@ body {
 #article_class h3 {
     cursor: pointer;
 }
-#article_class h3:hover {
+#article_class h3:hover, #articleRanking td:hover {
     font-size: 22px;
 }
 
@@ -78,6 +78,9 @@ body {
 
 .rightContent{
     width: 23%;
+}
+#articleRanking td, #userRanking td{
+    padding: 8px 0;
 }
 
 
