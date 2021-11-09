@@ -72,7 +72,7 @@
                 </table>
             </div>
             <div>
-                <p>帳號發文數排行榜</p>
+                <p>帳號發文數排行</p>
                 <table>
                     <thead>
                         <tr><th></th><th style="text-align: right">文章數</th></tr>
@@ -96,17 +96,17 @@
             for (let i=0; i<jsonData.length; i++){
                 let data = jsonData[i];
                 articleClassHtml += `
-                    <h3 onclick="articleList(${data.Id})">${data.Class}(${data.Total})</h3>
+                    <h3 onclick="articleList(${data.Id}, 0)">${data.Class}(${data.Total})</h3>
                 `;
             };
-            articleClass.innerHTML = `<h3 onclick="articleList(0)">所有文章</h3>` + articleClassHtml;
-            articleList(0);
+            articleClass.innerHTML = `<h3 onclick="articleList(0, 0)">所有文章</h3>` + articleClassHtml;
+            articleList(0, 0);
         };
         articleClass();
 
-        async function articleList(ClassId) {
+        async function articleList(ClassId, AuthorId) {
             article_list.innerHTML = '';
-            let response = await fetch(`/article/list?ClassId=${ClassId}`);
+            let response = await fetch(`/article/list?ClassId=${ClassId}&AuthorId=${AuthorId}`);
             let jsonData = await response.json();
             
             for (let i=0; i<jsonData.length; i++){
@@ -136,8 +136,8 @@
             let top = 5;
             
             for (let i=0; i<top; i++){
-                let { Username, Total } = jsonData[i];
-                userRankingData += `<tr><td>${i+1}. ${Username}</td><td style="text-align: right;">${Total}</td></tr>`;
+                let { Id, Username, Total } = jsonData[i];
+                userRankingData += `<tr onclick="articleList(0,${Id})"><td >${i+1}. ${Username}</td><td style="text-align: right;">${Total}</td></tr>`;
             }
             userRanking.innerHTML = userRankingData;
         };

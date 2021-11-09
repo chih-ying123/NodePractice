@@ -43,7 +43,7 @@ async function articleAdd( title, classId, authorId, content ){
     return result;
 }
 
-async function articleList(ClassId){
+async function articleList(ClassId, AuthorId){
 
     let result = await executeSQL(`
         SELECT  article.Id, article.Title, article.CreateTime, article.ClickCount
@@ -55,10 +55,11 @@ async function articleList(ClassId){
 
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
-        WHERE ParentsId = 0 AND (${ClassId}=0 OR ClassId=${ClassId})
+        WHERE ParentsId = 0 
+            AND (${ClassId}=0 OR ClassId=${ClassId}) 
+            AND (${AuthorId}=0 OR AuthorId=${AuthorId})
         ORDER BY article.Id DESC
     `)
-
     return result;
 };
 
@@ -121,7 +122,7 @@ async function messageAdd(articleId, Title, ClassId, authorId, content){
             , AuthorId = ${authorId}
             , Content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP
-            , ClickTimes = 0 ;
+            , ClickCount = 0 ;
     `)
     return result;
 };
@@ -143,9 +144,9 @@ async function userRanking(){
     return result;
 }
 
-async function updateClickCount(Id, ClickCount){
+async function updateClickCount(Id){
     let result = await executeSQL(`
-        UPDATE article SET ClickCount = ${ClickCount} WHERE Id=${Id}
+        UPDATE article SET ClickCount = ClickCount+1 WHERE Id=${Id}
     `);
     return result;
 }

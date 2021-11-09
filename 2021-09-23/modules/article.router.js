@@ -39,8 +39,9 @@ router.post('/add', async function(req, res){
 
 router.get('/list', async function(req, res){
     
-    let { ClassId } = req.query
-    let articleList = await bll.articleList(ClassId);
+    let { ClassId, AuthorId} = req.query
+
+    let articleList = await bll.articleList(ClassId, AuthorId);
     res.json(articleList);
 });
 
@@ -81,14 +82,14 @@ router.get('/userRanking', async function(req, res){
     let userRanking = await bll.userRanking();
     res.json(userRanking); 
 });
-
+/*
 router.get('/clickCount', async function(req, res){
 
     let { Id, ClickCount } = req.query;
     let updateClickCount = await bll.updateClickCount(Id, ClickCount);
     res.json(updateClickCount); 
 })
-
+*/
 router.get('/articleRanking', async function(req, res){
 
     let articleRanking = await bll.articleRanking();

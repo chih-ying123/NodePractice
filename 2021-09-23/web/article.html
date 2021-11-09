@@ -108,7 +108,7 @@
                 articleContent.innerHTML = Content;
                 parentsId[0].value = Id;
                 articleClickCount.innerHTML = ClickCount ;
-                updateClickCount(Id, ClickCount);
+                //updateClickCount(Id, ClickCount);
             }
             let messsage = await Message(queryString, 100);
             let articleMessage = document.getElementById('articleMessage');
@@ -116,11 +116,12 @@
         };
         articleContent();
 
+        /*
         async function updateClickCount(Id, ClickCount) {
             let response = await fetch(`/article/clickCount?Id=${Id}&ClickCount=${ClickCount}`);
             let jsonData = await response.json();
         };
-
+*/
 
         async function Message(queryString, width) {
             let response = await fetch(`/article/message${queryString}`);

@@ -25,9 +25,9 @@ async function articleAdd( title, classId, authorId, content ){
 
 }
 
-async function articleList(ClassId){
+async function articleList(ClassId, AuthorId){
 
-    let articleList = await dal.articleList(ClassId);
+    let articleList = await dal.articleList(ClassId, AuthorId);
     return articleList
 };
 
@@ -38,7 +38,7 @@ async function articleContent(id){
     if ( articleExist.length === 0 || articleContent.length === 0){
         return resultMessage( 1, '文章不存在或出現錯誤' );
     }
-    
+    await dal.updateClickCount(id);
     return articleContent;
 }
 
@@ -64,12 +64,12 @@ async function userRanking(){
     let userRanking = await dal.userRanking();
     return userRanking;
 }
-
+/*
 async function updateClickCount(Id, ClickCount){
     let updateClickCount = await dal.updateClickCount(Id, ClickCount);
     return updateClickCount;
 }
-
+*/
 async function articleRanking(){
     let articleRanking = await dal.articleRanking();
     return articleRanking;
@@ -83,6 +83,5 @@ module.exports = {
     articleMessage,
     messageAdd,
     userRanking,
-    updateClickCount,
     articleRanking
 }
