@@ -48,17 +48,17 @@ router.get('/list', async function(req, res){
 router.get('/content', async function(req, res){
 
     let { id } = req.query;
-    let articleContent = await bll.articleContent(id);
-    res.json(articleContent); 
+    let articleInfo = await bll.articleContent(id);
+    res.json(articleInfo); 
 });
-
+/*
 router.get('/message', async function(req, res){
 
     let parentsId = req.query.id;
     let articleMessage = await bll.articleMessage(parentsId);
     res.json(articleMessage); 
 });
-
+*/
 router.post('/messageAdd', async function(req, res){
 
     let { articleId, content } = req.body;
