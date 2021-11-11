@@ -39,13 +39,19 @@ async function articleContent(id){
         return resultMessage( 1, '文章不存在或出現錯誤' );
     }
     await dal.updateClickCount(id);
-    let message = await articleMessage(id);
+    let message = await articleMessage(id, 100);
     let articleInfo = {articleContent, message}
     return (articleInfo);
 }
 
-async function articleMessage(parentsId){
+async function articleMessage(parentsId, width){
     let articleMessage = await dal.articleMessage(parentsId);
+    let message = '';
+    let againMessage = '';
+    let messageHtml = '';
+    for(let i=0; i<articleMessage.length; i++) {
+        let againMessage = await  articleMessage(parentsId, width);    
+    }
     return articleMessage
 }
 
