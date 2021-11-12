@@ -64,10 +64,10 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-#article_class h3 {
+
+#article_class h3:hover, #articleRanking td:hover
+, #userRanking td:hover {
     cursor: pointer;
-}
-#article_class h3:hover, #articleRanking td:hover {
     font-size: 22px;
 }
 

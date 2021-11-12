@@ -39,20 +39,32 @@ async function articleContent(id){
         return resultMessage( 1, '文章不存在或出現錯誤' );
     }
     await dal.updateClickCount(id);
-    let message = await articleMessage(id, 100);
-    let articleInfo = {articleContent, message}
+    let message = await Message(id, 100);
+    let articleInfo = { articleContent, message }
     return (articleInfo);
 }
 
-async function articleMessage(parentsId, width){
+async function Message(parentsId, width){
     let articleMessage = await dal.articleMessage(parentsId);
-    let message = '';
-    let againMessage = '';
-    let messageHtml = '';
-    for(let i=0; i<articleMessage.length; i++) {
-        let againMessage = await  articleMessage(parentsId, width);    
+    let messageArray = [];
+    for (let i=0; i<articleMessage.length; i++){
+        let messageObj = {
+            "Id": articleMessage[i].Id
+            , "Content": articleMessage[i].Content
+            , "CreateTime": articleMessage[i].CreateTime
+            , "Username": articleMessage[i].Username
+            , "width": width
+        }
+        
+        messageArray.push(messageObj);
+        let againMessageObj = await Message(articleMessage[i].Id, width-8);
+        
+        for (let j=0; j<againMessageObj.length; j++){
+            messageArray.push(againMessageObj[j]);
+        }
+
     }
-    return articleMessage
+    return messageArray
 }
 
 async function messageAdd(articleId, authorId, content){
@@ -72,12 +84,7 @@ async function userRanking(){
     let userRanking = await dal.userRanking();
     return userRanking;
 }
-/*
-async function updateClickCount(Id, ClickCount){
-    let updateClickCount = await dal.updateClickCount(Id, ClickCount);
-    return updateClickCount;
-}
-*/
+
 async function articleRanking(){
     let articleRanking = await dal.articleRanking();
     return articleRanking;
@@ -88,7 +95,7 @@ module.exports = {
     articleAdd,
     articleList,
     articleContent,
-    articleMessage,
+    Message,
     messageAdd,
     userRanking,
     articleRanking

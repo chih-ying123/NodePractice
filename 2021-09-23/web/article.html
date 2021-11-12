@@ -80,7 +80,6 @@
         let queryString = url.search;
         let messageAddFormNum = 0;
 
-
         async function articleContent() {
 
             let response = await fetch(`/article/content${queryString}`);
@@ -108,31 +107,21 @@
                 articleContent.innerHTML = Content;
                 parentsId[0].value = Id;
                 articleClickCount.innerHTML = ClickCount ;
-                //updateClickCount(Id, ClickCount);
             }
             let messsage = await Message(jsonData.message);
-            //let messsage = await Message(jsonData.message);
             let articleMessage = document.getElementById('articleMessage');
             articleMessage.innerHTML = messsage;
         };
         articleContent();
 
-        /*
-        async function updateClickCount(Id, ClickCount) {
-            let response = await fetch(`/article/clickCount?Id=${Id}&ClickCount=${ClickCount}`);
-            let jsonData = await response.json();
-        };
-*/
-
         async function Message(message){
             let messageHtml='';
-            
             for(let i=0; i<message.length; i++) {
-                let { Id, Username, Content, CreateTime } = message[i];
+                let { Id, Username, Content, CreateTime, width } = message[i];
                 messageAddFormNum +=1;
 
-                messageHtml = `
-                <div style="width:100%">
+                messageHtml += `
+                <div style="width:${width}%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
                     <span>${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
@@ -154,45 +143,6 @@
             return messageHtml;
         }
 
-/*
-        async function Message(queryString, width) {
-            let response = await fetch(`/article/message${queryString}`);
-            let jsonData = await response.json();
-            let message = '';
-            let againMessage = '';
-            let messageHtml = '';
-
-            for(let i=0; i<jsonData.length; i++) {
-
-                
-                let { Id, Username, Content, CreateTime } = jsonData[i];
-                messageAddFormNum +=1;
-
-                message = `
-                <div  style="width:${width}%">
-                    <p>${Username}：</p>
-                    <textarea disabled>${Content}</textarea>
-                    <span>${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
-                    <div class='reply_message'>
-                        <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
-                            <input type="hidden"  name="parentsId" value="${Id}">
-                            <div style="width:85%">
-                                <textarea name="messageAddContent" placeholder="......" ></textarea>
-                            </div>
-                            <div style="width:15%">
-                                <input type="submit" name='messageAddsubmit' value="發送" onclick="messageAdd(event, ${messageAddFormNum})"> 
-                            </div>
-                        </form>
-                    </div>
-                    <div class="messageLine"></div>
-                </div>   
-                `;
-                let againMessage = await  Message(`?id=${Id}`, width-5);
-                messageHtml += message + againMessage;
-            };
-            return(messageHtml);
-        }
-*/
         async function messageAdd(e, messageAddFormNum) {
             e.preventDefault();
             let i = messageAddFormNum;
@@ -225,17 +175,12 @@
             else {
                 alert(jsonData.resultMessage);
             }
-            
         };
 
-
-  
         function open_reply(messageAddFormNum){
             let messageAddForm = document.getElementsByName('messageAddForm')[messageAddFormNum];
             messageAddForm.style.display="flex";
         };
-
-        
 
     </script>
 
