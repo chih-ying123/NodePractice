@@ -140,6 +140,7 @@ async function userRanking(){
             GROUP BY authorId
         )AS article ON article.AuthorId = member.Id
         ORDER BY Total DESC
+        LIMIT 10
     `);
     return result;
 }

@@ -8,6 +8,7 @@ async function articleClass(){
 
 }
 
+
 async function articleAdd( title, classId, authorId, content ){
 
     let checkArticleClass = await dal.checkArticleClass( classId );
@@ -22,13 +23,17 @@ async function articleAdd( title, classId, authorId, content ){
     else {
         return resultMessage( 1, '文章發佈失敗');
     }
-
 }
 
 async function articleList(ClassId, AuthorId){
 
     let articleList = await dal.articleList(ClassId, AuthorId);
-    return articleList
+    let articleClassList = await dal.articleClass();
+    let userRankingList = await dal.userRanking();
+    let articleRankingList = await dal.articleRanking();
+    
+    let result = { articleList, userRankingList, articleRankingList, articleClassList };
+    return result;
 };
 
 async function articleContent(id){
@@ -80,15 +85,6 @@ async function messageAdd(articleId, authorId, content){
      }
 }
 
-async function userRanking(){
-    let userRanking = await dal.userRanking();
-    return userRanking;
-}
-
-async function articleRanking(){
-    let articleRanking = await dal.articleRanking();
-    return articleRanking;
-}
 
 module.exports = {
     articleClass,
@@ -96,7 +92,5 @@ module.exports = {
     articleList,
     articleContent,
     Message,
-    messageAdd,
-    userRanking,
-    articleRanking
+    messageAdd
 }

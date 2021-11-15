@@ -34,7 +34,6 @@ router.post('/add', async function(req, res){
         res.json(articleAdd);
 
     }
-
 });
 
 router.get('/list', async function(req, res){
@@ -51,14 +50,7 @@ router.get('/content', async function(req, res){
     let articleInfo = await bll.articleContent(id);
     res.json(articleInfo); 
 });
-/*
-router.get('/message', async function(req, res){
 
-    let parentsId = req.query.id;
-    let articleMessage = await bll.articleMessage(parentsId);
-    res.json(articleMessage); 
-});
-*/
 router.post('/messageAdd', async function(req, res){
 
     let { articleId, content } = req.body;
@@ -77,23 +69,6 @@ router.post('/messageAdd', async function(req, res){
  
 });
 
-router.get('/userRanking', async function(req, res){
 
-    let userRanking = await bll.userRanking();
-    res.json(userRanking); 
-});
-/*
-router.get('/clickCount', async function(req, res){
-
-    let { Id, ClickCount } = req.query;
-    let updateClickCount = await bll.updateClickCount(Id, ClickCount);
-    res.json(updateClickCount); 
-})
-*/
-router.get('/articleRanking', async function(req, res){
-
-    let articleRanking = await bll.articleRanking();
-    res.json(articleRanking); 
-});
 
 module.exports = router;

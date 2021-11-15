@@ -88,29 +88,18 @@
 
     <script type="text/javascript" src="loginfunction.js"></script>
     <script>
-        async function articleClass() {
-            let response = await fetch('/article/class');
-            let jsonData = await response.json();
-            let articleClass = document.getElementById('article_class');
-            let articleClassHtml = '';
-            for (let i=0; i<jsonData.length; i++){
-                let data = jsonData[i];
-                articleClassHtml += `
-                    <h3 onclick="articleList(${data.Id}, 0)">${data.Class}(${data.Total})</h3>
-                `;
-            };
-            articleClass.innerHTML = `<h3 onclick="articleList(0, 0)">所有文章</h3>` + articleClassHtml;
-            articleList(0, 0);
-        };
-        articleClass();
+        articleList(0, 0);
+        
+        
 
         async function articleList(ClassId, AuthorId) {
             article_list.innerHTML = '';
             let response = await fetch(`/article/list?ClassId=${ClassId}&AuthorId=${AuthorId}`);
             let jsonData = await response.json();
-            
-            for (let i=0; i<jsonData.length; i++){
-                let { Id, Title, Class, Username, CreateTime, ClickCount } = jsonData[i];
+            let { articleList, userRankingList, articleRankingList, articleClassList } = jsonData;
+                       
+            for (let i=0; i<articleList.length; i++){
+                let { Id, Title, Class, Username, CreateTime, ClickCount } = articleList[i];
                 article_list.innerHTML += `
                 <div class='article_box'>
                     <a href="/article.html?id=${Id}" target="_blank">
@@ -125,38 +114,60 @@
                     </a>
                 </div>`;
             }
+            userRanking(userRankingList);
+            articleRanking(articleRankingList);
+            articleClass(articleClassList);
+        };
+
+        async function articleClass(articleClassList) {
+            
+            let articleClass = document.getElementById('article_class');
+            let articleClassHtml = '';
+
+            for (let i=0; i<articleClassList.length; i++){
+                let { Id, Class, Total } = articleClassList[i];
+                articleClassHtml += `
+                    <h3 onclick="articleList(${Id}, 0)">${Class}(${Total})</h3>
+                `;
+            };
+            articleClass.innerHTML = `<h3 onclick="articleList(0, 0)">所有文章</h3>` + articleClassHtml;
+            
         };
         
-        async function userRanking() {
+        async function userRanking(userRankingList) {
             
-            let response = await fetch(`/article/userRanking`);
-            let jsonData = await response.json();
             let userRanking = document.getElementById('userRanking');
             let userRankingData = '';
-            let top = 5;
-            
-            for (let i=0; i<top; i++){
-                let { Id, Username, Total } = jsonData[i];
-                userRankingData += `<tr onclick="articleList(0,${Id})"><td >${i+1}. ${Username}</td><td style="text-align: right;">${Total}</td></tr>`;
+
+            for (let i=0; i<userRankingList.length; i++){
+                let { Id, Username, Total } = userRankingList[i];
+                userRankingData += `
+                    <tr onclick="articleList(0,${Id})">
+                        <td>${i+1}. ${Username}</td>
+                        <td style="text-align: right;">${Total}</td>
+                    </tr>
+                `;
             }
             userRanking.innerHTML = userRankingData;
         };
-        userRanking();
+        
 
-        async function articleRanking() {
+        async function articleRanking(articleRankingList) {
             
-            let response = await fetch(`/article/articleRanking`);
-            let jsonData = await response.json();
             let articleRanking = document.getElementById('articleRanking');
             let articleRankingData = '';
             
-            for (let i=0; i<jsonData.length; i++){
-                let { Id, Title, ClickCount } = jsonData[i];
-                articleRankingData += `<tr><td><a href="/article.html?id=${Id}" target="_blank">${i+1}. ${Title}</a></td><td style="text-align: right;">${ClickCount}</td></tr>`;
+            for (let i=0; i<articleRankingList.length; i++){
+                let { Id, Title, ClickCount } = articleRankingList[i];
+                articleRankingData += `
+                    <tr>
+                        <td><a href="/article.html?id=${Id}" target="_blank">${i+1}. ${Title}</a></td>
+                        <td style="text-align: right;">${ClickCount}</td>
+                    </tr>
+                `;
             }
             articleRanking.innerHTML = articleRankingData;
         };
-        articleRanking();
 
         async function isLogin() {
             
@@ -171,7 +182,7 @@
             }
 
         };
-        isLogin()
+        isLogin();
 
     </script>
 </body>
