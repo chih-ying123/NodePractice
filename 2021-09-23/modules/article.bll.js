@@ -25,6 +25,33 @@ async function articleAdd( title, classId, authorId, content ){
     }
 }
 
+async function getNodePath(id) {  
+
+    let nodePath = [];  // 存放pid用的
+    nodePath.push(id);
+
+    // 找22的pid
+    let result = await getParentIdById(id);
+
+    if (result.length === 0) {
+        return nodePath;
+    }
+
+    ParentsId = result[0].ParentsId;
+
+    while (ParentsId !== 0) {
+
+        nodePath.unshift(ParentsId)
+        result = await getParentIdById(ParentsId);
+        ParentsId = result[0].ParentsId;
+    }
+
+
+    console.log(nodePath.join(','));
+    await updateNodePath(id, nodePath.join(','));
+
+}
+
 async function articleList(ClassId, AuthorId){
 
     let articleList = await dal.articleList(ClassId, AuthorId);
@@ -44,11 +71,12 @@ async function articleContent(id){
         return resultMessage( 1, '文章不存在或出現錯誤' );
     }
     await dal.updateClickCount(id);
-    let message = await Message(id, 100);
-    let articleInfo = { articleContent, message }
-    return (articleInfo);
+   // let message = await Message(id, 100);
+   // let articleInfo = { articleContent, message }
+    //return (articleInfo);
+    return articleContent
 }
-
+/*
 async function Message(parentsId, width){
     let articleMessage = await dal.articleMessage(parentsId);
     let messageArray = [];
@@ -71,7 +99,7 @@ async function Message(parentsId, width){
     }
     return messageArray
 }
-
+*/
 async function messageAdd(articleId, authorId, content){
 
     let parentsInfo = await dal.parentsInfo(articleId);
@@ -91,6 +119,6 @@ module.exports = {
     articleAdd,
     articleList,
     articleContent,
-    Message,
+    //Message,
     messageAdd
 }

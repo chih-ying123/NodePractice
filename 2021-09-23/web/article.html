@@ -84,12 +84,13 @@
 
             let response = await fetch(`/article/content${queryString}`);
             let jsonData = await response.json();
+            //console.log(jsonData);
             if (jsonData.resultCode === 1) {
                 alert (jsonData.resultMessage);
                 window.location.href = 'article_list.html'
             }
             else {
-                let { Id, Title, Class, Username, CreateTime, Content, ClickCount } = jsonData.articleContent[0];
+                let { Id, Title, Class, Username, CreateTime, Content, ClickCount } = jsonData[0];
 
                 let headTitle = document.getElementById('headTitle');
                 let articleClass = document.getElementById('articleClass');
@@ -108,7 +109,7 @@
                 parentsId[0].value = Id;
                 articleClickCount.innerHTML = ClickCount ;
             }
-            let messsage = await Message(jsonData.message);
+            let messsage = await Message(jsonData);
             let articleMessage = document.getElementById('articleMessage');
             articleMessage.innerHTML = messsage;
         };
@@ -116,15 +117,20 @@
 
         async function Message(message){
             let messageHtml='';
-            for(let i=0; i<message.length; i++) {
-                let { Id, Username, Content, CreateTime, width } = message[i];
+            
+            for(let i=1; i<message.length; i++) {
+                let { Id, NodePath, Username, Content, CreateTime } = message[i];
                 messageAddFormNum +=1;
+                let width_padding = NodePath.match(/,/g).length-1; //要扣的縮排倍數
+                let width_bb = 5;
+                let width = 100-(width_padding*width_bb);
+                
 
                 messageHtml += `
                 <div style="width:${width}%">
                     <p>${Username}：</p>
                     <textarea disabled>${Content}</textarea>
-                    <span>${i+1}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
+                    <span>${i}, </span><span>${CreateTime}</span><button onclick="open_reply(${messageAddFormNum})">回覆</button>
                     <div class='reply_message'>
                         <form action="/article/messageAdd" method="post" name="messageAddForm" class="messageAddForm">
                             <input type="hidden"  name="parentsId" value="${Id}">

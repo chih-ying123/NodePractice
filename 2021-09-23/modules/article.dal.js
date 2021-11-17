@@ -73,7 +73,8 @@ async function articleExist(id) {
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT    article.Id, article.Title, article.Content, article.CreateTime,article.ClickCount
+        SELECT    article.Id, article.NodePath, article.Title, article.Content
+                , article.CreateTime,article.ClickCount
                 , member.Username, article_class.Class
         FROM article
         INNER JOIN member
@@ -82,6 +83,17 @@ async function articleContent(id){
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
         WHERE article.ParentsId=0 and article.Id=${id}
+
+        UNION ALL  -- 上/下 資料結果垂直合併
+        SELECT    article.Id, article.NodePath, article.Title, article.Content
+                , article.CreateTime,article.ClickCount
+                , member.Username, article_class.Class
+        FROM article
+        INNER JOIN member
+        ON article.AuthorId = member.Id
+        
+        INNER JOIN article_class
+        ON article.ClassId = article_class.Id WHERE nodePath LIKE '${id},%' -- id的全部下級資料
     `)
 
     return result;
@@ -122,7 +134,8 @@ async function messageAdd(articleId, Title, ClassId, authorId, content){
             , AuthorId = ${authorId}
             , Content = N'${content.replace(/\'/g,"\\\'")}'
             , CreateTime = CURRENT_TIMESTAMP
-            , ClickCount = 0 ;
+            , ClickCount = 0 
+            , NodePath = 0 ;
     `)
     return result;
 };
