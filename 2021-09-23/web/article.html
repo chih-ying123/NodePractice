@@ -125,8 +125,8 @@
                 messageAddFormNum += 1;
                 
                 let reduce_d = NodePath.match(/,/g).length-1; //要扣的縮排倍數
-                let width_reduce = 5;
-                let width = 100 - ( reduce_d * width_reduce );
+                let width_reduce = 5; //縮排扣多少
+                let width = 100 - ( reduce_d * width_reduce ); //留言的寬
                 
                 
                 messageHtml += `

@@ -31,8 +31,7 @@ async function articleList(ClassId, AuthorId){
     let articleList = await dal.articleList(ClassId, AuthorId);
     let articleClassList = await dal.articleClass();
     let userRankingList = await dal.userRanking();
-    let articleRankingList = await dal.articleRanking();
-      getNodePath(63)    
+    let articleRankingList = await dal.articleRanking();   
     let result = { articleList, userRankingList, articleRankingList, articleClassList };
     return result;
 };
