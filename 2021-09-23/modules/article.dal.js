@@ -73,27 +73,18 @@ async function articleExist(id) {
 async function articleContent(id){
 
     let result = await executeSQL(`
-        SELECT    article.Id, article.NodePath, article.Title, article.Content
+        SELECT    article.Id , article.NodePath, article_class.Class, article.Title, article.Content
                 , article.CreateTime,article.ClickCount
-                , member.Username, article_class.Class
-        FROM article
+                , member.Username
+        FROM (  SELECT * FROM article WHERE id= ${id}
+                UNION ALL  -- 上/下 資料結果垂直合併
+                SELECT * FROM article WHERE NodePath LIKE '${id},%' ) AS article
         INNER JOIN member
         ON article.AuthorId = member.Id
-        
+
         INNER JOIN article_class
         ON article.ClassId = article_class.Id
-        WHERE article.ParentsId=0 and article.Id=${id}
-
-        UNION ALL  -- 上/下 資料結果垂直合併
-        SELECT    article.Id, article.NodePath, article.Title, article.Content
-                , article.CreateTime,article.ClickCount
-                , member.Username, article_class.Class
-        FROM article
-        INNER JOIN member
-        ON article.AuthorId = member.Id
-        
-        INNER JOIN article_class
-        ON article.ClassId = article_class.Id WHERE nodePath LIKE '${id},%' -- id的全部下級資料
+        ORDER BY  NodePath ASC
     `)
 
     return result;
@@ -152,6 +143,7 @@ async function userRanking(){
             WHERE ParentsId = 0
             GROUP BY authorId
         )AS article ON article.AuthorId = member.Id
+        HAVING Total>0
         ORDER BY Total DESC
         LIMIT 10
     `);
@@ -169,9 +161,23 @@ async function articleRanking(){
     let result = await executeSQL(`
         SELECT Id, Title, ClickCount
         FROM article 
-        WHERE ParentsId = 0
+        WHERE ParentsId = 0 AND ClickCount > 0
         ORDER BY ClickCount DESC
         LIMIT 10
+    `);
+    return result;
+}
+
+async function getParentIdById(id){
+    let result = await executeSQL(`
+        SELECT ParentsId FROM article WHERE id = ${id};
+    `);
+    return result;
+}
+
+async function updateNodePath(Id, NodePath){
+    let result = await executeSQL(`
+        UPDATE article SET NodePath = N'${NodePath}' WHERE Id=${Id}
     `);
     return result;
 }
@@ -188,5 +194,7 @@ module.exports = {
     parentsInfo,
     userRanking,
     updateClickCount,
-    articleRanking
+    articleRanking,
+    getParentIdById,
+    updateNodePath
 }
