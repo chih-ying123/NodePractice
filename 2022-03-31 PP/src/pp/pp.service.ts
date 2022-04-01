@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Config, Dial, Loader, Log } from 'src/util';
 import fetch from 'node-fetch';
 import { Connection } from 'typeorm';
-import { IEnv, IAPIResponse, IbetDetails } from './env.interface';
+import { IEnv, IbetDetails } from './env.interface';
+
+
 
 @Injectable()
 export class PPService {
@@ -17,18 +19,33 @@ export class PPService {
         Log.WriteToFile("PP", data);
     }
 
-     public async getBetData(startTime, endTime){
+     public async getBetData(startTime, endTime, dataType){
         try{
-            let LCapiResponse = await this.callAPI(startTime, endTime, 'LC'); //真人參數 LC
-            let RNGapiResponse = await this.callAPI(startTime, endTime, 'RNG'); //電子參數 RNG
+            let apiResponse = await this.callAPI(startTime, endTime, dataType);
+           
+            let apiResponseArr = apiResponse.split("\n");
+            console.log(apiResponseArr);
+            let dataName = apiResponseArr[1].split(",");
+
+            let dataList = []
             
-            console.log(RNGapiResponse);
+            if (apiResponseArr.length>3){
+                for (let i=2;i<apiResponseArr.length-1;i++){
+                    let dateSplit = apiResponseArr[i].split(",");
+                    let datagood = {};
+                    for (let x=0;x<dataName.length;x++){
+                        datagood[dataName[x]] =dateSplit[x];
 
-            let data = {}
-            data["LCapiResponse"] = LCapiResponse;
-            data["RGNapiResponse"] = RNGapiResponse;
-
-            return data;
+                    }
+                    dataList.push(datagood);
+                    
+                };
+            };
+            
+            console.log(dataList);
+            
+            
+            return dataList;
         }
         catch(err){
             console.log(err);
@@ -74,13 +91,11 @@ export class PPService {
     //     }
     // }
 
-    public callAPI(startTime, endTime, dataType ):Promise<IAPIResponse>{
+    public callAPI(startTime, endTime, dataType ):Promise<string>{
 
         return new Promise(async (resolve, reject) => {
-
             
             let timepoint = new Date(startTime).valueOf()
-            console.log(timepoint);
             
             let { baseURI, getBetAPI, login, password } = this.env;
 

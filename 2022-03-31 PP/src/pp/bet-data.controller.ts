@@ -12,6 +12,10 @@ export class BetDataController {
     public Index() {
         return Common.readHtml('./html/pp.html')
     }
+    @Get('/RNG')
+    public RNG() {
+        return Common.readHtml('./html/pp_RNG.html')
+    }
 
     @Get('getDateTimeList')
     public getDateTimeList(@Query('date') date: string) {
@@ -19,13 +23,14 @@ export class BetDataController {
             date = moment().format('YYYY-MM-DD');
         }
         let endtime = moment(date + " 23:59:59", Common.Formatter_Moment_1, true)
-        let dateTimeList = Common.DateForwardSplit(endtime, 48, 1, "h")
+        let dateTimeList = Common.DateForwardSplit(endtime, 6*24*2, 10, "minutes") //每10分鐘一個區間
         return dateTimeList;
     }
 
     @Get('getBetData')
-    public async getBetData(@Query('start') startTime: string, @Query('end') endTime: string){
-        let datas = await this.service.getBetData(startTime, endTime);
+    public async getBetData(@Query('start') startTime: string, @Query('end') endTime: string, @Query('dataType') dataType: string ){
+
+        let datas = await this.service.getBetData(startTime, endTime, dataType);
         return datas;
     }
 }

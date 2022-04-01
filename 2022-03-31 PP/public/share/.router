@@ -5,4 +5,6 @@
     , { "Name": "CMD", "URI": "wrv/cmd/bet-data" }
     , { "Name": "CG", "URI": "wrv/cg/bet-data" }
     , { "Name": "PP", "URI": "wrv/pp/bet-data" }
+    , { "Name": "PP RNG", "URI": "wrv/pp/bet-data/RNG" }
+
 ]

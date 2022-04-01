@@ -5,20 +5,6 @@ export interface IEnv {
     password: string;
 }
 
-export interface IAPIResponse{
-    status: string ;
-    code : string;
-    message: string ;
-    data: IData;
-}
-
-export interface IData{
-    bet_details: IbetDetails[];
-    page_index: number;
-    page_size: number;
-    total_elements: number;
-    total_pages: number;
-}
 
 export interface IbetDetails{
     id: number;

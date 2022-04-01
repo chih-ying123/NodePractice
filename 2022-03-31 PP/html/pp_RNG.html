@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PP 真人接帳</title>
+    <title>PP RNG電子接帳</title>
     <style>
         table,
         tr,
@@ -72,7 +72,7 @@
 
         json.forEach(dateObj => {
 
-            let href = `/wrv/pp/bet-data/getBetData?start=${dateObj.start}&end=${dateObj.end}&dataType=LC`;
+            let href = `/wrv/pp/bet-data/getBetData?start=${dateObj.start}&end=${dateObj.end}&dataType=RNG`;
 
             html += `
                 <tr>
@@ -109,7 +109,7 @@
         let start = getDateStr_FromDate(startValue);
         console.log(start, end);
 
-        let href  = `/wrv/pp/bet-data/getBetData?start=${start}&end=${end}&dataType='LC'`
+        let href  = `/wrv/pp/bet-data/getBetData?start=${start}&end=${end}&dataType='RNG'`
         fetch(href);
 
     }, 60 * 1000);
