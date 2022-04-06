@@ -7,24 +7,19 @@ export interface IEnv {
 
 
 export interface IbetDetails{
-    id: number;
-    sid: string;
-    account: string;
-    game_type: number;
-    game_round: number;
-    room_id: number;
-    table_id: number;
-    bet_result: string ;
+    playerID: number;
+    extPlayerID: string;
+    gameID:  string;
+    playSessionID: number;
+    parentSessionID: number;
+    startDate: string;
+    endDate: string;
+    status: string ;
+    type: string;
     bet: number;
-    game_result: string;
-    valid_bet: number;
-    win: number;
-    create_time: string;
-    order_id: string;
-    device: string;
-    client_ip: string;
-    c_type: string;
-    profit: number;
-    bullet_count: number;
+    win:number;
+    currency: string;
+    jackpot: number;
+    roundDetails: string;
 }
 
