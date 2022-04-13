@@ -1,0 +1,21 @@
+CREATE TABLE `betdata_ftg` (
+  `id` bigint(60) unsigned NOT NULL,
+  `bet_at` datetime DEFAULT NULL,
+  `modified_at` datetime DEFAULT NULL,
+  `payoff_at` datetime DEFAULT NULL,
+  `round_date` date DEFAULT NULL,
+  `lobby_id` varchar(10) DEFAULT NULL,
+  `game_id` int(20) DEFAULT NULL,
+  `game_group_id` int(20) DEFAULT NULL,
+  `device` int(5) DEFAULT NULL,
+  `device_version` varchar(5) DEFAULT NULL,
+  `bet_amount` decimal(14,4) DEFAULT NULL,
+  `profit` decimal(14,4) DEFAULT NULL,
+  `payoff` decimal(14,4) DEFAULT NULL,
+  `currency` varchar(10) DEFAULT NULL,
+  `username` varchar(60) DEFAULT NULL,
+  `result` varchar(5) DEFAULT NULL,
+  `commission` decimal(14,4) DEFAULT NULL,
+  `commissionable` decimal(14,4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4

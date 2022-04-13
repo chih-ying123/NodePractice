@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>funky接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+
+    let inputDate = document.getElementById('inputDate');
+    let apiCalls = [];  // 存放請求
+    inputDate.value = moment().format('YYYY-MM-DD');
+
+    inputDate.addEventListener('keypress', function(e) {
+
+        if (e.key === 'Enter') {
+            apiCalls = [];                  // 把佇列中的請求清掉，要補帳的請求插隊進來
+            getAPIRequest(this.value);
+        }
+    })
+
+    async function getAPIRequest(date) {
+        let html = '';
+        let res = await fetch(`/wrph/funky/bet-data/getDateTimeList?date=${date}`);
+        let json = await res.json();
+
+        let index = 0; // 用來設定延時的計數器
+        let doCount = 0; // 真正的執行次數，全部執行完，會重新刷頁面
+
+        json.forEach(dateObj => {
+
+            let href = `/wrph/funky/bet-data/getBetData?start=${dateObj.start}&end=${dateObj.end}`;
+
+            html += `
+                <tr>
+                    <td colspan="2" align="center">
+                        <a href="${href}" target="_blank">start=${dateObj.start}&end=${dateObj.end}</a>
+                    </td> 
+                </tr>
+            `
+            apiCalls.push(href);
+
+            setTimeout(() => {
+                fetch(href);
+                doCount++;
+                document.querySelector(`a[href="${href}"]`).style.backgroundColor = "yellow"; // 做過就標黃色
+                if (doCount === json.length) {
+                    location.reload();
+                }
+            }, 40 * 1000 * index++);
+            
+        });
+
+        document.getElementById('apiTab').innerHTML = html;
+    }
+
+    getAPIRequest(inputDate.value);
+</script>
+
+</html>

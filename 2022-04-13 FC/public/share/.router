@@ -1,0 +1,10 @@
+[    
+    { "Name": "FTG", "URI": "wrin/FTG/bet-data" },
+    { "Name": "Crown", "URI": "wrin/Crown/bet-data" },
+    { "Name": "Evo", "URI": "wrin/Evo/bet-data" } ,
+    { "Name": "Rich88", "URI": "wrin/Rich88/bet-data" } ,
+    { "Name": "Aws", "URI": "wrin/AWS/bet-data" } ,
+    { "Name": "CG", "URI": "wrin/cg/bet-data" } ,
+    { "Name": "Funky", "URI": "wrph/funky/bet-data" } ,
+    { "Name": "FC", "URI": "wrph/FC/bet-data" }
+]

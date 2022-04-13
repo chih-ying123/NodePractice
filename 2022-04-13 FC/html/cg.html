@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CG接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" value='' placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+
+
+    let inputDate = document.getElementById('inputDate');
+    let apiCalls = [];  // 存放請求
+
+    inputDate.addEventListener('keypress', function (e) {
+
+        if (e.key === 'Enter') {
+            //console.log(this.value);
+            apiCalls = [];                  // 把佇列中的請求清掉，要補帳的請求插隊進來
+            getAPIRequest(this.value);
+        }
+    })
+
+    async function getAPIRequest(date) {
+
+        let html = '';
+        let res = await fetch(`/wrin/cg/bet-data/getDateTimeList?date=${date}`);
+        let json = await res.json();
+
+        let index = 0;
+        json.forEach(dateObj => {
+
+            let href = `/wrin/cg/bet-data/getBetData?start=${dateObj.start}&end=${dateObj.end}`;
+
+            html += `
+                <tr>
+                    <td colspan="2" align="center">
+                        <a href="${href}" target="_blank">${dateObj.start} ~ ${dateObj.end}</a>
+                    </td> 
+                </tr>
+            `;
+
+            apiCalls.push(href);
+
+        });
+        
+        document.getElementById('apiTab').innerHTML = html;
+    }
+
+    getAPIRequest('');
+
+
+    setInterval(() => {
+
+        let apiCall = apiCalls.shift();   // 每 n 秒抓一個出來處理
+        fetch(apiCall);
+
+        document.querySelector(`a[href="${apiCall}"]`).style.backgroundColor = "yellow";  // 做過就標黃色
+
+        if (apiCalls.length === 0) {  // 都抓完了就重新讀取
+            getAPIRequest('');
+        }
+
+    }, 4 * 1000);
+    
+</script>
+
+</html>
