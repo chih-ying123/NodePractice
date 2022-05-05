@@ -3,3 +3,6 @@ npm i md5 --save
 
 # 搞時間的
 npm i moment --save  
+
+# 搞xml的
+npm i fast-xml-parser --save
