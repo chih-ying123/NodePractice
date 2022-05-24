@@ -4,9 +4,7 @@ import fetch from 'node-fetch';
 import { Connection } from 'typeorm';
 import { IEnv, IbetDetails } from './env.interface';
 import * as moment from 'moment';
-import { json } from 'express';
-
-
+import template from './pp.RoundDetails';
 
 @Injectable()
 export class PPService {
@@ -77,8 +75,6 @@ export class PPService {
         }
     }
     
-
-
     public async SaveDataIntoDB(datas: IbetDetails[], dataType){
 
         if (this.conn == null) {
@@ -110,7 +106,7 @@ export class PPService {
             
             if (data.roundDetails) {
                 roundDetailsFromPP = data.roundDetails; //把原本PP的roundDetails存入roundDetailsFromPP
-                roundDetails = this.getroundDetails(data.roundDetails);
+                roundDetails = this.getRoundDetails(data.gameID, data.roundDetails);
             }; 
             let startDate = data.startDate;
             let endDate = data.endDate;
@@ -155,18 +151,21 @@ export class PPService {
     }
 
 
-    public getroundDetails(roundDetails){
+    public getRoundDetails(gameID, roundDetails){
         let data = roundDetails.replace(/"/g,"'");
         let data2 = data.replace(/''/g,'"');
         let data3 = data2.replace(/'/g,'');
 
-        let jsondata = JSON.parse(data3)
+        let jsondata = JSON.parse(data3);
+        let roundDetail = '';
 
-        let result = jsondata.result;
-        let bet = jsondata.bets[0].c
+        if (typeof template[gameID] === 'function'){
+            roundDetail = template[gameID](jsondata);
+            //console.log(roundDetail);
+            
+        }
 
-        
-        return `結果:${result},下注:${bet}`
+        return roundDetail
     }
 
     public callAPI(startTime, endTime, dataType ):Promise<string>{
