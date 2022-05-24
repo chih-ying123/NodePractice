@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP RNG電子接帳</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    請輸入日期(YYYY-MM-DD)
+                </th>
+                <th>
+                    <input type="text" placeholder="preess enter to go" id='inputDate'>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">API URL</th>
+            </tr>
+
+        </thead>
+        <tbody id='apiTab'>
+
+        </tbody>
+    </table>
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js'></script>
+<script type="application/javascript">
+
+    let inputDate = document.getElementById('inputDate');
+    let apiCalls = [];  // 存放請求
+    inputDate.value = moment().format('YYYY-MM-DD');
+
+    inputDate.addEventListener('keypress', function(e) {
+
+        if (e.key === 'Enter') {
+            apiCalls = [];                  // 把佇列中的請求清掉，要補帳的請求插隊進來
+            getAPIRequest(this.value);
+        }
+    })
+
+    async function getAPIRequest(date) {
+        let html = '';
+        let res = await fetch(`/wrv/pp/bet-data/getDateTimeList?date=${date}`);
+        let json = await res.json();
+
+        let index = 0; // 用來設定延時的計數器
+
+        json.forEach(dateObj => {
+
+            let href = `/wrv/pp/bet-data/getBetData?start=${dateObj.start}&end=${dateObj.end}&dataType=RNG`;
+
+            html += `
+                <tr>
+                    <td colspan="2" align="center">
+                        <a href="${href}" target="_blank">start=${dateObj.start}&end=${dateObj.end}</a>
+                    </td> 
+                </tr>
+            `
+            apiCalls.push(href);
+            
+        });
+
+        document.getElementById('apiTab').innerHTML = html;
+    }
+/*
+    setInterval(() => {
+
+        let apiCall = apiCalls.shift();   // 每 n 秒抓一個出來處理
+        fetch(apiCall);
+
+        document.querySelector(`a[href="${apiCall}"]`).style.backgroundColor = "yellow";  // 做過就標黃色
+
+        if (apiCalls.length === 0) {  // 都抓完了就重新讀取
+            getAPIRequest('');
+        }
+
+    }, 3 * 1000);
+
+    setInterval(() => {
+
+        let endValue = Date.now();
+        let startValue = endValue - 1000*60*2;
+        let end = getDateStr_FromDate(endValue);
+        let start = getDateStr_FromDate(startValue);
+        console.log(start, end);
+
+        let href  = `/wrv/pp/bet-data/getBetData?start=${start}&end=${end}&dataType='RNG'`
+        fetch(href);
+
+    }, 60 * 1000);
+
+    function getDateStr_FromDate(timestamp){
+        let time = new Date(timestamp);
+        let year = time.getFullYear();
+        let month = String(time.getMonth() + 1); // month value: 0(一月) ~ 11(十二月)
+        let date = String(time.getDate());
+        let hour = String(time.getHours());
+        let min = String(time.getMinutes());
+        let second = String(time.getSeconds());
+
+        if (Number.parseInt(month) < 10) {
+            month = `0${month}`;
+        }
+
+        if (Number.parseInt(date) < 10) {
+            date = `0${date}`;
+        }
+
+        if (Number.parseInt(hour) < 10) {
+            hour = `0${hour}`;
+        }
+
+        if (Number.parseInt(min) < 10) {
+            min = `0${min}`;
+        }
+
+        if (Number.parseInt(second) < 10) {
+            second = `0${second}`;
+        }
+
+        return `${year}-${month}-${date} ${hour}:${min}:${second}`;
+    }
+*/
+    getAPIRequest(inputDate.value);
+</script>
+
+</html>

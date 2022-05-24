@@ -1,0 +1,74 @@
+
+  
+  
+ 
+  
+  /*
+  
+REPLACE INTO `platform_db`.`member_fanshui_rate_setup` (
+  `GameVendor`,
+  `YouXiaoTouZhu`,
+  `FanShuiRate`
+)
+VALUES
+  (84,'1000000','0.70'),
+  (84,'200000','0.60'),
+  (84,'1000','0.50');  
+  
+REPLACE INTO `platform_db`.`member_fanshui_rate_setup` (
+  `GameVendor`,
+  `YouXiaoTouZhu`,
+  `FanShuiRate`
+)
+VALUES
+  (86,'1000000','0.70'),
+  (86,'200000','0.60'),
+  (86,'1000','0.50');
+  
+  
+INSERT INTO Game_List SET GameEName='PP Live', GameName='PP返水' , GameVendor=84 , TheirGameId='ReportGroupID_116', Note = 'FanShui', GameType = 5;  
+INSERT INTO Game_List SET GameEName='PP', GameName='PP返水' , GameVendor=86 , TheirGameId='ReportGroupID_117', Note = 'FanShui', GameType = 2;  
+*/
+
+INSERT INTO `platform_db`.`game_vendor` (
+  `RowId`,
+  `VendorName`,
+  `VendorEName`,
+  `WalletMode`
+)
+VALUES
+  (
+    86,
+    'PP Live',
+    'PP Live',
+    'S'
+  );
+  
+INSERT INTO `platform_db`.`game_vendor` (
+  `RowId`,
+  `VendorName`,
+  `VendorEName`,
+  `WalletMode`
+)
+VALUES
+  (
+    86,
+    'PP Electronic',
+    'PP Electronic',
+    'S'
+  );
+
+INSERT INTO `platform_db`.`game_list` (
+  `GameVendor`,
+  `GameEName`,
+  `GameName`,
+  `GameType`,
+  `FanShuiType`,
+  `TheirGameId`,
+  `Note`
+)
+VALUES
+  (84,'PP Live','PP Live','5','V','ReportGroupID_116','FanShui'),
+  (84,'PP Electronic','PP Electronic','2','E','ReportGroupID_117','FanShui');
+  
+SELECT * FROM game_list WHERE GameVendor = 86;
