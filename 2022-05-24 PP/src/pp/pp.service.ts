@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 import { Connection } from 'typeorm';
 import { IEnv, IbetDetails } from './env.interface';
 import * as moment from 'moment';
+import { json } from 'express';
 
 
 
@@ -22,11 +23,8 @@ export class PPService {
 
      public async getBetData(startTime, endTime, dataType){
         try{
-            let apiResponse = await this.callAPI(startTime, endTime, dataType);
-            console.log(apiResponse);
-           
-            let apiResponseArr = apiResponse.split("\n"); //將每筆資料以\n分開
-            
+            let apiResponse = await this.callAPI(startTime, endTime, dataType);    
+            let apiResponseArr = apiResponse.split("\n"); //將每筆資料以\n分開            
             let dataName = apiResponseArr[1].split(","); //從陣列第二項取得欄位名稱
 
             let dataList = []
@@ -90,8 +88,6 @@ export class PPService {
             }
         }
         
-        let roundDetails = '';
-
         let GameType = 0
         let FanShuiType = '';
         
@@ -100,16 +96,22 @@ export class PPService {
             GameType = 5 ;
             FanShuiType = 'V'
         }
-        if (dataType === 'RNG') 
+        else if (dataType === 'RNG') 
         {
             GameType = 2 ;
             FanShuiType = 'E'
         }
+
+        let roundDetails = '';
+        let roundDetailsFromPP = '';
         
         for(let i=0; i< datas.length; i++){
             let data = datas[i];
             
-            if (!data.roundDetails) {data.roundDetails = roundDetails};
+            if (data.roundDetails) {
+                roundDetailsFromPP = data.roundDetails; //把原本PP的roundDetails存入roundDetailsFromPP
+                roundDetails = this.getroundDetails(data.roundDetails);
+            }; 
             let startDate = data.startDate;
             let endDate = data.endDate;
             if (dataType === 'RNG') 
@@ -134,10 +136,11 @@ export class PPService {
                     , ${data.win}
                     , '${data.currency}'
                     , ${data.jackpot}
-                    , '${data.roundDetails.replace('\\\"','\"')}'
+                    , '${roundDetails}'
                     , ${winlose}
                     , ${GameType}
                     , '${FanShuiType}'
+                    , '${roundDetailsFromPP.replace('\\\"','\"')}'
                 );`
             );  
 
@@ -149,6 +152,21 @@ export class PPService {
                 continue;
             }
         }
+    }
+
+
+    public getroundDetails(roundDetails){
+        let data = roundDetails.replace(/"/g,"'");
+        let data2 = data.replace(/''/g,'"');
+        let data3 = data2.replace(/'/g,'');
+
+        let jsondata = JSON.parse(data3)
+
+        let result = jsondata.result;
+        let bet = jsondata.bets[0].c
+
+        
+        return `結果:${result},下注:${bet}`
     }
 
     public callAPI(startTime, endTime, dataType ):Promise<string>{
@@ -174,12 +192,13 @@ export class PPService {
 
             let GetBetListURL = `${baseURI}${getBetAPI}`;
 
-            console.log(`${GetBetListURL}?${postBodyStr}`);
+            //console.log(`${GetBetListURL}?${postBodyStr}`);
             
             try {
                 let response = await fetch(`${GetBetListURL}?${postBodyStr}`);
                 let jsonData = await response.text();
-                        
+                //console.log(jsonData);
+                
                 resolve(jsonData);
             }
             catch (err) {
