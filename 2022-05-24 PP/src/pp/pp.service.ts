@@ -4,7 +4,9 @@ import fetch from 'node-fetch';
 import { Connection } from 'typeorm';
 import { IEnv, IbetDetails } from './env.interface';
 import * as moment from 'moment';
-import template from './pp.RoundDetails';
+import { json } from 'express';
+
+
 
 @Injectable()
 export class PPService {
@@ -21,7 +23,17 @@ export class PPService {
 
      public async getBetData(startTime, endTime, dataType){
         try{
-            let apiResponse = await this.callAPI(startTime, endTime, dataType);    
+            let apiResponse = await this.callAPI(startTime, endTime, dataType);
+            if (!/timepoint/.test(apiResponse))
+            {
+                //記錄下發生錯誤的時段與錯誤訊息, 沒有錯才往下做
+
+                return {
+                    errorTime: startTime
+                    ,errorMessage: apiResponse
+                }
+            }
+            
             let apiResponseArr = apiResponse.split("\n"); //將每筆資料以\n分開            
             let dataName = apiResponseArr[1].split(","); //從陣列第二項取得欄位名稱
 
@@ -75,6 +87,8 @@ export class PPService {
         }
     }
     
+
+
     public async SaveDataIntoDB(datas: IbetDetails[], dataType){
 
         if (this.conn == null) {
@@ -99,15 +113,11 @@ export class PPService {
         }
 
         let roundDetails = '';
-        let roundDetailsFromPP = '';
         
         for(let i=0; i< datas.length; i++){
             let data = datas[i];
             
-            if (data.roundDetails) {
-                roundDetailsFromPP = data.roundDetails; //把原本PP的roundDetails存入roundDetailsFromPP
-                roundDetails = this.getRoundDetails(data.gameID, data.roundDetails);
-            }; 
+
             let startDate = data.startDate;
             let endDate = data.endDate;
             if (dataType === 'RNG') 
@@ -132,11 +142,10 @@ export class PPService {
                     , ${data.win}
                     , '${data.currency}'
                     , ${data.jackpot}
-                    , '${roundDetails}'
+                    , '${roundDetails.replace('\\\"','\"')}'
                     , ${winlose}
                     , ${GameType}
-                    , '${FanShuiType}'
-                    , '${roundDetailsFromPP.replace('\\\"','\"')}'
+                    , '${FanShuiType}'                    
                 );`
             );  
 
@@ -148,24 +157,6 @@ export class PPService {
                 continue;
             }
         }
-    }
-
-
-    public getRoundDetails(gameID, roundDetails){
-        let data = roundDetails.replace(/"/g,"'");
-        let data2 = data.replace(/''/g,'"');
-        let data3 = data2.replace(/'/g,'');
-
-        let jsondata = JSON.parse(data3);
-        let roundDetail = '';
-
-        if (typeof template[gameID] === 'function'){
-            roundDetail = template[gameID](jsondata);
-            //console.log(roundDetail);
-            
-        }
-
-        return roundDetail
     }
 
     public callAPI(startTime, endTime, dataType ):Promise<string>{
